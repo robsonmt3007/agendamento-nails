@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#d4af37">
+    <title>Nails Designer - Agendamento</title>
+    <link rel="manifest" href="manifest.json">
+    <style>
+        :root {
+            --bg-color: #0f0f0f;
+            --card-bg: #1a1a1a;
+            --accent-color: #d4af37;
+            --text-color: #f5f5f5;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h2 { font-weight: 300; letter-spacing: 1px; margin-bottom: 5px; }
+        .subtitle { font-size: 0.8rem; opacity: 0.5; margin-bottom: 25px; }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .service-card.selected {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--accent-color);
+        }
+
+        .service-card h3 {
+            font-size: 0.85rem;
+            margin: 0;
+            color: var(--accent-color);
+        }
+
+        .service-card p { font-size: 0.7rem; margin: 5px 0 0; opacity: 0.6; }
+
+        input[type="datetime-local"] {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255,255,255,0.05);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            margin-top: 10px;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 18px;
+            background: var(--accent-color);
+            border: none;
+            border-radius: 10px;
+            color: #000;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:active { transform: scale(0.98); }
+    </style>
+</head>
+<body>
+
+<div class="container" id="app">
+    <h2>Nails Designer</h2>
+    <p class="subtitle">Selecione seu serviço e horário</p>
+
+    <div class="services-grid">
+        <div class="service-card" onclick="select(this, 'Blindagem', 60)">
+            <h3>Blindagem</h3>
+            <p>1h 00min</p>
+        </div>
+        <div class="service-card" onclick="select(this, 'Banho de Gel', 90)">
+            <h3>Banho de Gel</h3>
+            <p>1h 30min</p>
+        </div>
+        <div class="service-card" onclick="select(this, 'Extensão', 150)">
+            <h3>Extensão</h3>
+            <p>2h 30min</p>
+        </div>
+        <div class="service-card" onclick="select(this, 'Manutenção', 120)">
+            <h3>Manutenção</h3>
+            <p>2h 00min</p>
+        </div>
+    </div>
+
+    <input type="datetime-local" id="data_hora">
+    <button onclick="confirmar()">Reservar Horário</button>
+</div>
+
+<script>
+    let agenda = { servico: '', tempo: 0 };
+
+    function select(el, nome, min) {
+        document.querySelectorAll('.service-card').forEach(c => c.classList.remove('selected'));
+        el.classList.add('selected');
+        agenda.servico = nome;
+        agenda.tempo = min;
+    }
+
+    function confirmar() {
+        const data = document.getElementById('data_hora').value;
+        if (!agenda.servico || !data) return alert("Escolha o serviço e a data!");
+        
+        document.getElementById('app').innerHTML = `
+            <div style="padding: 20px;">
+                <h2 style="color: var(--accent-color);">Solicitação Enviada!</h2>
+                <p><b>${agenda.servico}</b> agendado para:</p>
+                <p>${new Date(data).toLocaleString()}</p>
+            </div>
+        `;
+    }
+
+    // Registrar Service Worker para PWA
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js');
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "Nails Designer Agendamento",
+  "short_name": "NailsApp",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#0f0f0f",
+  "theme_color": "#d4af37",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/2849/2849502.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

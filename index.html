@@ -9,13 +9,13 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --accent-color: #b4867e; /* Tom Rosé do Logo */
-            --text-dark: #5d4037;   /* Marrom do modelo */
-            --text-soft: #8b5a3c;   /* Marrom claro */
+            --accent-color: #b4867e;
+            --text-dark: #5d4037;
+            --text-soft: #8b5a3c;
             --glass-bg: rgba(255, 255, 255, 0.85);
         }
 
@@ -26,7 +26,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            /* Imagem de fundo nítida baseada no modelo */
+            /* Fundo nítido baseado na imagem enviada */
             background: url('d2fb736130b4a19276c01092cf78d24e.jpg') no-repeat center center fixed;
             background-size: cover;
             font-family: 'Playfair Display', serif;
@@ -36,89 +36,102 @@
             background: var(--glass-bg);
             backdrop-filter: blur(8px);
             width: 90%;
-            max-width: 400px;
-            padding: 40px 20px;
+            /* Ajuste inteligente de tamanho para Desktop vs Mobile */
+            max-width: 450px; 
+            padding: 2.5rem 1.5rem;
             border-radius: 30px;
             text-align: center;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             border: 1px solid rgba(255,255,255,0.3);
+            margin: 20px;
+            transition: all 0.3s ease;
+        }
+
+        /* Otimização para telas maiores (Desktop/Notebook) */
+        @media (min-width: 1024px) {
+            .main-card {
+                max-width: 500px;
+                padding: 3.5rem 2.5rem;
+            }
+            .text-aberta { font-size: 3.5rem !important; }
         }
 
         .logo-main {
-            width: 180px;
-            margin-bottom: 20px;
+            width: 100%;
+            max-width: 200px;
+            height: auto;
+            margin-bottom: 1.5rem;
         }
 
         .text-agenda {
-            font-family: 'Playfair Display', serif;
             font-style: italic;
-            font-size: 1.5rem;
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
             color: var(--text-soft);
             margin: 0;
-            line-height: 1;
         }
 
         .text-aberta {
-            font-family: 'Playfair Display', serif;
             font-weight: 700;
-            font-size: 3rem;
+            font-size: clamp(2.5rem, 8vw, 4rem);
             color: var(--text-dark);
-            margin: 0 0 15px 0;
+            margin: 0 0 1rem 0;
             line-height: 1;
         }
 
         .icon-heart {
-            width: 60px;
-            margin-bottom: 15px;
+            width: clamp(50px, 10vw, 70px);
+            margin-bottom: 1rem;
         }
 
         .text-call {
-            font-size: 1.1rem;
+            font-size: clamp(1rem, 3vw, 1.2rem);
             color: var(--text-dark);
-            margin-bottom: 30px;
+            margin-bottom: 2rem;
         }
 
-        /* Container de agendamento limpo */
         .booking-area {
             border: 1.5px solid var(--text-soft);
             border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 25px;
+            padding: 15px;
+            margin-bottom: 20px;
+            background: rgba(255,255,255,0.5);
         }
 
         input[type="datetime-local"] {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             border: none;
             background: transparent;
             color: var(--text-dark);
-            font-family: sans-serif;
-            font-size: 1rem;
+            font-size: 1.1rem;
             outline: none;
             text-align: center;
+            cursor: pointer;
         }
 
         .btn-confirm {
             background: var(--text-soft);
             color: white;
             border: none;
-            padding: 15px 30px;
-            border-radius: 10px;
+            padding: 18px;
+            border-radius: 12px;
             width: 100%;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 1px;
             cursor: pointer;
             transition: 0.3s;
+            font-size: 1rem;
         }
 
         .btn-confirm:hover { background: var(--text-dark); }
 
         .insta-footer {
-            margin-top: 20px;
-            font-size: 0.9rem;
+            margin-top: 2rem;
+            font-size: 0.95rem;
             color: var(--text-dark);
-            opacity: 0.8;
+            font-weight: 600;
+            letter-spacing: 0.5px;
         }
     </style>
 </head>
@@ -130,7 +143,7 @@
     <p class="text-agenda">agenda</p>
     <h1 class="text-aberta">aberta</h1>
 
-    <img src="https://img.icons8.com/wired/100/8b5a3c/calendar-with-a-heart.png" class="icon-heart">
+    <img src="https://img.icons8.com/wired/100/8b5a3c/calendar-with-a-heart.png" class="icon-heart" alt="Ícone Calendário">
 
     <p class="text-call">marque seu horário!</p>
 
@@ -140,7 +153,7 @@
 
     <button class="btn-confirm" onclick="finalizar()">Confirmar Agora</button>
 
-    <p class="insta-footer">@karinaks7</p>
+    <p class="insta-footer">@ritaandradeunhas</p>
 </div>
 
 <script>
@@ -150,21 +163,22 @@
 
         document.getElementById('app-content').innerHTML = `
             <img src="plano_fundo.png" class="logo-main">
-            <h2 style="color: var(--text-dark)">Solicitação Enviada!</h2>
-            <p style="color: var(--text-soft)">Aguardamos você em:</p>
-            <p style="font-weight: bold; font-size: 1.2rem">${new Date(data).toLocaleString()}</p>
+            <h2 style="color: var(--text-dark); margin-top: 20px;">Solicitação Enviada!</h2>
+            <p style="color: var(--text-soft)">Recebemos seu pedido para:</p>
+            <p style="font-weight: bold; font-size: 1.3rem; color: var(--text-dark)">${new Date(data).toLocaleString()}</p>
             <button class="btn-confirm" onclick="window.location.reload()" style="margin-top:20px">Voltar</button>
+            <p class="insta-footer">@ritaandradeunhas</p>
         `;
     }
 
-    // Lógica de Atualização Automática PWA
+    // Gerenciador de Versão e Atualização Automática
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('sw.js').then(reg => {
             reg.onupdatefound = () => {
                 const installingWorker = reg.installing;
                 installingWorker.onstatechange = () => {
                     if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                        if (confirm("Nova versão disponível! Atualizar?")) window.location.reload();
+                        window.location.reload(); 
                     }
                 };
             };

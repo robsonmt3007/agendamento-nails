@@ -3,30 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#8b5a3c">
-    <title>Nails Designer - Agendamento</title>
+    <meta name="theme-color" content="#8b5a3c"> <title>Nails Designer - Agendamento</title>
     <link rel="manifest" href="manifest.json">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-
     <style>
         :root {
-            --bg-color: #f4f1ea;
-            --card-bg: rgba(255, 255, 255, 0.7);
-            --accent-color: #8b5a3c;
-            --text-color: #5d4037;
+            --bg-color: #f4f1ea; /* Bege suave de fundo */
+            --card-bg: rgba(255, 255, 255, 0.7); /* Branco translúcido */
+            --accent-color: #8b5a3c; /* Marrom dos textos e ícones */
+            --text-color: #5d4037; /* Marrom escuro para texto */
         }
 
         body {
             background-color: var(--bg-color);
-            background-image: url('plano_fundo.png');
+            background-image: url('plano_fundo.png'); /* Sua imagem de fundo nítida */
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
+            background-repeat: no-repeat; /* Garante que a imagem não se repita */
             color: var(--text-color);
-            font-family: 'Playfair Display', serif;
+            font-family: 'Playfair Display', serif; /* Fonte elegante */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -37,7 +32,7 @@
 
         .container {
             background: var(--card-bg);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px); /* Efeito de vidro jateado */
             padding: 2.5rem;
             border-radius: 20px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
@@ -56,9 +51,10 @@
 
         h2 { 
             font-weight: 400; 
+            letter-spacing: 1px; 
             margin-bottom: 5px; 
             color: var(--accent-color);
-            font-family: 'Great Vibes', cursive;
+            font-family: 'Great Vibes', cursive; /* Fonte cursiva para o título */
             font-size: 2.5rem;
         }
         
@@ -78,7 +74,7 @@
         }
 
         .service-card {
-            background: rgba(139, 90, 60, 0.05);
+            background: rgba(139, 90, 60, 0.05); /* Bege/marrom muito suave */
             padding: 15px;
             border-radius: 12px;
             cursor: pointer;
@@ -87,7 +83,7 @@
         }
 
         .service-card.selected {
-            background: rgba(139, 90, 60, 0.15);
+            background: rgba(139, 90, 60, 0.15); /* Destaque em marrom */
             border: 1px solid var(--accent-color);
         }
 
@@ -103,7 +99,7 @@
         input[type="datetime-local"] {
             width: 100%;
             padding: 15px;
-            background: rgba(255,255,255,0.8);
+            background: rgba(255, 255, 255, 0.8);
             border: 1px solid rgba(139, 90, 60, 0.2);
             border-radius: 10px;
             color: var(--text-color);
@@ -129,6 +125,7 @@
             transition: 0.3s;
         }
 
+        button:hover { background-color: #704631; }
         button:active { transform: scale(0.98); }
 
         .footer {
@@ -138,6 +135,9 @@
             font-family: 'Segoe UI', sans-serif;
         }
     </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -168,6 +168,7 @@
 
     <input type="datetime-local" id="data_hora">
     <button onclick="confirmar()">Reservar Horário</button>
+    
     <p class="footer">@karinaks7</p>
 </div>
 
@@ -185,14 +186,19 @@
         const data = document.getElementById('data_hora').value;
         if (!agenda.servico || !data) return alert("Escolha o serviço e a data!");
         
-        const dataFormatada = new Date(data).toLocaleString('pt-BR');
+        // Formata a data para exibir
+        const dataFormatada = new Date(data).toLocaleString('pt-BR', {
+            day: '2-digit', month: '2-digit', year: 'numeric',
+            hour: '2-digit', minute: '2-digit'
+        });
 
         document.getElementById('app').innerHTML = `
             <div style="padding: 20px;">
-                <img src="https://img.icons8.com/wired/64/8b5a3c/checked-calendar.png" class="app-icon">
-                <h2 style="color: var(--accent-color);">Enviado!</h2>
-                <p><b>${agenda.servico}</b> solicitado para:</p>
-                <p style="font-size: 1.1rem; font-weight: bold; color: var(--accent-color);">${dataFormatada}</p>
+                <img src="https://img.icons8.com/wired/64/8b5a3c/checked-calendar.png" alt="Sucesso" class="app-icon">
+                <h2 style="color: var(--accent-color);">Solicitação Enviada!</h2>
+                <p style="margin-top: 20px;">Sua reserva de <b>${agenda.servico}</b> foi solicitada para:</p>
+                <p style="font-size: 1.2rem; font-weight: bold; margin-top: 10px; color: var(--accent-color);">${dataFormatada}</p>
+                <p style="font-size: 0.8rem; margin-top: 30px; opacity: 0.7;">Próximo passo: Sincronização com o Google Calendar real...</p>
                 <p class="footer">@karinaks7</p>
             </div>
         `;

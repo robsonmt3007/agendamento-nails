@@ -1,5 +1,4 @@
-const CACHE_NAME = 'nails-v7'; // Reversão para layout responsivo v4 estável
-
+const CACHE_NAME = 'nails-v8'; // Versão Full Screen Total
 self.addEventListener('install', (e) => {
   self.skipWaiting();
 });

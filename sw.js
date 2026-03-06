@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nails-v9'; //Versão Full Screen com Modo Dark persistente
+const CACHE_NAME = 'nails-v10'; //Transição de tema sem bordas/fundo
 self.addEventListener('install', (e) => {
   self.skipWaiting();
 });

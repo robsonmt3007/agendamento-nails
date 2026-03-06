@@ -20,7 +20,6 @@
             --body-bg: #f4f1ea;
         }
 
-        /* Definições do Modo Dark */
         body.dark-mode {
             --text-dark: #e0d5d0;
             --text-soft: #b4867e;
@@ -48,25 +47,24 @@
             font-family: 'Playfair Display', serif;
         }
 
-        /* Ícone de Tema Fixo no Canto Superior */
+        /* Ícone de Tema Minimalista (Sem bordas/fundo) */
         .theme-toggle {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: 25px;
+            right: 25px;
             cursor: pointer;
-            opacity: 0.7;
+            opacity: 0.5; /* Bem discreto */
             z-index: 100;
-            background: var(--glass-bg);
-            padding: 10px;
-            border-radius: 50%;
+            background: none; /* Remove fundo */
+            border: none; /* Remove bordas */
+            padding: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             transition: 0.3s;
         }
         .theme-toggle:hover { opacity: 1; transform: scale(1.1); }
-        .theme-toggle svg { width: 20px; height: 20px; fill: var(--text-soft); }
+        .theme-toggle svg { width: 28px; height: 28px; fill: var(--text-soft); }
 
         .main-card {
             background: var(--glass-bg);
@@ -110,6 +108,7 @@
             font-size: 1.2rem;
             outline: none;
             text-align: center;
+            color-scheme: light dark;
         }
 
         .btn-confirm {
@@ -123,6 +122,7 @@
             text-transform: uppercase;
             cursor: pointer;
             font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(180, 134, 126, 0.3);
         }
 
         .insta-footer { margin-top: 10px; font-size: 1rem; color: var(--text-dark); font-weight: 600; }
@@ -131,7 +131,7 @@
 <body>
 
 <div class="theme-toggle" onclick="toggleTheme()" id="themeIcon">
-    <svg viewBox="0 0 24 24" id="iconSvg"><path d="M12 3c.132 0 .263 0 .393.007a9 9 0 0 0 1.536 17.151 9 9 0 1 1-1.929-17.158c.13-.003.26-.003.393-.003z"/></svg>
+    <svg viewBox="0 0 24 24"><path d="M12 3c.132 0 .263 0 .393.007a9 9 0 0 0 1.536 17.151 9 9 0 1 1-1.929-17.158c.13-.003.26-.003.393-.003z"/></svg>
 </div>
 
 <div class="main-card" id="app-content">
@@ -162,10 +162,10 @@
         body.classList.toggle('dark-mode');
         
         if (body.classList.contains('dark-mode')) {
-            // Ícone de Sol
+            // Ícone de Sol (Minimalista)
             iconContainer.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM2 13h2a1 1 0 1 0 0-2H2a1 1 0 1 0 0 2zm18 0h2a1 1 0 1 0 0-2h-2a1 1 0 1 0 0 2zM11 2v2a1 1 0 1 0 2 0V2a1 1 0 1 0-2 0zm0 18v2a1 1 0 1 0 2 0v-2a1 1 0 1 0-2 0zM5.99 4.58a1 1 0 1 0-1.41 1.41l1.41 1.41a1 1 0 1 0 1.41-1.41L5.99 4.58zm12.02 12.02a1 1 0 1 0-1.41 1.41l1.41 1.41a1 1 0 1 0 1.41-1.41l-1.41-1.41zM4.58 18.01a1 1 0 1 0 1.41 1.41l1.41-1.41a1 1 0 1 0-1.41-1.41l-1.41 1.41zM18.01 5.99a1 1 0 1 0 1.41-1.41l-1.41-1.41a1 1 0 1 0-1.41 1.41l1.41 1.41z"/></svg>';
         } else {
-            // Ícone de Lua
+            // Ícone de Lua (Minimalista)
             iconContainer.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 3c.132 0 .263 0 .393.007a9 9 0 0 0 1.536 17.151 9 9 0 1 1-1.929-17.158c.13-.003.26-.003.393-.003z"/></svg>';
         }
     }
@@ -176,7 +176,7 @@
         document.getElementById('app-content').innerHTML = `
             <img src="plano_fundo.png" class="logo-main" style="max-width:180px">
             <div style="flex-grow:1; display:flex; flex-direction:column; justify-content:center;">
-                <h2 style="color: var(--text-dark); font-size: 2rem;">Solicitação Enviada!</h2>
+                <h2 style="color: var(--text-dark); font-size: 2rem;">Enviado!</h2>
                 <p style="color: var(--text-soft); font-size: 1.2rem;">Horário reservado para:</p>
                 <p style="font-weight: bold; font-size: 1.5rem; color: var(--text-dark)">${new Date(data).toLocaleString()}</p>
             </div>

@@ -17,104 +17,99 @@
             --text-dark: #5d4037;
             --text-soft: #8b5a3c;
             --glass-bg: rgba(255, 255, 255, 0.85);
+            --body-bg: #f4f1ea;
         }
 
-        /* Reset para ocupar tela cheia */
-        * {
-            box-sizing: border-box;
+        /* Definições do Modo Dark */
+        body.dark-mode {
+            --text-dark: #e0d5d0;
+            --text-soft: #b4867e;
+            --glass-bg: rgba(30, 25, 23, 0.92);
+            --body-bg: #1a1614;
         }
+
+        * { box-sizing: border-box; }
 
         html, body {
             height: 100%;
             width: 100%;
             margin: 0;
             padding: 0;
-            overflow: hidden; /* Remove barras de rolagem */
+            overflow: hidden;
+            transition: background-color 0.4s ease;
         }
 
         body {
             display: flex;
             justify-content: center;
             align-items: center;
-            /* Fundo nítido ocupando toda a tela */
-            background: url('d2fb736130b4a19276c01092cf78d24e.jpg') no-repeat center center fixed;
+            background: var(--body-bg) url('d2fb736130b4a19276c01092cf78d24e.jpg') no-repeat center center fixed;
             background-size: cover;
             font-family: 'Playfair Display', serif;
         }
+
+        /* Ícone de Tema Fixo no Canto Superior */
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            opacity: 0.7;
+            z-index: 100;
+            background: var(--glass-bg);
+            padding: 10px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+        .theme-toggle:hover { opacity: 1; transform: scale(1.1); }
+        .theme-toggle svg { width: 20px; height: 20px; fill: var(--text-soft); }
 
         .main-card {
             background: var(--glass-bg);
             backdrop-filter: blur(8px);
             width: 95%;
-            height: 95%; /* Ocupa quase a tela toda */
+            height: 95%;
             max-width: 500px; 
-            max-height: 850px; /* Limite para não deformar em telas gigantes */
+            max-height: 850px;
             padding: 2rem;
             border-radius: 30px;
             text-align: center;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             border: 1px solid rgba(255,255,255,0.3);
-            
-            /* Distribuição vertical do conteúdo */
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
+            position: relative;
         }
 
-        .logo-main {
-            width: 100%;
-            max-width: 220px;
-            height: auto;
-        }
-
-        .header-text {
-            margin: 10px 0;
-        }
-
-        .text-agenda {
-            font-style: italic;
-            font-size: clamp(1.5rem, 5vh, 2rem);
-            color: var(--text-soft);
-            margin: 0;
-        }
-
-        .text-aberta {
-            font-weight: 700;
-            font-size: clamp(3rem, 10vh, 4.5rem);
-            color: var(--text-dark);
-            margin: 0;
-            line-height: 1;
-        }
-
-        .icon-heart {
-            width: clamp(60px, 12vh, 90px);
-        }
-
-        .text-call {
-            font-size: clamp(1rem, 3vh, 1.3rem);
-            color: var(--text-dark);
-            margin: 10px 0;
-        }
+        .logo-main { width: 100%; max-width: 220px; height: auto; }
+        .text-agenda { font-style: italic; font-size: clamp(1.5rem, 5vh, 2rem); color: var(--text-soft); margin: 0; }
+        .text-aberta { font-weight: 700; font-size: clamp(3rem, 10vh, 4.5rem); color: var(--text-dark); margin: 0; line-height: 1; }
+        .icon-heart { width: clamp(60px, 12vh, 90px); }
+        .text-call { font-size: clamp(1rem, 3vh, 1.3rem); color: var(--text-dark); margin: 10px 0; }
 
         .booking-area {
             border: 1.5px solid var(--text-soft);
             border-radius: 15px;
             padding: 15px;
             width: 100%;
-            background: rgba(255,255,255,0.5);
+            background: rgba(255,255,255,0.2);
         }
 
         input[type="datetime-local"] {
             width: 100%;
-            padding: 10px;
+            padding: 5px;
             border: none;
             background: transparent;
             color: var(--text-dark);
             font-size: 1.2rem;
             outline: none;
             text-align: center;
-            cursor: pointer;
         }
 
         .btn-confirm {
@@ -126,33 +121,28 @@
             width: 100%;
             font-weight: bold;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
             cursor: pointer;
             font-size: 1.1rem;
-            transition: 0.3s;
         }
 
-        .btn-confirm:hover { background: var(--text-dark); }
-
-        .insta-footer {
-            margin-top: 15px;
-            font-size: 1rem;
-            color: var(--text-dark);
-            font-weight: 600;
-        }
+        .insta-footer { margin-top: 10px; font-size: 1rem; color: var(--text-dark); font-weight: 600; }
     </style>
 </head>
 <body>
 
+<div class="theme-toggle" onclick="toggleTheme()" id="themeIcon">
+    <svg viewBox="0 0 24 24" id="iconSvg"><path d="M12 3c.132 0 .263 0 .393.007a9 9 0 0 0 1.536 17.151 9 9 0 1 1-1.929-17.158c.13-.003.26-.003.393-.003z"/></svg>
+</div>
+
 <div class="main-card" id="app-content">
     <img src="plano_fundo.png" alt="Rita Andrade" class="logo-main">
     
-    <div class="header-text">
+    <div>
         <p class="text-agenda">agenda</p>
         <h1 class="text-aberta">aberta</h1>
     </div>
 
-    <img src="https://img.icons8.com/wired/100/8b5a3c/calendar-with-a-heart.png" class="icon-heart" alt="Ícone Calendário">
+    <img src="https://img.icons8.com/wired/100/8b5a3c/calendar-with-a-heart.png" class="icon-heart">
 
     <p class="text-call">marque seu horário!</p>
 
@@ -166,15 +156,28 @@
 </div>
 
 <script>
+    function toggleTheme() {
+        const body = document.body;
+        const iconContainer = document.getElementById('themeIcon');
+        body.classList.toggle('dark-mode');
+        
+        if (body.classList.contains('dark-mode')) {
+            // Ícone de Sol
+            iconContainer.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM2 13h2a1 1 0 1 0 0-2H2a1 1 0 1 0 0 2zm18 0h2a1 1 0 1 0 0-2h-2a1 1 0 1 0 0 2zM11 2v2a1 1 0 1 0 2 0V2a1 1 0 1 0-2 0zm0 18v2a1 1 0 1 0 2 0v-2a1 1 0 1 0-2 0zM5.99 4.58a1 1 0 1 0-1.41 1.41l1.41 1.41a1 1 0 1 0 1.41-1.41L5.99 4.58zm12.02 12.02a1 1 0 1 0-1.41 1.41l1.41 1.41a1 1 0 1 0 1.41-1.41l-1.41-1.41zM4.58 18.01a1 1 0 1 0 1.41 1.41l1.41-1.41a1 1 0 1 0-1.41-1.41l-1.41 1.41zM18.01 5.99a1 1 0 1 0 1.41-1.41l-1.41-1.41a1 1 0 1 0-1.41 1.41l1.41 1.41z"/></svg>';
+        } else {
+            // Ícone de Lua
+            iconContainer.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 3c.132 0 .263 0 .393.007a9 9 0 0 0 1.536 17.151 9 9 0 1 1-1.929-17.158c.13-.003.26-.003.393-.003z"/></svg>';
+        }
+    }
+
     function finalizar() {
         const data = document.getElementById('data_hora').value;
         if(!data) return alert("Por favor, selecione um horário.");
-
         document.getElementById('app-content').innerHTML = `
             <img src="plano_fundo.png" class="logo-main" style="max-width:180px">
-            <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center;">
+            <div style="flex-grow:1; display:flex; flex-direction:column; justify-content:center;">
                 <h2 style="color: var(--text-dark); font-size: 2rem;">Solicitação Enviada!</h2>
-                <p style="color: var(--text-soft); font-size: 1.2rem;">Recebemos seu pedido para:</p>
+                <p style="color: var(--text-soft); font-size: 1.2rem;">Horário reservado para:</p>
                 <p style="font-weight: bold; font-size: 1.5rem; color: var(--text-dark)">${new Date(data).toLocaleString()}</p>
             </div>
             <button class="btn-confirm" onclick="window.location.reload()">Voltar</button>
@@ -183,16 +186,7 @@
     }
 
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js').then(reg => {
-            reg.onupdatefound = () => {
-                const installingWorker = reg.installing;
-                installingWorker.onstatechange = () => {
-                    if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                        window.location.reload(); 
-                    }
-                };
-            };
-        });
+        navigator.serviceWorker.register('sw.js');
     }
 </script>
 </body>

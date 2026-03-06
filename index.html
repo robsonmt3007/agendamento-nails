@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#b4867e">
     <title>Rita Andrade - Nails Designer</title>
     <link rel="manifest" href="manifest.json">
@@ -19,13 +19,24 @@
             --glass-bg: rgba(255, 255, 255, 0.85);
         }
 
-        body {
+        /* Reset para ocupar tela cheia */
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
             margin: 0;
             padding: 0;
+            overflow: hidden; /* Remove barras de rolagem */
+        }
+
+        body {
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            /* Fundo nítido ocupando toda a tela */
             background: url('d2fb736130b4a19276c01092cf78d24e.jpg') no-repeat center center fixed;
             background-size: cover;
             font-family: 'Playfair Display', serif;
@@ -34,54 +45,63 @@
         .main-card {
             background: var(--glass-bg);
             backdrop-filter: blur(8px);
-            width: 90%;
-            max-width: 450px; 
-            padding: 2.5rem 1.5rem;
+            width: 95%;
+            height: 95%; /* Ocupa quase a tela toda */
+            max-width: 500px; 
+            max-height: 850px; /* Limite para não deformar em telas gigantes */
+            padding: 2rem;
             border-radius: 30px;
             text-align: center;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             border: 1px solid rgba(255,255,255,0.3);
-            margin: 20px;
+            
+            /* Distribuição vertical do conteúdo */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .logo-main {
             width: 100%;
-            max-width: 200px;
+            max-width: 220px;
             height: auto;
-            margin-bottom: 1.5rem;
+        }
+
+        .header-text {
+            margin: 10px 0;
         }
 
         .text-agenda {
             font-style: italic;
-            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            font-size: clamp(1.5rem, 5vh, 2rem);
             color: var(--text-soft);
             margin: 0;
         }
 
         .text-aberta {
             font-weight: 700;
-            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-size: clamp(3rem, 10vh, 4.5rem);
             color: var(--text-dark);
-            margin: 0 0 1rem 0;
+            margin: 0;
             line-height: 1;
         }
 
         .icon-heart {
-            width: clamp(50px, 10vw, 70px);
-            margin-bottom: 1rem;
+            width: clamp(60px, 12vh, 90px);
         }
 
         .text-call {
-            font-size: clamp(1rem, 3vw, 1.2rem);
+            font-size: clamp(1rem, 3vh, 1.3rem);
             color: var(--text-dark);
-            margin-bottom: 2rem;
+            margin: 10px 0;
         }
 
         .booking-area {
             border: 1.5px solid var(--text-soft);
             border-radius: 15px;
             padding: 15px;
-            margin-bottom: 20px;
+            width: 100%;
             background: rgba(255,255,255,0.5);
         }
 
@@ -91,27 +111,32 @@
             border: none;
             background: transparent;
             color: var(--text-dark);
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             outline: none;
             text-align: center;
+            cursor: pointer;
         }
 
         .btn-confirm {
             background: var(--text-soft);
             color: white;
             border: none;
-            padding: 18px;
-            border-radius: 12px;
+            padding: 20px;
+            border-radius: 15px;
             width: 100%;
             font-weight: bold;
             text-transform: uppercase;
+            letter-spacing: 1.5px;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 1.1rem;
+            transition: 0.3s;
         }
 
+        .btn-confirm:hover { background: var(--text-dark); }
+
         .insta-footer {
-            margin-top: 2rem;
-            font-size: 0.95rem;
+            margin-top: 15px;
+            font-size: 1rem;
             color: var(--text-dark);
             font-weight: 600;
         }
@@ -121,14 +146,22 @@
 
 <div class="main-card" id="app-content">
     <img src="plano_fundo.png" alt="Rita Andrade" class="logo-main">
-    <p class="text-agenda">agenda</p>
-    <h1 class="text-aberta">aberta</h1>
-    <img src="https://img.icons8.com/wired/100/8b5a3c/calendar-with-a-heart.png" class="icon-heart">
+    
+    <div class="header-text">
+        <p class="text-agenda">agenda</p>
+        <h1 class="text-aberta">aberta</h1>
+    </div>
+
+    <img src="https://img.icons8.com/wired/100/8b5a3c/calendar-with-a-heart.png" class="icon-heart" alt="Ícone Calendário">
+
     <p class="text-call">marque seu horário!</p>
+
     <div class="booking-area">
         <input type="datetime-local" id="data_hora">
     </div>
+
     <button class="btn-confirm" onclick="finalizar()">Confirmar Agora</button>
+
     <p class="insta-footer">@ritaandradeunhas</p>
 </div>
 
@@ -136,12 +169,15 @@
     function finalizar() {
         const data = document.getElementById('data_hora').value;
         if(!data) return alert("Por favor, selecione um horário.");
+
         document.getElementById('app-content').innerHTML = `
-            <img src="plano_fundo.png" class="logo-main">
-            <h2 style="color: var(--text-dark); margin-top: 20px;">Solicitação Enviada!</h2>
-            <p style="color: var(--text-soft)">Recebemos seu pedido para:</p>
-            <p style="font-weight: bold; font-size: 1.3rem; color: var(--text-dark)">${new Date(data).toLocaleString()}</p>
-            <button class="btn-confirm" onclick="window.location.reload()" style="margin-top:20px">Voltar</button>
+            <img src="plano_fundo.png" class="logo-main" style="max-width:180px">
+            <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center;">
+                <h2 style="color: var(--text-dark); font-size: 2rem;">Solicitação Enviada!</h2>
+                <p style="color: var(--text-soft); font-size: 1.2rem;">Recebemos seu pedido para:</p>
+                <p style="font-weight: bold; font-size: 1.5rem; color: var(--text-dark)">${new Date(data).toLocaleString()}</p>
+            </div>
+            <button class="btn-confirm" onclick="window.location.reload()">Voltar</button>
             <p class="insta-footer">@ritaandradeunhas</p>
         `;
     }

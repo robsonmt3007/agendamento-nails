@@ -3,228 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#8b5a3c"> <title>Nails Designer - Agendamento</title>
+    <meta name="theme-color" content="#b4867e">
+    <title>Rita Andrade - Nails Designer</title>
     <link rel="manifest" href="manifest.json">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --bg-color: #f4f1ea; /* Bege suave de fundo */
-            --card-bg: rgba(255, 255, 255, 0.7); /* Branco translúcido */
-            --accent-color: #8b5a3c; /* Marrom dos textos e ícones */
-            --text-color: #5d4037; /* Marrom escuro para texto */
+            --accent-color: #b4867e; /* Tom Rosé do Logo */
+            --text-dark: #5d4037;   /* Marrom do modelo */
+            --text-soft: #8b5a3c;   /* Marrom claro */
+            --glass-bg: rgba(255, 255, 255, 0.85);
         }
 
         body {
-            background-color: var(--bg-color);
-            background-image: url('plano_fundo.png'); /* Sua imagem de fundo nítida */
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            background-repeat: no-repeat; /* Garante que a imagem não se repita */
-            color: var(--text-color);
-            font-family: 'Playfair Display', serif; /* Fonte elegante */
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            margin: 0;
-            padding: 20px;
+            /* Imagem de fundo nítida baseada no modelo */
+            background: url('d2fb736130b4a19276c01092cf78d24e.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Playfair Display', serif;
         }
 
-        .container {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px); /* Efeito de vidro jateado */
-            padding: 2.5rem;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            width: 100%;
+        .main-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(8px);
+            width: 90%;
             max-width: 400px;
+            padding: 40px 20px;
+            border-radius: 30px;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
         }
 
-        .app-icon {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 20px;
-            display: block;
+        .logo-main {
+            width: 180px;
+            margin-bottom: 20px;
         }
 
-        h2 { 
-            font-weight: 400; 
-            letter-spacing: 1px; 
-            margin-bottom: 5px; 
-            color: var(--accent-color);
-            font-family: 'Great Vibes', cursive; /* Fonte cursiva para o título */
-            font-size: 2.5rem;
-        }
-        
-        .subtitle { 
-            font-size: 0.9rem; 
-            opacity: 0.8; 
-            margin-bottom: 30px; 
-            font-family: 'Segoe UI', sans-serif;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 25px;
-            font-family: 'Segoe UI', sans-serif;
-        }
-
-        .service-card {
-            background: rgba(139, 90, 60, 0.05); /* Bege/marrom muito suave */
-            padding: 15px;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: 0.3s;
-            border: 1px solid transparent;
-        }
-
-        .service-card.selected {
-            background: rgba(139, 90, 60, 0.15); /* Destaque em marrom */
-            border: 1px solid var(--accent-color);
-        }
-
-        .service-card h3 {
-            font-size: 0.85rem;
+        .text-agenda {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.5rem;
+            color: var(--text-soft);
             margin: 0;
-            color: var(--accent-color);
-            font-weight: 600;
+            line-height: 1;
         }
 
-        .service-card p { font-size: 0.7rem; margin: 5px 0 0; opacity: 0.8; }
+        .text-aberta {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 3rem;
+            color: var(--text-dark);
+            margin: 0 0 15px 0;
+            line-height: 1;
+        }
+
+        .icon-heart {
+            width: 60px;
+            margin-bottom: 15px;
+        }
+
+        .text-call {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            margin-bottom: 30px;
+        }
+
+        /* Container de agendamento limpo */
+        .booking-area {
+            border: 1.5px solid var(--text-soft);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
 
         input[type="datetime-local"] {
             width: 100%;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.8);
-            border: 1px solid rgba(139, 90, 60, 0.2);
-            border-radius: 10px;
-            color: var(--text-color);
-            margin-top: 10px;
+            padding: 12px;
+            border: none;
+            background: transparent;
+            color: var(--text-dark);
+            font-family: sans-serif;
+            font-size: 1rem;
             outline: none;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
+            text-align: center;
         }
 
-        button {
-            width: 100%;
-            padding: 18px;
-            background: var(--accent-color);
+        .btn-confirm {
+            background: var(--text-soft);
+            color: white;
             border: none;
+            padding: 15px 30px;
             border-radius: 10px;
-            color: #fff;
+            width: 100%;
             font-weight: bold;
             text-transform: uppercase;
-            cursor: pointer;
-            margin-top: 25px;
-            font-family: 'Segoe UI', sans-serif;
             letter-spacing: 1px;
+            cursor: pointer;
             transition: 0.3s;
         }
 
-        button:hover { background-color: #704631; }
-        button:active { transform: scale(0.98); }
+        .btn-confirm:hover { background: var(--text-dark); }
 
-        .footer {
-            margin-top: 30px;
-            font-size: 0.75rem;
-            opacity: 0.6;
-            font-family: 'Segoe UI', sans-serif;
+        .insta-footer {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            opacity: 0.8;
         }
     </style>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<div class="container" id="app">
-    <img src="https://img.icons8.com/wired/64/8b5a3c/calendar-with-a-heart.png" alt="Calendário" class="app-icon">
-    
-    <h2>agenda aberta</h2>
-    <p class="subtitle">marque seu horário!</p>
+<div class="main-card" id="app-content">
+    <img src="plano_fundo.png" alt="Rita Andrade" class="logo-main">
 
-    <div class="services-grid">
-        <div class="service-card" onclick="select(this, 'Blindagem', 60)">
-            <h3>Blindagem</h3>
-            <p>1h 00min</p>
-        </div>
-        <div class="service-card" onclick="select(this, 'Banho de Gel', 90)">
-            <h3>Banho de Gel</h3>
-            <p>1h 30min</p>
-        </div>
-        <div class="service-card" onclick="select(this, 'Extensão', 150)">
-            <h3>Extensão</h3>
-            <p>2h 30min</p>
-        </div>
-        <div class="service-card" onclick="select(this, 'Manutenção', 120)">
-            <h3>Manutenção</h3>
-            <p>2h 00min</p>
-        </div>
+    <p class="text-agenda">agenda</p>
+    <h1 class="text-aberta">aberta</h1>
+
+    <img src="https://img.icons8.com/wired/100/8b5a3c/calendar-with-a-heart.png" class="icon-heart">
+
+    <p class="text-call">marque seu horário!</p>
+
+    <div class="booking-area">
+        <input type="datetime-local" id="data_hora">
     </div>
 
-    <input type="datetime-local" id="data_hora">
-    <button onclick="confirmar()">Reservar Horário</button>
-    
-    <p class="footer">@karinaks7</p>
+    <button class="btn-confirm" onclick="finalizar()">Confirmar Agora</button>
+
+    <p class="insta-footer">@karinaks7</p>
 </div>
 
 <script>
-    let agenda = { servico: '', tempo: 0 };
-
-    function select(el, nome, min) {
-        document.querySelectorAll('.service-card').forEach(c => c.classList.remove('selected'));
-        el.classList.add('selected');
-        agenda.servico = nome;
-        agenda.tempo = min;
-    }
-
-    function confirmar() {
+    function finalizar() {
         const data = document.getElementById('data_hora').value;
-        if (!agenda.servico || !data) return alert("Escolha o serviço e a data!");
-        
-        // Formata a data para exibir
-        const dataFormatada = new Date(data).toLocaleString('pt-BR', {
-            day: '2-digit', month: '2-digit', year: 'numeric',
-            hour: '2-digit', minute: '2-digit'
-        });
+        if(!data) return alert("Por favor, selecione um horário.");
 
-        document.getElementById('app').innerHTML = `
-            <div style="padding: 20px;">
-                <img src="https://img.icons8.com/wired/64/8b5a3c/checked-calendar.png" alt="Sucesso" class="app-icon">
-                <h2 style="color: var(--accent-color);">Solicitação Enviada!</h2>
-                <p style="margin-top: 20px;">Sua reserva de <b>${agenda.servico}</b> foi solicitada para:</p>
-                <p style="font-size: 1.2rem; font-weight: bold; margin-top: 10px; color: var(--accent-color);">${dataFormatada}</p>
-                <p style="font-size: 0.8rem; margin-top: 30px; opacity: 0.7;">Próximo passo: Sincronização com o Google Calendar real...</p>
-                <p class="footer">@karinaks7</p>
-            </div>
+        document.getElementById('app-content').innerHTML = `
+            <img src="plano_fundo.png" class="logo-main">
+            <h2 style="color: var(--text-dark)">Solicitação Enviada!</h2>
+            <p style="color: var(--text-soft)">Aguardamos você em:</p>
+            <p style="font-weight: bold; font-size: 1.2rem">${new Date(data).toLocaleString()}</p>
+            <button class="btn-confirm" onclick="window.location.reload()" style="margin-top:20px">Voltar</button>
         `;
     }
 
-    // REGISTRO E ATUALIZAÇÃO AUTOMÁTICA DO PWA
+    // Lógica de Atualização Automática PWA
     if ('serviceWorker' in navigator) {
-        let refreshing;
         navigator.serviceWorker.register('sw.js').then(reg => {
-            reg.addEventListener('updatefound', () => {
-                const newWorker = reg.installing;
-                newWorker.addEventListener('statechange', () => {
-                    if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                        // Força a atualização se houver um novo SW
-                        if (confirm("Nova versão disponível! Deseja atualizar agora?")) {
-                            newWorker.postMessage({ action: 'skipWaiting' });
-                        }
+            reg.onupdatefound = () => {
+                const installingWorker = reg.installing;
+                installingWorker.onstatechange = () => {
+                    if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                        if (confirm("Nova versão disponível! Atualizar?")) window.location.reload();
                     }
-                });
-            });
-        });
-
-        navigator.serviceWorker.addEventListener('controllerchange', () => {
-            if (refreshing) return;
-            window.location.reload();
-            refreshing = true;
+                };
+            };
         });
     }
 </script>

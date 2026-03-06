@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nails-v8'; // Versão Full Screen Total
+const CACHE_NAME = 'nails-v9'; //Versão Full Screen com Modo Dark persistente
 self.addEventListener('install', (e) => {
   self.skipWaiting();
 });

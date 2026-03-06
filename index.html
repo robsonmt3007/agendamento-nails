@@ -6,9 +6,6 @@
     <meta name="theme-color" content="#b4867e">
     <title>Rita Andrade - Nails Designer</title>
     <link rel="manifest" href="manifest.json">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
     <style>
@@ -17,6 +14,15 @@
             --text-dark: #5d4037;
             --text-soft: #8b5a3c;
             --glass-bg: rgba(255, 255, 255, 0.85);
+            --body-bg: #f4f1ea;
+        }
+
+        /* Estilos para o Modo Dark */
+        body.dark-mode {
+            --text-dark: #e0d5d0;
+            --text-soft: #b4867e;
+            --glass-bg: rgba(30, 25, 23, 0.92);
+            --body-bg: #1a1614;
         }
 
         body {
@@ -26,75 +32,57 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            /* Fundo nítido baseado na imagem enviada */
-            background: url('d2fb736130b4a19276c01092cf78d24e.jpg') no-repeat center center fixed;
+            background: var(--body-bg) url('d2fb736130b4a19276c01092cf78d24e.jpg') no-repeat center center fixed;
             background-size: cover;
             font-family: 'Playfair Display', serif;
+            transition: background-color 0.4s ease;
         }
+
+        /* Ícone de Tema Discreto */
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: 0.3s;
+            z-index: 10;
+        }
+        .theme-toggle:hover { opacity: 1; }
+        .theme-toggle svg { width: 24px; height: 24px; fill: var(--text-soft); }
 
         .main-card {
             background: var(--glass-bg);
             backdrop-filter: blur(8px);
             width: 90%;
-            /* Ajuste inteligente de tamanho para Desktop vs Mobile */
             max-width: 450px; 
             padding: 2.5rem 1.5rem;
             border-radius: 30px;
             text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            border: 1px solid rgba(255,255,255,0.3);
-            margin: 20px;
-            transition: all 0.3s ease;
-        }
-
-        /* Otimização para telas maiores (Desktop/Notebook) */
-        @media (min-width: 1024px) {
-            .main-card {
-                max-width: 500px;
-                padding: 3.5rem 2.5rem;
-            }
-            .text-aberta { font-size: 3.5rem !important; }
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.2);
+            position: relative;
+            transition: background 0.4s ease, border 0.4s ease;
         }
 
         .logo-main {
             width: 100%;
             max-width: 200px;
-            height: auto;
             margin-bottom: 1.5rem;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
         }
 
-        .text-agenda {
-            font-style: italic;
-            font-size: clamp(1.2rem, 4vw, 1.8rem);
-            color: var(--text-soft);
-            margin: 0;
-        }
-
-        .text-aberta {
-            font-weight: 700;
-            font-size: clamp(2.5rem, 8vw, 4rem);
-            color: var(--text-dark);
-            margin: 0 0 1rem 0;
-            line-height: 1;
-        }
-
-        .icon-heart {
-            width: clamp(50px, 10vw, 70px);
-            margin-bottom: 1rem;
-        }
-
-        .text-call {
-            font-size: clamp(1rem, 3vw, 1.2rem);
-            color: var(--text-dark);
-            margin-bottom: 2rem;
-        }
+        .text-agenda { font-style: italic; font-size: 1.5rem; color: var(--text-soft); margin: 0; }
+        .text-aberta { font-weight: 700; font-size: 3rem; color: var(--text-dark); margin: 0 0 1rem 0; line-height: 1; }
+        .icon-heart { width: 60px; margin-bottom: 1rem; filter: sepia(0.2); }
+        .text-call { font-size: 1.1rem; color: var(--text-dark); margin-bottom: 2rem; }
 
         .booking-area {
             border: 1.5px solid var(--text-soft);
             border-radius: 15px;
             padding: 15px;
             margin-bottom: 20px;
-            background: rgba(255,255,255,0.5);
+            background: rgba(255,255,255,0.1);
         }
 
         input[type="datetime-local"] {
@@ -106,7 +94,7 @@
             font-size: 1.1rem;
             outline: none;
             text-align: center;
-            cursor: pointer;
+            color-scheme: light dark; /* Ajusta o calendário do sistema */
         }
 
         .btn-confirm {
@@ -118,24 +106,18 @@
             width: 100%;
             font-weight: bold;
             text-transform: uppercase;
-            letter-spacing: 1px;
             cursor: pointer;
             transition: 0.3s;
-            font-size: 1rem;
         }
 
-        .btn-confirm:hover { background: var(--text-dark); }
-
-        .insta-footer {
-            margin-top: 2rem;
-            font-size: 0.95rem;
-            color: var(--text-dark);
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
+        .insta-footer { margin-top: 2rem; font-size: 0.95rem; color: var(--text-dark); font-weight: 600; }
     </style>
 </head>
 <body>
+
+<div class="theme-toggle" onclick="toggleTheme()" id="themeIcon">
+    <svg viewBox="0 0 24 24" id="moonIcon"><path d="M12 3c.132 0 .263 0 .393.007a9 9 0 0 0 1.536 17.151 9 9 0 1 1-1.929-17.158c.13-.003.26-.003.393-.003z"/></svg>
+</div>
 
 <div class="main-card" id="app-content">
     <img src="plano_fundo.png" alt="Rita Andrade" class="logo-main">
@@ -143,7 +125,7 @@
     <p class="text-agenda">agenda</p>
     <h1 class="text-aberta">aberta</h1>
 
-    <img src="https://img.icons8.com/wired/100/8b5a3c/calendar-with-a-heart.png" class="icon-heart" alt="Ícone Calendário">
+    <img src="https://img.icons8.com/wired/100/8b5a3c/calendar-with-a-heart.png" class="icon-heart">
 
     <p class="text-call">marque seu horário!</p>
 
@@ -157,32 +139,33 @@
 </div>
 
 <script>
+    function toggleTheme() {
+        const body = document.body;
+        const iconContainer = document.getElementById('themeIcon');
+        body.classList.toggle('dark-mode');
+        
+        if (body.classList.contains('dark-mode')) {
+            iconContainer.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM2 13h2a1 1 0 1 0 0-2H2a1 1 0 1 0 0 2zm18 0h2a1 1 0 1 0 0-2h-2a1 1 0 1 0 0 2zM11 2v2a1 1 0 1 0 2 0V2a1 1 0 1 0-2 0zm0 18v2a1 1 0 1 0 2 0v-2a1 1 0 1 0-2 0zM5.99 4.58a1 1 0 1 0-1.41 1.41l1.41 1.41a1 1 0 1 0 1.41-1.41L5.99 4.58zm12.02 12.02a1 1 0 1 0-1.41 1.41l1.41 1.41a1 1 0 1 0 1.41-1.41l-1.41-1.41zM4.58 18.01a1 1 0 1 0 1.41 1.41l1.41-1.41a1 1 0 1 0-1.41-1.41l-1.41 1.41zM18.01 5.99a1 1 0 1 0 1.41-1.41l-1.41-1.41a1 1 0 1 0-1.41 1.41l1.41 1.41z"/></svg>';
+        } else {
+            iconContainer.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 3c.132 0 .263 0 .393.007a9 9 0 0 0 1.536 17.151 9 9 0 1 1-1.929-17.158c.13-.003.26-.003.393-.003z"/></svg>';
+        }
+    }
+
     function finalizar() {
         const data = document.getElementById('data_hora').value;
         if(!data) return alert("Por favor, selecione um horário.");
-
         document.getElementById('app-content').innerHTML = `
             <img src="plano_fundo.png" class="logo-main">
-            <h2 style="color: var(--text-dark); margin-top: 20px;">Solicitação Enviada!</h2>
-            <p style="color: var(--text-soft)">Recebemos seu pedido para:</p>
-            <p style="font-weight: bold; font-size: 1.3rem; color: var(--text-dark)">${new Date(data).toLocaleString()}</p>
+            <h2 style="color: var(--text-dark); margin-top: 20px;">Enviado!</h2>
+            <p style="color: var(--text-soft)">Horário reservado para:</p>
+            <p style="font-weight: bold; font-size: 1.2rem; color: var(--text-dark)">${new Date(data).toLocaleString()}</p>
             <button class="btn-confirm" onclick="window.location.reload()" style="margin-top:20px">Voltar</button>
             <p class="insta-footer">@ritaandradeunhas</p>
         `;
     }
 
-    // Gerenciador de Versão e Atualização Automática
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js').then(reg => {
-            reg.onupdatefound = () => {
-                const installingWorker = reg.installing;
-                installingWorker.onstatechange = () => {
-                    if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                        window.location.reload(); 
-                    }
-                };
-            };
-        });
+        navigator.serviceWorker.register('sw.js');
     }
 </script>
 </body>

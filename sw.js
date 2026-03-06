@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nails-v7'; // Versão alterada para refletir mudanças de imagem
+const CACHE_NAME = 'nails-v7'; // Reversão para layout responsivo v4 estável
 
 self.addEventListener('install', (e) => {
   self.skipWaiting();

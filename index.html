@@ -3,21 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#d4af37">
-    <title>Nails Designer - Agendamento</title>
+    <meta name="theme-color" content="#8b5a3c"> <title>Nails Designer - Agendamento</title>
     <link rel="manifest" href="manifest.json">
     <style>
         :root {
-            --bg-color: #0f0f0f;
-            --card-bg: #1a1a1a;
-            --accent-color: #d4af37;
-            --text-color: #f5f5f5;
+            --bg-color: #f4f1ea; /* Bege suave de fundo */
+            --card-bg: rgba(255, 255, 255, 0.7); /* Branco translúcido */
+            --accent-color: #8b5a3c; /* Marrom dos textos e ícones */
+            --text-color: #5d4037; /* Marrom escuro para texto */
         }
 
         body {
             background-color: var(--bg-color);
+            background-image: url('plano_fundo.png'); /* Sua nova imagem de fundo */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             color: var(--text-color);
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Playfair Display', serif; /* Fonte elegante */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -28,26 +31,49 @@
 
         .container {
             background: var(--card-bg);
-            padding: 2rem;
+            backdrop-filter: blur(10px); /* Efeito de vidro jateado */
+            padding: 2.5rem;
             border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
             width: 100%;
             max-width: 400px;
             text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
-        h2 { font-weight: 300; letter-spacing: 1px; margin-bottom: 5px; }
-        .subtitle { font-size: 0.8rem; opacity: 0.5; margin-bottom: 25px; }
+        .app-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            display: block;
+        }
+
+        h2 { 
+            font-weight: 400; 
+            letter-spacing: 1px; 
+            margin-bottom: 5px; 
+            color: var(--accent-color);
+            font-family: 'Great Vibes', cursive; /* Fonte cursiva para o título */
+            font-size: 2.5rem;
+        }
+        
+        .subtitle { 
+            font-size: 0.9rem; 
+            opacity: 0.8; 
+            margin-bottom: 30px; 
+            font-family: 'Segoe UI', sans-serif;
+        }
 
         .services-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
             margin-bottom: 25px;
+            font-family: 'Segoe UI', sans-serif;
         }
 
         .service-card {
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(139, 90, 60, 0.05); /* Bege/marrom muito suave */
             padding: 15px;
             border-radius: 12px;
             cursor: pointer;
@@ -56,7 +82,7 @@
         }
 
         .service-card.selected {
-            background: rgba(212, 175, 55, 0.1);
+            background: rgba(139, 90, 60, 0.15); /* Destaque em marrom */
             border: 1px solid var(--accent-color);
         }
 
@@ -64,20 +90,22 @@
             font-size: 0.85rem;
             margin: 0;
             color: var(--accent-color);
+            font-weight: 600;
         }
 
-        .service-card p { font-size: 0.7rem; margin: 5px 0 0; opacity: 0.6; }
+        .service-card p { font-size: 0.7rem; margin: 5px 0 0; opacity: 0.8; }
 
         input[type="datetime-local"] {
             width: 100%;
             padding: 15px;
-            background: rgba(255,255,255,0.05);
-            border: none;
+            background: rgba(139, 90, 60, 0.05);
+            border: 1px solid rgba(139, 90, 60, 0.2);
             border-radius: 10px;
-            color: white;
+            color: var(--text-color);
             margin-top: 10px;
             outline: none;
             box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
         }
 
         button {
@@ -86,21 +114,37 @@
             background: var(--accent-color);
             border: none;
             border-radius: 10px;
-            color: #000;
+            color: #fff;
             font-weight: bold;
             text-transform: uppercase;
             cursor: pointer;
-            margin-top: 20px;
+            margin-top: 25px;
+            font-family: 'Segoe UI', sans-serif;
+            letter-spacing: 1px;
+            transition: 0.3s;
         }
 
+        button:hover { background-color: #704631; }
         button:active { transform: scale(0.98); }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 0.75rem;
+            opacity: 0.6;
+            font-family: 'Segoe UI', sans-serif;
+        }
     </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <div class="container" id="app">
-    <h2>Nails Designer</h2>
-    <p class="subtitle">Selecione seu serviço e horário</p>
+    <img src="https://img.icons8.com/wired/64/8b5a3c/calendar-with-a-heart.png" alt="Calendário" class="app-icon">
+    
+    <h2>agenda aberta</h2>
+    <p class="subtitle">marque seu horário!</p>
 
     <div class="services-grid">
         <div class="service-card" onclick="select(this, 'Blindagem', 60)">
@@ -123,6 +167,8 @@
 
     <input type="datetime-local" id="data_hora">
     <button onclick="confirmar()">Reservar Horário</button>
+    
+    <p class="footer">@karinaks7</p>
 </div>
 
 <script>
@@ -139,18 +185,29 @@
         const data = document.getElementById('data_hora').value;
         if (!agenda.servico || !data) return alert("Escolha o serviço e a data!");
         
+        // Formata a data para exibir
+        const dataFormatada = new Date(data).toLocaleString('pt-BR', {
+            day: '2-digit', month: '2-digit', year: 'numeric',
+            hour: '2-digit', minute: '2-digit'
+        });
+
         document.getElementById('app').innerHTML = `
             <div style="padding: 20px;">
+                <img src="https://img.icons8.com/wired/64/8b5a3c/checked-calendar.png" alt="Sucesso" class="app-icon">
                 <h2 style="color: var(--accent-color);">Solicitação Enviada!</h2>
-                <p><b>${agenda.servico}</b> agendado para:</p>
-                <p>${new Date(data).toLocaleString()}</p>
+                <p style="margin-top: 20px;">Sua reserva de <b>${agenda.servico}</b> foi solicitada para:</p>
+                <p style="font-size: 1.2rem; font-weight: bold; margin-top: 10px; color: var(--accent-color);">${dataFormatada}</p>
+                <p style="font-size: 0.8rem; margin-top: 30px; opacity: 0.7;">Próximo passo: Sincronização com o Google Calendar real...</p>
+                <p class="footer">@karinaks7</p>
             </div>
         `;
     }
 
     // Registrar Service Worker para PWA
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js');
+        navigator.serviceWorker.register('sw.js')
+          .then(() => console.log("PWA Nails Designer pronto!"))
+          .catch((err) => console.log("Erro no PWA:", err));
     }
 </script>
 </body>

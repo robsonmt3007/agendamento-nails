@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nails-v6'; // Versão alterada para refletir mudanças de imagem
+const CACHE_NAME = 'nails-v7'; // Versão alterada para refletir mudanças de imagem
 
 self.addEventListener('install', (e) => {
   self.skipWaiting();

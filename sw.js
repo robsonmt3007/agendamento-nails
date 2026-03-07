@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nails-v18'; // Ajuste de respiro e botão de tema light/dark
+const CACHE_NAME = 'nails-v19'; // Serviços em MAIÚSCULAS e logo maximizada
 self.addEventListener('install', (e) => {
   self.skipWaiting();
 });

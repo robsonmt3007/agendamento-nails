@@ -77,13 +77,12 @@
         }
         .service-btn.selected { background: var(--accent); color: #fff; border-color: #fff; }
 
-        /* Estilização dos ícones de localização personalizados */
         .location-area { margin-top: 10px; padding-top: 5px; border-top: 1px solid rgba(180, 134, 126, 0.2); text-align: center; }
-        .location-btns { display: flex; justify-content: center; gap: 25px; margin-top: 8px; }
+        .location-btns { display: flex; justify-content: center; gap: 30px; margin-top: 8px; }
         .loc-btn img {
-            width: 45px; height: 45px; 
+            width: 48px; height: 48px; 
             transition: transform 0.2s;
-            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.4));
         }
         .loc-btn:active img { transform: scale(0.9); }
 
@@ -168,7 +167,7 @@
 </div>
 
 <script>
-    // Auto-update system
+    // Sistema de Auto-Update em tempo real
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('./sw.js').then((reg) => {
@@ -189,6 +188,7 @@
         if (!refreshing) { window.location.reload(); refreshing = true; }
     });
 
+    // Lógica do Agendamento
     let servicosSelecionados = [];
 
     function toggleService(element, serviceName) {
@@ -223,7 +223,8 @@
         const data = document.getElementById('data_hora').value;
         if(!nome || servicosSelecionados.length === 0 || !data) return alert("Por favor, preencha todos os campos.");
         
-        const msg = `Olá Rita! Me chamo ${nome}. Gostaria de agendar: ${servicosSelecionados.join(', ')} para o horário: ${new Date(data).toLocaleString()}.`;
+        const dataFormatada = new Date(data).toLocaleString('pt-BR');
+        const msg = `Olá Rita! Me chamo ${nome}. Gostaria de agendar: ${servicosSelecionados.join(', ')} para o horário: ${dataFormatada}.`;
         window.open(`https://wa.me/55SEUNUMERO?text=${encodeURIComponent(msg)}`, '_blank');
     }
 </script>

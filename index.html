@@ -38,7 +38,6 @@
             transition: 0.4s;
         }
 
-        /* Botão de Tema Offline */
         .theme-switch {
             position: absolute; top: 15px; right: 15px; cursor: pointer; z-index: 100;
         }
@@ -53,18 +52,13 @@
         }
 
         .header-area { flex: 0 1 auto; text-align: center; padding-top: 5px; }
-        .logo-main { 
-            width: 100%; max-width: 250px; height: auto; 
-            margin-bottom: 5px; 
-            filter: drop-shadow(0 0 10px rgba(180, 134, 126, 0.3));
-        }
+        .logo-main { width: 100%; max-width: 240px; height: auto; margin-bottom: 5px; }
 
-        .form-area { flex: 1 1 auto; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+        .form-area { flex: 1 1 auto; display: flex; flex-direction: column; justify-content: center; gap: 8px; overflow-y: auto; }
 
         .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
         .input-group label { font-size: 0.65rem; text-transform: uppercase; color: var(--text-secondary); font-weight: 700; display: block; margin-bottom: 3px; }
         
-        /* Container para Input WhatsApp */
         .input-with-icon { position: relative; display: flex; align-items: center; }
         .input-with-icon svg { position: absolute; left: 12px; width: 18px; height: 18px; fill: var(--whatsapp-green); }
         .input-with-icon input { padding-left: 38px; }
@@ -81,21 +75,27 @@
             font-size: 0.8rem; text-transform: uppercase; font-weight: 700;
             cursor: pointer; transition: 0.2s; text-align: center;
         }
-        .service-btn.selected { 
-            background: var(--accent); color: #fff; border-color: #fff;
-            box-shadow: 0 0 10px rgba(180, 134, 126, 0.4);
+        .service-btn.selected { background: var(--accent); color: #fff; border-color: #fff; }
+
+        /* Estilização dos ícones de localização personalizados */
+        .location-area { margin-top: 10px; padding-top: 5px; border-top: 1px solid rgba(180, 134, 126, 0.2); text-align: center; }
+        .location-btns { display: flex; justify-content: center; gap: 25px; margin-top: 8px; }
+        .loc-btn img {
+            width: 45px; height: 45px; 
+            transition: transform 0.2s;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
         }
+        .loc-btn:active img { transform: scale(0.9); }
 
         .footer-area { flex: 0 0 auto; text-align: center; padding-top: 10px; }
         .btn-confirm {
             background: var(--accent); color: white; border: none;
             padding: 16px; border-radius: 12px; width: 100%;
-            font-weight: 700; text-transform: uppercase; cursor: pointer; font-size: 1rem;
+            font-weight: 700; text-transform: uppercase; cursor: pointer;
         }
 
-        /* Instagram Footer */
         .insta-footer { 
-            margin-top: 10px; font-size: 0.95rem; color: var(--text-secondary); 
+            margin-top: 10px; font-size: 0.9rem; color: var(--text-secondary); 
             font-family: 'Playfair Display', serif; display: flex;
             align-items: center; justify-content: center; gap: 6px;
             font-weight: 700; text-decoration: none;
@@ -144,6 +144,18 @@
             <label>Data e Horário</label>
             <input type="datetime-local" id="data_hora">
         </div>
+
+        <div class="location-area">
+            <label style="font-size: 0.65rem; text-transform: uppercase; color: var(--text-secondary); font-weight: 700; display: block; margin-bottom: 5px;">Como chegar</label>
+            <div class="location-btns">
+                <a href="https://www.google.com/maps/dir/?api=1&destination=Rua%20Placido%20Aderaldo%20Castelo%20469%20Capuan%20Caucaia%20CE" target="_blank" class="loc-btn">
+                    <img src="maps.png" alt="Google Maps">
+                </a>
+                <a href="https://waze.com/ul?q=Rua%20Placido%20Aderaldo%20Castelo%20469%20Capuan%20Caucaia%20CE&navigate=yes" target="_blank" class="loc-btn">
+                    <img src="waze.png" alt="Waze">
+                </a>
+            </div>
+        </div>
     </div>
 
     <div class="footer-area">
@@ -156,7 +168,7 @@
 </div>
 
 <script>
-    // --- 1. Lógica de Atualização em Tempo Real ---
+    // Auto-update system
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('./sw.js').then((reg) => {
@@ -177,7 +189,6 @@
         if (!refreshing) { window.location.reload(); refreshing = true; }
     });
 
-    // --- 2. Lógica do Aplicativo ---
     let servicosSelecionados = [];
 
     function toggleService(element, serviceName) {

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nails-v16'; // Seleção por clique e correção de viewport iOS/Android
+const CACHE_NAME = 'nails-v17'; // Branding destacado, Full Screen e @ritinhaandradeunhas centralizado
 self.addEventListener('install', (e) => {
   self.skipWaiting();
 });

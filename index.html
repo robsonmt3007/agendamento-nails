@@ -3,11 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#b4867e">
     <title>Rita Andrade - Nails Designer</title>
-    <link rel="manifest" href="manifest.json">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-
+    
     <style>
         :root {
             --accent: #b4867e;
@@ -15,161 +12,82 @@
             --text-soft: #8b5a3c;
             --glass: rgba(255, 255, 255, 0.9);
             --bg-body: #f4f1ea;
-            --input-bg: #ffffff;
         }
 
         body.dark-mode {
-            --text-dark: #ffffff; /* Letras totalmente brancas para destaque */
-            --text-soft: #ffcfc6; /* Rosé bem claro para destaque */
-            --glass: rgba(20, 18, 17, 0.98);
-            --bg-body: #000000;
-            --input-bg: #2d2a29;
+            --text-dark: #f5ece9; /* Branco mais forte para contraste */
+            --text-soft: #dcaea5; /* Rosé mais claro para destaque */
+            --glass: rgba(40, 35, 33, 0.95);
+            --bg-body: #1a1614;
         }
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        /* Ajustes Visuais Gerais */
+        body { margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; background: var(--bg-body) url('d2fb736130b4a19276c01092cf78d24e.jpg') no-repeat center center fixed; background-size: cover; font-family: 'Playfair Display', serif; }
 
-        html, body { height: 100%; width: 100%; margin: 0; padding: 0; overflow: hidden; }
+        .main-card { background: var(--glass); backdrop-filter: blur(12px); width: 95%; height: 95%; max-width: 450px; padding: 1.5rem; border-radius: 30px; display: flex; flex-direction: column; overflow-y: auto; }
 
-        body {
-            display: flex; justify-content: center; align-items: center;
-            background: var(--bg-body) url('d2fb736130b4a19276c01092cf78d24e.jpg') no-repeat center center fixed;
-            background-size: cover; font-family: 'Playfair Display', serif;
-        }
+        /* Ícone Calendário com destaque no Dark Mode */
+        .date-icon { width: 30px; margin-right: 10px; filter: drop-shadow(0 0 5px rgba(180, 134, 126, 0.5)); }
+        body.dark-mode .date-icon { filter: brightness(1.5) drop-shadow(0 0 5px var(--accent)); }
 
-        .theme-toggle {
-            position: absolute; top: 20px; right: 20px; cursor: pointer; z-index: 100;
-        }
-        .theme-toggle svg { width: 28px; height: 28px; fill: var(--accent); filter: drop-shadow(0 0 5px rgba(0,0,0,0.5)); }
+        /* Checkboxes Elegantes */
+        .services-list { display: flex; flex-direction: column; gap: 8px; margin: 15px 0; text-align: left; }
+        .service-option { display: flex; align-items: center; cursor: pointer; color: var(--text-dark); font-size: 1rem; }
+        .service-option input { margin-right: 10px; accent-color: var(--accent); }
 
-        .main-card {
-            background: var(--glass); backdrop-filter: blur(10px);
-            width: 92%; height: 94%; max-width: 450px;
-            padding: 1.5rem; border-radius: 30px; text-align: center;
-            display: flex; flex-direction: column; position: relative;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
-
-        .logo-main { width: 120px; margin: 0 auto 10px; }
+        .input-group { margin-bottom: 15px; }
+        label { font-size: 0.8rem; text-transform: uppercase; color: var(--text-soft); font-weight: 700; }
+        input { width: 100%; padding: 12px; border: 1px solid var(--accent); border-radius: 12px; background: rgba(255,255,255,0.1); color: var(--text-dark); }
         
-        /* Contêiner com Rolagem para os Campos */
-        .form-scroll {
-            flex-grow: 1; overflow-y: auto; padding-right: 5px; margin-bottom: 10px;
-            display: flex; flex-direction: column; gap: 12px;
-        }
-        .form-scroll::-webkit-scrollbar { width: 3px; }
-        .form-scroll::-webkit-scrollbar-thumb { background: var(--accent); }
-
-        .input-group { text-align: left; }
-        .input-group label { 
-            font-size: 0.8rem; text-transform: uppercase; 
-            color: var(--text-soft); font-weight: 700; display: block; margin-bottom: 5px;
-        }
-
-        input {
-            width: 100%; padding: 12px; border: 1.5px solid var(--accent);
-            border-radius: 12px; background: var(--input-bg); color: var(--text-dark);
-            font-family: inherit; font-size: 1rem; outline: none;
-        }
-
-        /* Destaque do Ícone de Calendário no Modo Dark */
-        input[type="datetime-local"]::-webkit-calendar-picker-indicator {
-            filter: invert(0.5) sepia(1) saturate(5) hue-rotate(330deg); /* Força a cor rosé/bronze */
-            cursor: pointer; transform: scale(1.3);
-        }
-
-        /* Lista de Serviços com Checkbox */
-        .services-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
-        }
-        .check-item {
-            display: flex; align-items: center; background: var(--input-bg);
-            padding: 8px; border-radius: 8px; border: 1px solid var(--accent);
-            cursor: pointer; font-size: 0.85rem; color: var(--text-dark);
-        }
-        .check-item input { width: auto; margin-right: 8px; accent-color: var(--accent); }
-
-        .btn-confirm {
-            background: var(--accent); color: white; border: none;
-            padding: 18px; border-radius: 12px; width: 100%;
-            font-weight: bold; text-transform: uppercase; cursor: pointer;
-        }
-
-        .insta-footer { margin-top: 8px; font-size: 0.9rem; color: var(--text-dark); font-weight: 600; }
+        .btn-confirm { background: var(--accent); color: white; border: none; padding: 18px; border-radius: 12px; width: 100%; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
 
-<div class="theme-toggle" onclick="toggleTheme()" id="themeIcon">
-    <svg viewBox="0 0 24 24"><path d="M12 3c.132 0 .263 0 .393.007a9 9 0 0 0 1.536 17.151 9 9 0 1 1-1.929-17.158c.13-.003.26-.003.393-.003z"/></svg>
-</div>
-
-<div class="main-card" id="app-content">
-    <img src="plano_fundo.png" alt="Rita Andrade" class="logo-main">
+<div class="main-card">
+    <img src="plano_fundo.png" style="width:120px; margin: 0 auto 15px;">
     
-    <div class="form-scroll">
-        <div class="input-group"><label>Nome</label><input type="text" id="nome" placeholder="Nome"></div>
-        <div class="input-group"><label>Sobrenome</label><input type="text" id="sobrenome" placeholder="Sobrenome"></div>
-        
-        <div class="input-group">
-            <label>WhatsApp</label>
-            <input type="tel" id="telefone" placeholder="(00) 00000-0000" maxlength="15" onkeyup="mascaraTel(this)">
-        </div>
-
-        <div class="input-group">
-            <label>Serviços (Selecione quantos desejar)</label>
-            <div class="services-grid">
-                <label class="check-item"><input type="checkbox" name="serv" value="Alongamento"> Alongamento</label>
-                <label class="check-item"><input type="checkbox" name="serv" value="Banho"> Banho</label>
-                <label class="check-item"><input type="checkbox" name="serv" value="Esmaltação em Gel"> Esmaltação em Gel</label>
-                <label class="check-item"><input type="checkbox" name="serv" value="Manutenção"> Manutenção</label>
-                <label class="check-item"><input type="checkbox" name="serv" value="Manicure"> Manicure</label>
-                <label class="check-item"><input type="checkbox" name="serv" value="Pedicure"> Pedicure</label>
-            </div>
-        </div>
-
-        <div class="input-group">
-            <label>Data e Horário</label>
-            <input type="datetime-local" id="data_hora">
-        </div>
+    <div class="input-group">
+        <label>Nome e Sobrenome</label>
+        <input type="text" id="nome" placeholder="Digite seu nome completo">
     </div>
 
-    <button class="btn-confirm" onclick="finalizar()">Agendar Agora</button>
-    <p class="insta-footer">@ritaandradeunhas</p>
+    <div class="input-group">
+        <label>WhatsApp</label>
+        <input type="tel" id="telefone" placeholder="(00) 00000-0000" oninput="mascaraTelefone(this)">
+    </div>
+
+    <label>Serviços (Escolha um ou mais)</label>
+    <div class="services-list" id="servicos">
+        <label class="service-option"><input type="checkbox" value="Alongamento"> Alongamento</label>
+        <label class="service-option"><input type="checkbox" value="Banho"> Banho</label>
+        <label class="service-option"><input type="checkbox" value="Esmaltação em Gel"> Esmaltação em Gel</label>
+        <label class="service-option"><input type="checkbox" value="Manicure"> Manicure</label>
+        <label class="service-option"><input type="checkbox" value="Pedicure"> Pedicure</label>
+    </div>
+
+    <div class="input-group">
+        <label style="display:flex; align-items:center;">
+            <img src="https://img.icons8.com/wired/64/8b5a3c/calendar.png" class="date-icon"> Data e Hora
+        </label>
+        <input type="datetime-local" id="data">
+    </div>
+
+    <button class="btn-confirm" onclick="enviar()">Agendar Agora</button>
 </div>
 
 <script>
-    // Máscara de Telefone (Padrão Brasil)
-    function mascaraTel(i) {
-        let v = i.value.replace(/\D/g,'');
-        v = v.replace(/^(\23)(\d)/g,"($1) $2");
-        v = v.replace(/(\d)(\d{4})$/,"$1-$2");
-        i.value = v;
+    // Máscara de Telefone
+    function mascaraTelefone(input) {
+        let v = input.value.replace(/\D/g, '');
+        v = v.replace(/^(\d{2})(\d)/g, '($1) $2');
+        v = v.replace(/(\d{5})(\d)/, '$1-$2');
+        input.value = v.substring(0, 15);
     }
 
-    function toggleTheme() {
-        const body = document.body;
-        const icon = document.getElementById('themeIcon');
-        body.classList.toggle('dark-mode');
-        icon.innerHTML = body.classList.contains('dark-mode') 
-            ? '<svg viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM2 13h2a1 1 0 1 0 0-2H2a1 1 0 1 0 0 2zm18 0h2a1 1 0 1 0 0-2h-2a1 1 0 1 0 0 2zM11 2v2a1 1 0 1 0 2 0V2a1 1 0 1 0-2 0zm0 18v2a1 1 0 1 0 2 0v-2a1 1 0 1 0-2 0zM5.99 4.58a1 1 0 1 0-1.41 1.41l1.41 1.41a1 1 0 1 0 1.41-1.41L5.99 4.58zm12.02 12.02a1 1 0 1 0-1.41 1.41l1.41 1.41a1 1 0 1 0 1.41-1.41l-1.41-1.41zM4.58 18.01a1 1 0 1 0 1.41 1.41l1.41-1.41a1 1 0 1 0-1.41-1.41l-1.41 1.41zM18.01 5.99a1 1 0 1 0 1.41-1.41l-1.41-1.41a1 1 0 1 0-1.41 1.41l1.41 1.41z"/></svg>'
-            : '<svg viewBox="0 0 24 24"><path d="M12 3c.132 0 .263 0 .393.007a9 9 0 0 0 1.536 17.151 9 9 0 1 1-1.929-17.158c.13-.003.26-.003.393-.003z"/></svg>';
-    }
-
-    function finalizar() {
-        const selecionados = Array.from(document.querySelectorAll('input[name="serv"]:checked')).map(c => c.value);
-        const nome = document.getElementById('nome').value;
-        const data = document.getElementById('data_hora').value;
-
-        if(!nome || selecionados.length === 0 || !data) return alert("Preencha Nome, Serviços e Horário!");
-        
-        document.getElementById('app-content').innerHTML = `
-            <img src="plano_fundo.png" class="logo-main">
-            <h2 style="color:var(--text-dark)">Solicitação Enviada!</h2>
-            <p style="color:var(--text-soft)"><b>${nome}</b>, agendamos:</p>
-            <p style="color:var(--text-dark)">${selecionados.join(', ')}</p>
-            <p style="font-weight: bold; color:var(--text-dark)">${new Date(data).toLocaleString()}</p>
-            <button class="btn-confirm" onclick="window.location.reload()">Voltar</button>
-        `;
+    function enviar() {
+        const servicos = Array.from(document.querySelectorAll('#servicos input:checked')).map(i => i.value);
+        alert("Agendamento: " + servicos.join(", "));
     }
 </script>
 </body>

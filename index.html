@@ -6,126 +6,94 @@
     <meta name="theme-color" content="#b4867e">
     <title>Rita Andrade - Nails Designer</title>
     <link rel="manifest" href="manifest.json">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --accent-color: #b4867e;
+            --accent: #b4867e;
             --text-dark: #5d4037;
             --text-soft: #8b5a3c;
-            --glass-bg: rgba(255, 255, 255, 0.85);
-            --body-bg: #f4f1ea;
+            --glass: rgba(255, 255, 255, 0.85);
+            --bg-body: #f4f1ea;
         }
 
         body.dark-mode {
             --text-dark: #e0d5d0;
             --text-soft: #b4867e;
-            --glass-bg: rgba(30, 25, 23, 0.92);
-            --body-bg: #1a1614;
+            --glass: rgba(30, 25, 23, 0.95);
+            --bg-body: #1a1614;
         }
 
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         html, body {
-            height: 100%;
-            width: 100%;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            transition: background-color 0.4s ease;
+            height: 100%; width: 100%; margin: 0; padding: 0;
+            overflow: hidden; transition: 0.4s;
         }
 
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: var(--body-bg) url('d2fb736130b4a19276c01092cf78d24e.jpg') no-repeat center center fixed;
-            background-size: cover;
-            font-family: 'Playfair Display', serif;
+            display: flex; justify-content: center; align-items: center;
+            background: var(--bg-body) url('d2fb736130b4a19276c01092cf78d24e.jpg') no-repeat center center fixed;
+            background-size: cover; font-family: 'Playfair Display', serif;
         }
 
-        /* Ícone de Tema Minimalista (Sem bordas/fundo) */
         .theme-toggle {
-            position: absolute;
-            top: 25px;
-            right: 25px;
-            cursor: pointer;
-            opacity: 0.5; /* Bem discreto */
-            z-index: 100;
-            background: none; /* Remove fundo */
-            border: none; /* Remove bordas */
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.3s;
+            position: absolute; top: 20px; right: 20px; cursor: pointer;
+            z-index: 100; opacity: 0.6; transition: 0.3s;
         }
-        .theme-toggle:hover { opacity: 1; transform: scale(1.1); }
-        .theme-toggle svg { width: 28px; height: 28px; fill: var(--text-soft); }
+        .theme-toggle svg { width: 26px; height: 26px; fill: var(--text-soft); }
 
         .main-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(8px);
-            width: 95%;
-            height: 95%;
-            max-width: 500px; 
-            max-height: 850px;
-            padding: 2rem;
-            border-radius: 30px;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            border: 1px solid rgba(255,255,255,0.3);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
+            background: var(--glass); backdrop-filter: blur(10px);
+            width: 95%; height: 95%; max-width: 500px; max-height: 850px;
+            padding: 1.5rem; border-radius: 30px; text-align: center;
+            display: flex; flex-direction: column; position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
         }
 
-        .logo-main { width: 100%; max-width: 220px; height: auto; }
-        .text-agenda { font-style: italic; font-size: clamp(1.5rem, 5vh, 2rem); color: var(--text-soft); margin: 0; }
-        .text-aberta { font-weight: 700; font-size: clamp(3rem, 10vh, 4.5rem); color: var(--text-dark); margin: 0; line-height: 1; }
-        .icon-heart { width: clamp(60px, 12vh, 90px); }
-        .text-call { font-size: clamp(1rem, 3vh, 1.3rem); color: var(--text-dark); margin: 10px 0; }
-
-        .booking-area {
-            border: 1.5px solid var(--text-soft);
-            border-radius: 15px;
-            padding: 15px;
-            width: 100%;
-            background: rgba(255,255,255,0.2);
+        .logo-main { width: 140px; margin: 0 auto 10px; }
+        
+        .services-container {
+            flex-grow: 1; overflow-y: auto; padding-right: 5px;
+            margin: 15px 0; display: flex; flex-direction: column; gap: 10px;
         }
+
+        /* Estilização da barra de rolagem interna */
+        .services-container::-webkit-scrollbar { width: 4px; }
+        .services-container::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+
+        .section-title {
+            font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px;
+            color: var(--text-soft); margin: 15px 0 8px; font-weight: 700;
+        }
+
+        .service-item {
+            background: rgba(180, 134, 126, 0.1); border: 1px solid transparent;
+            padding: 12px; border-radius: 12px; cursor: pointer;
+            transition: 0.3s; display: flex; justify-content: center; align-items: center;
+        }
+
+        .service-item.selected {
+            background: rgba(180, 134, 126, 0.2); border-color: var(--accent);
+        }
+
+        .service-item span { color: var(--text-dark); font-size: 1rem; font-weight: 500; }
+
+        .footer-area { margin-top: auto; }
 
         input[type="datetime-local"] {
-            width: 100%;
-            padding: 5px;
-            border: none;
-            background: transparent;
-            color: var(--text-dark);
-            font-size: 1.2rem;
-            outline: none;
-            text-align: center;
-            color-scheme: light dark;
+            width: 100%; padding: 12px; border: 1.5px solid var(--accent);
+            border-radius: 12px; background: transparent; color: var(--text-dark);
+            margin-bottom: 15px; font-family: sans-serif; text-align: center;
         }
 
         .btn-confirm {
-            background: var(--text-soft);
-            color: white;
-            border: none;
-            padding: 20px;
-            border-radius: 15px;
-            width: 100%;
-            font-weight: bold;
-            text-transform: uppercase;
-            cursor: pointer;
-            font-size: 1.1rem;
-            box-shadow: 0 4px 15px rgba(180, 134, 126, 0.3);
+            background: var(--accent); color: white; border: none;
+            padding: 18px; border-radius: 12px; width: 100%;
+            font-weight: bold; text-transform: uppercase; cursor: pointer;
         }
 
-        .insta-footer { margin-top: 10px; font-size: 1rem; color: var(--text-dark); font-weight: 600; }
+        .insta-footer { margin-top: 10px; font-size: 0.9rem; color: var(--text-dark); font-weight: 600; }
     </style>
 </head>
 <body>
@@ -137,57 +105,64 @@
 <div class="main-card" id="app-content">
     <img src="plano_fundo.png" alt="Rita Andrade" class="logo-main">
     
-    <div>
-        <p class="text-agenda">agenda</p>
-        <h1 class="text-aberta">aberta</h1>
+    <div class="services-container">
+        <div class="section-title">Serviços Individuais</div>
+        <div class="service-item" onclick="selectItem(this, 'Alongamento')"><span>Alongamento</span></div>
+        <div class="service-item" onclick="selectItem(this, 'Banho')"><span>Banho</span></div>
+        <div class="service-item" onclick="selectItem(this, 'Esmaltação em Gel')"><span>Esmaltação em Gel</span></div>
+        <div class="service-item" onclick="selectItem(this, 'Manutenção')"><span>Manutenção</span></div>
+        <div class="service-item" onclick="selectItem(this, 'Manicure')"><span>Manicure</span></div>
+        <div class="service-item" onclick="selectItem(this, 'Pedicure')"><span>Pedicure</span></div>
+
+        <div class="section-title">Serviço Individual + Pedicure</div>
+        <div class="service-item" onclick="selectItem(this, 'Alongamento + Pedicure')"><span>Alongamento + Pedicure</span></div>
+        <div class="service-item" onclick="selectItem(this, 'Banho + Pedicure')"><span>Banho + Pedicure</span></div>
+        <div class="service-item" onclick="selectItem(this, 'Esmaltação em Gel + Pedicure')"><span>Esmaltação em Gel + Pedicure</span></div>
+        <div class="service-item" onclick="selectItem(this, 'Manutenção + Pedicure')"><span>Manutenção + Pedicure</span></div>
     </div>
 
-    <img src="https://img.icons8.com/wired/100/8b5a3c/calendar-with-a-heart.png" class="icon-heart">
-
-    <p class="text-call">marque seu horário!</p>
-
-    <div class="booking-area">
+    <div class="footer-area">
         <input type="datetime-local" id="data_hora">
+        <button class="btn-confirm" onclick="finalizar()">Confirmar Horário</button>
+        <p class="insta-footer">@ritaandradeunhas</p>
     </div>
-
-    <button class="btn-confirm" onclick="finalizar()">Confirmar Agora</button>
-
-    <p class="insta-footer">@ritaandradeunhas</p>
 </div>
 
 <script>
+    let servicoSelecionado = "";
+
+    function selectItem(el, nome) {
+        document.querySelectorAll('.service-item').forEach(item => item.classList.remove('selected'));
+        el.classList.add('selected');
+        servicoSelecionado = nome;
+    }
+
     function toggleTheme() {
         const body = document.body;
-        const iconContainer = document.getElementById('themeIcon');
+        const icon = document.getElementById('themeIcon');
         body.classList.toggle('dark-mode');
-        
-        if (body.classList.contains('dark-mode')) {
-            // Ícone de Sol (Minimalista)
-            iconContainer.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM2 13h2a1 1 0 1 0 0-2H2a1 1 0 1 0 0 2zm18 0h2a1 1 0 1 0 0-2h-2a1 1 0 1 0 0 2zM11 2v2a1 1 0 1 0 2 0V2a1 1 0 1 0-2 0zm0 18v2a1 1 0 1 0 2 0v-2a1 1 0 1 0-2 0zM5.99 4.58a1 1 0 1 0-1.41 1.41l1.41 1.41a1 1 0 1 0 1.41-1.41L5.99 4.58zm12.02 12.02a1 1 0 1 0-1.41 1.41l1.41 1.41a1 1 0 1 0 1.41-1.41l-1.41-1.41zM4.58 18.01a1 1 0 1 0 1.41 1.41l1.41-1.41a1 1 0 1 0-1.41-1.41l-1.41 1.41zM18.01 5.99a1 1 0 1 0 1.41-1.41l-1.41-1.41a1 1 0 1 0-1.41 1.41l1.41 1.41z"/></svg>';
-        } else {
-            // Ícone de Lua (Minimalista)
-            iconContainer.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 3c.132 0 .263 0 .393.007a9 9 0 0 0 1.536 17.151 9 9 0 1 1-1.929-17.158c.13-.003.26-.003.393-.003z"/></svg>';
-        }
+        icon.innerHTML = body.classList.contains('dark-mode') 
+            ? '<svg viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM2 13h2a1 1 0 1 0 0-2H2a1 1 0 1 0 0 2zm18 0h2a1 1 0 1 0 0-2h-2a1 1 0 1 0 0 2zM11 2v2a1 1 0 1 0 2 0V2a1 1 0 1 0-2 0zm0 18v2a1 1 0 1 0 2 0v-2a1 1 0 1 0-2 0zM5.99 4.58a1 1 0 1 0-1.41 1.41l1.41 1.41a1 1 0 1 0 1.41-1.41L5.99 4.58zm12.02 12.02a1 1 0 1 0-1.41 1.41l1.41 1.41a1 1 0 1 0 1.41-1.41l-1.41-1.41zM4.58 18.01a1 1 0 1 0 1.41 1.41l1.41-1.41a1 1 0 1 0-1.41-1.41l-1.41 1.41zM18.01 5.99a1 1 0 1 0 1.41-1.41l-1.41-1.41a1 1 0 1 0-1.41 1.41l1.41 1.41z"/></svg>'
+            : '<svg viewBox="0 0 24 24"><path d="M12 3c.132 0 .263 0 .393.007a9 9 0 0 0 1.536 17.151 9 9 0 1 1-1.929-17.158c.13-.003.26-.003.393-.003z"/></svg>';
     }
 
     function finalizar() {
         const data = document.getElementById('data_hora').value;
-        if(!data) return alert("Por favor, selecione um horário.");
+        if(!servicoSelecionado || !data) return alert("Selecione o serviço e o horário!");
+        
         document.getElementById('app-content').innerHTML = `
-            <img src="plano_fundo.png" class="logo-main" style="max-width:180px">
-            <div style="flex-grow:1; display:flex; flex-direction:column; justify-content:center;">
-                <h2 style="color: var(--text-dark); font-size: 2rem;">Enviado!</h2>
-                <p style="color: var(--text-soft); font-size: 1.2rem;">Horário reservado para:</p>
-                <p style="font-weight: bold; font-size: 1.5rem; color: var(--text-dark)">${new Date(data).toLocaleString()}</p>
+            <img src="plano_fundo.png" class="logo-main">
+            <div style="flex-grow:1; display:flex; flex-direction:column; justify-content:center; color:var(--text-dark)">
+                <h2 style="font-size: 1.8rem;">Solicitação Enviada!</h2>
+                <p style="color:var(--text-soft)"><b>${servicoSelecionado}</b></p>
+                <p>Marcado para: <b>${new Date(data).toLocaleString()}</b></p>
             </div>
             <button class="btn-confirm" onclick="window.location.reload()">Voltar</button>
             <p class="insta-footer">@ritaandradeunhas</p>
         `;
     }
 
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js');
-    }
+    if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
 </script>
 </body>
 </html>

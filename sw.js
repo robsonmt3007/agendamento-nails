@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nails-v20'; // Ícones SVG offline nativos
+const CACHE_NAME = 'nails-v22'; // Branding limpo (sem @) e ícones offline
 self.addEventListener('install', (e) => {
   self.skipWaiting();
 });

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nails-v17'; // Branding destacado, Full Screen e @ritinhaandradeunhas centralizado
+const CACHE_NAME = 'nails-v18'; // Ajuste de respiro e botão de tema light/dark
 self.addEventListener('install', (e) => {
   self.skipWaiting();
 });

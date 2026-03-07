@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nails-v13'; //Novo catálogo de serviços e design full screen
+const CACHE_NAME = 'nails-v14'; // Fontes Montserrat/Playfair e Modo Dark nativo
 self.addEventListener('install', (e) => {
   self.skipWaiting();
 });

@@ -22,7 +22,7 @@
 
         html, body { 
             height: 100%; width: 100%; margin: 0; padding: 0; 
-            overflow: hidden; 
+            overflow: hidden; /* Trava a rolagem global */
             background: var(--bg-body) url('d2fb736130b4a19276c01092cf78d24e.jpg') no-repeat center center fixed;
             background-size: cover;
             font-family: 'Montserrat', sans-serif;
@@ -32,55 +32,82 @@
         .main-card {
             background: var(--glass);
             backdrop-filter: blur(15px);
-            width: 92%; height: 92vh;
-            max-width: 450px; max-height: 800px;
-            margin: auto; border-radius: 30px;
+            width: 100%; height: 100%; /* Preenchimento total */
+            max-width: 550px; /* Limite elegante para Desktop */
+            margin: auto; border-radius: 0; /* Bordas retas para preencher tudo */
             display: flex; flex-direction: column;
-            padding: 1.5rem; border: 1px solid rgba(180, 134, 126, 0.2);
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            padding: 2rem; border: none;
+            position: absolute; top: 0; left: 50%; transform: translate(-50%, 0);
+            justify-content: space-around; /* Distribui o conteúdo verticalmente */
         }
 
-        .logo-main { width: 110px; margin: 0 auto 15px; }
+        /* Otimização para Desktop/Notebook */
+        @media (min-width: 1024px) {
+            .main-card {
+                height: 95vh;
+                margin: 2.5vh auto;
+                border-radius: 30px;
+                border: 1px solid rgba(180, 134, 126, 0.2);
+                top: 50%; transform: translate(-50%, -50%);
+            }
+        }
 
-        .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+        /* Logo marca mais destacada e centralizada */
+        .logo-main { 
+            width: 100%;
+            max-width: 280px; /* Aumentado consideravelmente */
+            height: auto;
+            margin: 0 auto 1.5rem; 
+            filter: drop-shadow(0 0 15px rgba(180, 134, 126, 0.4));
+        }
+
+        .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
         .input-group { text-align: left; }
-        .input-group label { font-size: 0.7rem; text-transform: uppercase; color: var(--text-secondary); letter-spacing: 1px; margin-bottom: 4px; display: block; }
+        .input-group label { font-size: 0.8rem; text-transform: uppercase; color: var(--text-secondary); letter-spacing: 1.5px; margin-bottom: 6px; display: block; font-weight: 600; }
         
         input {
-            width: 100%; padding: 12px; border-radius: 12px; border: 1px solid rgba(180, 134, 126, 0.4);
-            background: var(--input-bg); color: #fff; font-size: 0.9rem; outline: none;
+            width: 100%; padding: 15px; border-radius: 12px; border: 1.5px solid rgba(180, 134, 126, 0.5);
+            background: var(--input-bg); color: #fff; font-size: 1rem; outline: none;
         }
 
-        /* Grade de Serviços */
-        .services-label { font-size: 0.7rem; text-transform: uppercase; color: var(--text-secondary); text-align: left; margin-bottom: 8px; }
+        .services-label { font-size: 0.8rem; text-transform: uppercase; color: var(--text-secondary); text-align: left; margin-bottom: 10px; font-weight: 600; letter-spacing: 1.5px;}
         .services-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;
         }
 
         .service-btn {
-            background: var(--input-bg); border: 1px solid rgba(180, 134, 126, 0.3);
-            padding: 14px 5px; border-radius: 12px; color: #fff;
-            font-size: 0.75rem; cursor: pointer; transition: 0.3s;
-            display: flex; align-items: center; justify-content: center; font-weight: 400;
+            background: var(--input-bg); border: 1px solid rgba(180, 134, 126, 0.4);
+            padding: 16px 8px; border-radius: 12px; color: #fff;
+            font-size: 0.85rem; cursor: pointer; transition: 0.3s;
+            display: flex; align-items: center; justify-content: center; font-weight: 400; text-align: center;
         }
 
         .service-btn.selected {
             background: var(--accent);
             border-color: #fff;
             font-weight: 600;
+            box-shadow: 0 0 15px rgba(180, 134, 126, 0.6);
         }
 
-        .date-input { margin-bottom: 20px; }
-        input[type="datetime-local"]::-webkit-calendar-picker-indicator { filter: invert(1); }
+        .date-input { margin-bottom: 25px; }
+        input[type="datetime-local"]::-webkit-calendar-picker-indicator { filter: invert(1); transform: scale(1.3); }
 
         .btn-confirm {
             background: var(--accent); color: white; border: none;
-            padding: 18px; border-radius: 15px; width: 100%;
+            padding: 20px; border-radius: 15px; width: 100%;
             font-weight: 600; text-transform: uppercase; cursor: pointer;
-            letter-spacing: 1px;
+            letter-spacing: 2px; font-size: 1.1rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
         }
 
-        .insta-footer { margin-top: auto; font-size: 0.8rem; color: var(--text-secondary); font-family: 'Playfair Display', serif; }
+        .insta-footer { 
+            margin-top: 2rem; 
+            font-size: 1rem; 
+            color: var(--text-secondary); 
+            font-family: 'Playfair Display', serif; 
+            text-align: center; /* Centraliza o nome */
+            width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -99,7 +126,7 @@
         </div>
     </div>
 
-    <div class="input-group" style="margin-bottom:12px">
+    <div class="input-group" style="margin-bottom:15px">
         <label>Celular / WhatsApp</label>
         <input type="tel" id="telefone" placeholder="(00) 00000-0000" onkeyup="mascaraTel(this)">
     </div>
@@ -119,9 +146,9 @@
         <input type="datetime-local" id="data_hora">
     </div>
 
-    <button class="btn-confirm" onclick="finalizar()">Confirmar</button>
+    <button class="btn-confirm" onclick="finalizar()">Confirmar Agendamento</button>
     
-    <p class="insta-footer">@ritaandradeunhas</p>
+    <p class="insta-footer">@ritinhaandradeunhas</p>
 </div>
 
 <script>
@@ -153,14 +180,15 @@
         }
 
         document.getElementById('app-content').innerHTML = `
-            <img src="plano_fundo.png" class="logo-main" style="width:100px">
+            <img src="plano_fundo.png" class="logo-main" style="max-width:200px">
             <div style="flex-grow:1; display:flex; flex-direction:column; justify-content:center; text-align:center;">
-                <h2 style="color:var(--accent); font-family:'Playfair Display'; font-size:2rem">Solicitado!</h2>
-                <p>Obrigada, <b>${nome}</b>.</p>
-                <p style="font-size:0.85rem; color:var(--text-secondary); margin:15px 0">Serviços: ${servicosSelecionados.join(', ')}</p>
-                <p>Horário: ${new Date(data).toLocaleString()}</p>
+                <h2 style="color:var(--accent); font-family:'Playfair Display'; font-size:2.5rem; margin-bottom:15px">Quase pronto!</h2>
+                <p style="font-size:1.1rem">Obrigada, <b>${nome}</b>.</p>
+                <p style="font-size:0.95rem; color:var(--text-secondary); margin:20px 0">Serviços: ${servicosSelecionados.join(', ')}</p>
+                <p style="font-size:1.1rem">Horário: <b>${new Date(data).toLocaleString()}</b></p>
             </div>
-            <button class="btn-confirm" onclick="window.location.reload()">Voltar</button>
+            <button class="btn-confirm" onclick="window.location.reload()">Corrigir Dados</button>
+            <p class="insta-footer">@ritinhaandradeunhas</p>
         `;
     }
 </script>

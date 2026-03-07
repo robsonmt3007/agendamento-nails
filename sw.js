@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nails-v10'; //Transição de tema sem bordas/fundo
+const CACHE_NAME = 'nails-v11'; //Novo catálogo de serviços e design full screen
 self.addEventListener('install', (e) => {
   self.skipWaiting();
 });

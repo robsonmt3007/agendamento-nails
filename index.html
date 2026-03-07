@@ -2,12 +2,11 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="theme-color" content="#1a1614">
     <title>Rita Andrade - Nails Designer</title>
     <link rel="manifest" href="manifest.json">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -17,85 +16,73 @@
             --glass: rgba(20, 18, 17, 0.98);
             --bg-body: #000000;
             --input-bg: #2d2a29;
-            --font-serif: 'Playfair Display', serif;
-            --font-sans: 'Montserrat', sans-serif;
         }
 
-        /* Removido o seletor .dark-mode para que estas cores sejam o padrão absoluto */
-        
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
-        html, body { height: 100%; width: 100%; margin: 0; padding: 0; overflow: hidden; }
-
-        body {
-            display: flex; justify-content: center; align-items: center;
+        html, body { 
+            height: 100%; width: 100%; margin: 0; padding: 0; 
+            overflow: hidden; /* Trava a rolagem global */
             background: var(--bg-body) url('d2fb736130b4a19276c01092cf78d24e.jpg') no-repeat center center fixed;
-            background-size: cover; 
-            font-family: var(--font-sans); /* Fonte padrão de leitura */
-            color: var(--text-primary);
+            background-size: cover;
+            font-family: 'Montserrat', sans-serif;
         }
 
         .main-card {
-            background: var(--glass); backdrop-filter: blur(15px);
-            width: 92%; height: 94%; max-width: 450px;
-            padding: 1.5rem; border-radius: 30px; text-align: center;
-            display: flex; flex-direction: column; position: relative;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.8);
-            border: 1px solid rgba(180, 134, 126, 0.2);
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            width: 95%; height: 95vh; /* Ajuste para iPhone/Android */
+            max-width: 450px; max-height: 850px;
+            margin: auto; border-radius: 30px;
+            display: flex; flex-direction: column;
+            padding: 1.2rem; border: 1px solid rgba(180, 134, 126, 0.2);
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
         }
 
-        .logo-main { width: 130px; margin: 0 auto 15px; filter: drop-shadow(0 0 8px rgba(180, 134, 126, 0.3)); }
-        
-        .form-scroll {
-            flex-grow: 1; overflow-y: auto; padding-right: 5px; margin-bottom: 10px;
-            display: flex; flex-direction: column; gap: 14px;
-        }
-        .form-scroll::-webkit-scrollbar { width: 3px; }
-        .form-scroll::-webkit-scrollbar-thumb { background: var(--accent); }
+        .logo-main { width: 110px; margin: 0 auto 10px; }
 
+        /* Container de inputs fixo */
+        .info-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
         .input-group { text-align: left; }
-        .input-group label { 
-            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.2px;
-            color: var(--text-secondary); font-weight: 600; display: block; margin-bottom: 6px;
-        }
-
-        input, .check-item {
-            width: 100%; padding: 14px; border: 1px solid rgba(180, 134, 126, 0.4);
-            border-radius: 14px; background: var(--input-bg); color: var(--text-primary);
-            font-family: var(--font-sans); font-size: 0.95rem; outline: none;
-            transition: 0.3s;
-        }
-
-        input:focus { border-color: var(--accent); box-shadow: 0 0 10px rgba(180, 134, 126, 0.2); }
-
-        /* Estilização do Calendário para Destaque no Escuro */
-        input[type="datetime-local"]::-webkit-calendar-picker-indicator {
-            filter: invert(1) sepia(100%) saturate(500%) hue-rotate(300deg);
-            cursor: pointer; transform: scale(1.2);
-        }
-
-        .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .input-group label { font-size: 0.65rem; text-transform: uppercase; color: var(--text-secondary); margin-left: 5px; }
         
-        .check-item {
-            display: flex; align-items: center; padding: 10px; 
-            cursor: pointer; font-size: 0.8rem; font-weight: 400;
+        input {
+            width: 100%; padding: 10px; border-radius: 10px; border: 1px solid var(--accent);
+            background: var(--input-bg); color: #fff; font-size: 0.85rem; outline: none;
         }
-        .check-item input { width: auto; margin-right: 10px; accent-color: var(--accent); }
+
+        /* Grade de Serviços: Seleção por Clique no Card */
+        .services-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+            overflow-y: auto; /* Apenas esta área rola se houver muitos serviços */
+            padding-right: 4px; margin-bottom: 10px;
+        }
+        .services-grid::-webkit-scrollbar { width: 2px; }
+
+        .service-btn {
+            background: var(--input-bg); border: 1px solid rgba(180, 134, 126, 0.3);
+            padding: 12px 5px; border-radius: 12px; color: #fff;
+            font-size: 0.75rem; cursor: pointer; transition: 0.2s;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+        }
+
+        .service-btn.selected {
+            background: var(--accent);
+            border-color: #fff;
+            font-weight: 600;
+            box-shadow: 0 0 10px rgba(180, 134, 126, 0.5);
+        }
+
+        .date-group { margin-bottom: 15px; }
+        input[type="datetime-local"] { width: 100%; text-align: center; }
 
         .btn-confirm {
             background: var(--accent); color: white; border: none;
-            padding: 20px; border-radius: 15px; width: 100%;
-            font-family: var(--font-sans); font-weight: 600; 
-            text-transform: uppercase; letter-spacing: 1.5px;
-            cursor: pointer; box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            padding: 16px; border-radius: 12px; width: 100%;
+            font-weight: 600; text-transform: uppercase; cursor: pointer;
         }
 
-        .insta-footer { 
-            margin-top: 10px; font-size: 0.85rem; letter-spacing: 1px;
-            color: var(--text-secondary); font-weight: 400; font-family: var(--font-serif);
-        }
-
-        h2 { font-family: var(--font-serif); font-weight: 700; }
+        .insta-footer { margin-top: 10px; font-size: 0.8rem; color: var(--text-secondary); }
     </style>
 </head>
 <body>
@@ -103,38 +90,50 @@
 <div class="main-card" id="app-content">
     <img src="plano_fundo.png" alt="Rita Andrade" class="logo-main">
     
-    <div class="form-scroll">
-        <div class="input-group"><label>Nome</label><input type="text" id="nome" placeholder="Ex: Maria"></div>
-        <div class="input-group"><label>Sobrenome</label><input type="text" id="sobrenome" placeholder="Ex: Silva"></div>
-        
+    <div class="info-inputs">
+        <div class="input-group">
+            <label>Nome</label>
+            <input type="text" id="nome" placeholder="Nome">
+        </div>
         <div class="input-group">
             <label>WhatsApp</label>
-            <input type="tel" id="telefone" placeholder="(00) 00000-0000" maxlength="15" onkeyup="mascaraTel(this)">
-        </div>
-
-        <div class="input-group">
-            <label>Serviços Desejados</label>
-            <div class="services-grid">
-                <label class="check-item"><input type="checkbox" name="serv" value="Alongamento"> Alongamento</label>
-                <label class="check-item"><input type="checkbox" name="serv" value="Banho"> Banho</label>
-                <label class="check-item"><input type="checkbox" name="serv" value="Gel na Unha"> Gel na Unha</label>
-                <label class="check-item"><input type="checkbox" name="serv" value="Manutenção"> Manutenção</label>
-                <label class="check-item"><input type="checkbox" name="serv" value="Manicure"> Manicure</label>
-                <label class="check-item"><input type="checkbox" name="serv" value="Pedicure"> Pedicure</label>
-            </div>
-        </div>
-
-        <div class="input-group">
-            <label>Escolha o Horário</label>
-            <input type="datetime-local" id="data_hora">
+            <input type="tel" id="telefone" placeholder="(00) 00000-0000" onkeyup="mascaraTel(this)">
         </div>
     </div>
 
-    <button class="btn-confirm" onclick="finalizar()">Agendar Agora</button>
+    <div class="input-group"><label>Escolha os Serviços</label></div>
+    <div class="services-grid" id="servicesGrid">
+        <div class="service-btn" onclick="toggleService(this, 'Alongamento')">Alongamento</div>
+        <div class="service-btn" onclick="toggleService(this, 'Banho')">Banho</div>
+        <div class="service-btn" onclick="toggleService(this, 'Gel na Unha')">Gel na Unha</div>
+        <div class="service-btn" onclick="toggleService(this, 'Manutenção')">Manutenção</div>
+        <div class="service-btn" onclick="toggleService(this, 'Manicure')">Manicure</div>
+        <div class="service-btn" onclick="toggleService(this, 'Pedicure')">Pedicure</div>
+        <div class="service-btn" onclick="toggleService(this, 'Alongamento + Ped')">Alongamento + Ped</div>
+        <div class="service-btn" onclick="toggleService(this, 'Banho + Ped')">Banho + Ped</div>
+    </div>
+
+    <div class="date-group">
+        <input type="datetime-local" id="data_hora">
+    </div>
+
+    <button class="btn-confirm" onclick="finalizar()">Confirmar Agendamento</button>
+    
     <p class="insta-footer">@ritaandradeunhas</p>
 </div>
 
 <script>
+    let servicosSelecionados = [];
+
+    function toggleService(element, serviceName) {
+        element.classList.toggle('selected');
+        if (servicosSelecionados.includes(serviceName)) {
+            servicosSelecionados = servicosSelecionados.filter(s => s !== serviceName);
+        } else {
+            servicosSelecionados.push(serviceName);
+        }
+    }
+
     function mascaraTel(i) {
         let v = i.value.replace(/\D/g,'');
         v = v.replace(/^(\d{2})(\d)/g,"($1) $2");
@@ -143,22 +142,21 @@
     }
 
     function finalizar() {
-        const selecionados = Array.from(document.querySelectorAll('input[name="serv"]:checked')).map(c => c.value);
         const nome = document.getElementById('nome').value;
         const data = document.getElementById('data_hora').value;
+        const tel = document.getElementById('telefone').value;
 
-        if(!nome || selecionados.length === 0 || !data) return alert("Por favor, preencha os campos obrigatórios.");
-        
+        if(!nome || servicosSelecionados.length === 0 || !data) {
+            return alert("Preencha todos os campos!");
+        }
+
+        // Simulação de envio (Aqui entrará o WhatsApp na próxima fase)
         document.getElementById('app-content').innerHTML = `
-            <img src="plano_fundo.png" class="logo-main" style="width:100px">
-            <div style="flex-grow:1; display:flex; flex-direction:column; justify-content:center;">
-                <h2 style="font-size: 2rem; margin-bottom:10px; color: var(--accent)">Quase lá!</h2>
-                <p style="font-size:1.1rem"><b>${nome}</b>, você selecionou:</p>
-                <p style="color:var(--text-secondary); margin: 10px 0;">${selecionados.join(', ')}</p>
-                <p>Horário: <b>${new Date(data).toLocaleString()}</b></p>
-            </div>
-            <button class="btn-confirm" onclick="window.location.reload()">Corrigir Dados</button>
-            <p class="insta-footer">@ritaandradeunhas</p>
+            <img src="plano_fundo.png" class="logo-main">
+            <h2 style="color:var(--accent); font-family:'Playfair Display'">Sucesso!</h2>
+            <p><b>${nome}</b>, seu pedido foi enviado.</p>
+            <p style="font-size:0.9rem">${servicosSelecionados.join(', ')}</p>
+            <button class="btn-confirm" onclick="window.location.reload()" style="margin-top:20px">Voltar</button>
         `;
     }
 </script>

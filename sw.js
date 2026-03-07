@@ -1,19 +1,33 @@
-const CACHE_NAME = 'nails-v22'; // Branding limpo (sem @) e ícones offline
-self.addEventListener('install', (e) => {
-  self.skipWaiting();
-});
+<script>
+  // Registro do Service Worker com detecção de atualização
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js').then((reg) => {
+        
+        // Verifica se há uma atualização esperando
+        reg.onupdatefound = () => {
+          const installingWorker = reg.installing;
+          installingWorker.onstatechange = () => {
+            if (installingWorker.state === 'installed') {
+              if (navigator.serviceWorker.controller) {
+                // Nova versão detectada! Recarrega a página sozinho
+                console.log('Nova versão encontrada! Atualizando...');
+                window.location.reload();
+              }
+            }
+          };
+        };
 
-self.addEventListener('activate', (e) => {
-  e.waitUntil(
-    caches.keys().then((keyList) => {
-      return Promise.all(keyList.map((key) => {
-        if (key !== CACHE_NAME) return caches.delete(key);
-      }));
-    })
-  );
-  return self.clients.claim();
-});
+      }).catch((err) => console.log('Erro ao registrar SW:', err));
+    });
+  }
 
-self.addEventListener('fetch', (e) => {
-  e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
-});
+  // Lógica para recarregar se o Service Worker mudar
+  let refreshing = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!refreshing) {
+      window.location.reload();
+      refreshing = true;
+    }
+  });
+</script>

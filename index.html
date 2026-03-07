@@ -18,137 +18,116 @@
             --input-bg: #2d2a29;
         }
 
+        body.light-mode {
+            --text-primary: #5d4037;
+            --text-secondary: #8b5a3c;
+            --glass: rgba(255, 255, 255, 0.95);
+            --bg-body: #f4f1ea;
+            --input-bg: #ffffff;
+        }
+
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         html, body { 
             height: 100%; width: 100%; margin: 0; padding: 0; 
-            overflow: hidden; /* Trava a rolagem global */
+            overflow: hidden; 
             background: var(--bg-body) url('d2fb736130b4a19276c01092cf78d24e.jpg') no-repeat center center fixed;
             background-size: cover;
             font-family: 'Montserrat', sans-serif;
-            color: var(--text-primary);
+            transition: 0.4s;
         }
+
+        /* Botão de Tema Discreto */
+        .theme-switch {
+            position: absolute; top: 15px; right: 15px; cursor: pointer; z-index: 100;
+            opacity: 0.7; transition: 0.3s;
+        }
+        .theme-switch svg { width: 24px; height: 24px; fill: var(--accent); }
 
         .main-card {
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            width: 100%; height: 100%; /* Preenchimento total */
-            max-width: 550px; /* Limite elegante para Desktop */
-            margin: auto; border-radius: 0; /* Bordas retas para preencher tudo */
-            display: flex; flex-direction: column;
-            padding: 2rem; border: none;
+            background: var(--glass); backdrop-filter: blur(15px);
+            width: 100%; height: 100%; max-width: 500px;
+            margin: auto; display: flex; flex-direction: column;
+            padding: 1rem 1.5rem calc(1rem + env(safe-area-inset-bottom));
             position: absolute; top: 0; left: 50%; transform: translate(-50%, 0);
-            justify-content: space-around; /* Distribui o conteúdo verticalmente */
         }
 
-        /* Otimização para Desktop/Notebook */
-        @media (min-width: 1024px) {
-            .main-card {
-                height: 95vh;
-                margin: 2.5vh auto;
-                border-radius: 30px;
-                border: 1px solid rgba(180, 134, 126, 0.2);
-                top: 50%; transform: translate(-50%, -50%);
-            }
-        }
+        .header-area { flex: 0 1 auto; text-align: center; padding-top: 10px; }
+        .logo-main { width: 100%; max-width: 220px; height: auto; margin-bottom: 10px; }
 
-        /* Logo marca mais destacada e centralizada */
-        .logo-main { 
-            width: 100%;
-            max-width: 280px; /* Aumentado consideravelmente */
-            height: auto;
-            margin: 0 auto 1.5rem; 
-            filter: drop-shadow(0 0 15px rgba(180, 134, 126, 0.4));
-        }
+        /* Área do formulário que se adapta ao espaço */
+        .form-area { flex: 1 1 auto; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
 
-        .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
-        .input-group { text-align: left; }
-        .input-group label { font-size: 0.8rem; text-transform: uppercase; color: var(--text-secondary); letter-spacing: 1.5px; margin-bottom: 6px; display: block; font-weight: 600; }
+        .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .input-group label { font-size: 0.65rem; text-transform: uppercase; color: var(--text-secondary); font-weight: 600; display: block; margin-bottom: 4px; }
         
         input {
-            width: 100%; padding: 15px; border-radius: 12px; border: 1.5px solid rgba(180, 134, 126, 0.5);
-            background: var(--input-bg); color: #fff; font-size: 1rem; outline: none;
+            width: 100%; padding: 12px; border-radius: 10px; border: 1.5px solid var(--accent);
+            background: var(--input-bg); color: var(--text-primary); font-size: 0.9rem; outline: none;
         }
 
-        .services-label { font-size: 0.8rem; text-transform: uppercase; color: var(--text-secondary); text-align: left; margin-bottom: 10px; font-weight: 600; letter-spacing: 1.5px;}
-        .services-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;
-        }
-
+        .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
         .service-btn {
-            background: var(--input-bg); border: 1px solid rgba(180, 134, 126, 0.4);
-            padding: 16px 8px; border-radius: 12px; color: #fff;
-            font-size: 0.85rem; cursor: pointer; transition: 0.3s;
-            display: flex; align-items: center; justify-content: center; font-weight: 400; text-align: center;
+            background: var(--input-bg); border: 1px solid var(--accent);
+            padding: 12px 5px; border-radius: 10px; color: var(--text-primary);
+            font-size: 0.75rem; cursor: pointer; transition: 0.2s; text-align: center;
         }
+        .service-btn.selected { background: var(--accent); color: #fff; font-weight: 600; }
 
-        .service-btn.selected {
-            background: var(--accent);
-            border-color: #fff;
-            font-weight: 600;
-            box-shadow: 0 0 15px rgba(180, 134, 126, 0.6);
-        }
-
-        .date-input { margin-bottom: 25px; }
-        input[type="datetime-local"]::-webkit-calendar-picker-indicator { filter: invert(1); transform: scale(1.3); }
-
+        .footer-area { flex: 0 0 auto; text-align: center; padding-top: 10px; }
         .btn-confirm {
             background: var(--accent); color: white; border: none;
-            padding: 20px; border-radius: 15px; width: 100%;
+            padding: 16px; border-radius: 12px; width: 100%;
             font-weight: 600; text-transform: uppercase; cursor: pointer;
-            letter-spacing: 2px; font-size: 1.1rem;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
         }
 
         .insta-footer { 
-            margin-top: 2rem; 
-            font-size: 1rem; 
-            color: var(--text-secondary); 
-            font-family: 'Playfair Display', serif; 
-            text-align: center; /* Centraliza o nome */
-            width: 100%;
+            margin-top: 10px; font-size: 0.85rem; color: var(--text-secondary); 
+            font-family: 'Playfair Display', serif; display: block;
         }
     </style>
 </head>
-<body>
+<body class="dark-mode"> <div class="theme-switch" onclick="toggleTheme()" id="themeBtn">
+    <svg viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM2 13h2a1 1 0 1 0 0-2H2a1 1 0 1 0 0 2zm18 0h2a1 1 0 1 0 0-2h-2a1 1 0 1 0 0 2zM11 2v2a1 1 0 1 0 2 0V2a1 1 0 1 0-2 0zm0 18v2a1 1 0 1 0 2 0v-2a1 1 0 1 0-2 0zM5.99 4.58a1 1 0 1 0-1.41 1.41l1.41 1.41a1 1 0 1 0 1.41-1.41L5.99 4.58zm12.02 12.02a1 1 0 1 0-1.41 1.41l1.41 1.41a1 1 0 1 0 1.41-1.41l-1.41-1.41zM4.58 18.01a1 1 0 1 0 1.41 1.41l1.41-1.41a1 1 0 1 0-1.41-1.41l-1.41 1.41zM18.01 5.99a1 1 0 1 0 1.41-1.41l-1.41-1.41a1 1 0 1 0-1.41 1.41l1.41 1.41z"/></svg>
+</div>
 
 <div class="main-card" id="app-content">
-    <img src="plano_fundo.png" alt="Rita Andrade" class="logo-main">
+    <div class="header-area">
+        <img src="plano_fundo.png" alt="Rita Andrade" class="logo-main">
+    </div>
     
-    <div class="input-row">
-        <div class="input-group">
-            <label>Nome</label>
-            <input type="text" id="nome" placeholder="Nome">
+    <div class="form-area">
+        <div class="input-row">
+            <div class="input-group"><label>Nome</label><input type="text" id="nome"></div>
+            <div class="input-group"><label>Sobrenome</label><input type="text" id="sobrenome"></div>
         </div>
         <div class="input-group">
-            <label>Sobrenome</label>
-            <input type="text" id="sobrenome" placeholder="Sobrenome">
+            <label>WhatsApp</label>
+            <input type="tel" id="telefone" onkeyup="mascaraTel(this)">
+        </div>
+
+        <div class="input-group">
+            <label>Serviços</label>
+            <div class="services-grid">
+                <div class="service-btn" onclick="toggleService(this, 'Alongamento')">Alongamento</div>
+                <div class="service-btn" onclick="toggleService(this, 'Banho')">Banho</div>
+                <div class="service-btn" onclick="toggleService(this, 'Esmaltação Gel')">Esmaltação Gel</div>
+                <div class="service-btn" onclick="toggleService(this, 'Manutenção')">Manutenção</div>
+                <div class="service-btn" onclick="toggleService(this, 'Pedicure')">Pedicure</div>
+                <div class="service-btn" onclick="toggleService(this, 'Manicure')">Manicure</div>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label>Data e Horário</label>
+            <input type="datetime-local" id="data_hora">
         </div>
     </div>
 
-    <div class="input-group" style="margin-bottom:15px">
-        <label>Celular / WhatsApp</label>
-        <input type="tel" id="telefone" placeholder="(00) 00000-0000" onkeyup="mascaraTel(this)">
+    <div class="footer-area">
+        <button class="btn-confirm" onclick="finalizar()">Agendar Agora</button>
+        <span class="insta-footer">@ritinhaandradeunhas</span>
     </div>
-
-    <div class="services-label">Selecione os Serviços</div>
-    <div class="services-grid">
-        <div class="service-btn" onclick="toggleService(this, 'Alongamento')">Alongamento</div>
-        <div class="service-btn" onclick="toggleService(this, 'Banho')">Banho</div>
-        <div class="service-btn" onclick="toggleService(this, 'Esmaltação em Gel')">Esmaltação em Gel</div>
-        <div class="service-btn" onclick="toggleService(this, 'Manutenção')">Manutenção</div>
-        <div class="service-btn" onclick="toggleService(this, 'Pedicure')">Pedicure</div>
-        <div class="service-btn" onclick="toggleService(this, 'Manicure')">Manicure</div>
-    </div>
-
-    <div class="input-group date-input">
-        <label>Data e Horário</label>
-        <input type="datetime-local" id="data_hora">
-    </div>
-
-    <button class="btn-confirm" onclick="finalizar()">Confirmar Agendamento</button>
-    
-    <p class="insta-footer">@ritinhaandradeunhas</p>
 </div>
 
 <script>
@@ -170,26 +149,22 @@
         i.value = v;
     }
 
+    function toggleTheme() {
+        const body = document.body;
+        const btn = document.getElementById('themeBtn');
+        body.classList.toggle('light-mode');
+        
+        if(body.classList.contains('light-mode')) {
+            btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 3c.132 0 .263 0 .393.007a9 9 0 0 0 1.536 17.151 9 9 0 1 1-1.929-17.158c.13-.003.26-.003.393-.003z"/></svg>';
+        } else {
+            btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM2 13h2a1 1 0 1 0 0-2H2a1 1 0 1 0 0 2zm18 0h2a1 1 0 1 0 0-2h-2a1 1 0 1 0 0 2zM11 2v2a1 1 0 1 0 2 0V2a1 1 0 1 0-2 0zm0 18v2a1 1 0 1 0 2 0v-2a1 1 0 1 0-2 0zM5.99 4.58a1 1 0 1 0-1.41 1.41l1.41 1.41a1 1 0 1 0 1.41-1.41L5.99 4.58zm12.02 12.02a1 1 0 1 0-1.41 1.41l1.41 1.41a1 1 0 1 0 1.41-1.41l-1.41-1.41zM4.58 18.01a1 1 0 1 0 1.41 1.41l1.41-1.41a1 1 0 1 0-1.41-1.41l-1.41 1.41zM18.01 5.99a1 1 0 1 0 1.41-1.41l-1.41-1.41a1 1 0 1 0-1.41 1.41l1.41 1.41z"/></svg>';
+        }
+    }
+
     function finalizar() {
         const nome = document.getElementById('nome').value;
-        const sobrenome = document.getElementById('sobrenome').value;
-        const data = document.getElementById('data_hora').value;
-
-        if(!nome || !sobrenome || servicosSelecionados.length === 0 || !data) {
-            return alert("Por favor, preencha todos os campos e selecione ao menos um serviço.");
-        }
-
-        document.getElementById('app-content').innerHTML = `
-            <img src="plano_fundo.png" class="logo-main" style="max-width:200px">
-            <div style="flex-grow:1; display:flex; flex-direction:column; justify-content:center; text-align:center;">
-                <h2 style="color:var(--accent); font-family:'Playfair Display'; font-size:2.5rem; margin-bottom:15px">Quase pronto!</h2>
-                <p style="font-size:1.1rem">Obrigada, <b>${nome}</b>.</p>
-                <p style="font-size:0.95rem; color:var(--text-secondary); margin:20px 0">Serviços: ${servicosSelecionados.join(', ')}</p>
-                <p style="font-size:1.1rem">Horário: <b>${new Date(data).toLocaleString()}</b></p>
-            </div>
-            <button class="btn-confirm" onclick="window.location.reload()">Corrigir Dados</button>
-            <p class="insta-footer">@ritinhaandradeunhas</p>
-        `;
+        if(!nome || servicosSelecionados.length === 0) return alert("Preencha os campos!");
+        alert("Enviado com sucesso para @ritinhaandradeunhas");
     }
 </script>
 </body>

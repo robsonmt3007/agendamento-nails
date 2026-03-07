@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nails-v14'; // Fontes Montserrat/Playfair e Modo Dark nativo
+const CACHE_NAME = 'nails-v15'; // Seleção por clique e correção de viewport iOS/Android
 self.addEventListener('install', (e) => {
   self.skipWaiting();
 });

@@ -22,67 +22,65 @@
 
         html, body { 
             height: 100%; width: 100%; margin: 0; padding: 0; 
-            overflow: hidden; /* Trava a rolagem global */
+            overflow: hidden; 
             background: var(--bg-body) url('d2fb736130b4a19276c01092cf78d24e.jpg') no-repeat center center fixed;
             background-size: cover;
             font-family: 'Montserrat', sans-serif;
+            color: var(--text-primary);
         }
 
         .main-card {
             background: var(--glass);
             backdrop-filter: blur(15px);
-            width: 95%; height: 95vh; /* Ajuste para iPhone/Android */
-            max-width: 450px; max-height: 850px;
+            width: 92%; height: 92vh;
+            max-width: 450px; max-height: 800px;
             margin: auto; border-radius: 30px;
             display: flex; flex-direction: column;
-            padding: 1.2rem; border: 1px solid rgba(180, 134, 126, 0.2);
+            padding: 1.5rem; border: 1px solid rgba(180, 134, 126, 0.2);
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
         }
 
-        .logo-main { width: 110px; margin: 0 auto 10px; }
+        .logo-main { width: 110px; margin: 0 auto 15px; }
 
-        /* Container de inputs fixo */
-        .info-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+        .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
         .input-group { text-align: left; }
-        .input-group label { font-size: 0.65rem; text-transform: uppercase; color: var(--text-secondary); margin-left: 5px; }
+        .input-group label { font-size: 0.7rem; text-transform: uppercase; color: var(--text-secondary); letter-spacing: 1px; margin-bottom: 4px; display: block; }
         
         input {
-            width: 100%; padding: 10px; border-radius: 10px; border: 1px solid var(--accent);
-            background: var(--input-bg); color: #fff; font-size: 0.85rem; outline: none;
+            width: 100%; padding: 12px; border-radius: 12px; border: 1px solid rgba(180, 134, 126, 0.4);
+            background: var(--input-bg); color: #fff; font-size: 0.9rem; outline: none;
         }
 
-        /* Grade de Serviços: Seleção por Clique no Card */
+        /* Grade de Serviços */
+        .services-label { font-size: 0.7rem; text-transform: uppercase; color: var(--text-secondary); text-align: left; margin-bottom: 8px; }
         .services-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
-            overflow-y: auto; /* Apenas esta área rola se houver muitos serviços */
-            padding-right: 4px; margin-bottom: 10px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;
         }
-        .services-grid::-webkit-scrollbar { width: 2px; }
 
         .service-btn {
             background: var(--input-bg); border: 1px solid rgba(180, 134, 126, 0.3);
-            padding: 12px 5px; border-radius: 12px; color: #fff;
-            font-size: 0.75rem; cursor: pointer; transition: 0.2s;
-            display: flex; align-items: center; justify-content: center; text-align: center;
+            padding: 14px 5px; border-radius: 12px; color: #fff;
+            font-size: 0.75rem; cursor: pointer; transition: 0.3s;
+            display: flex; align-items: center; justify-content: center; font-weight: 400;
         }
 
         .service-btn.selected {
             background: var(--accent);
             border-color: #fff;
             font-weight: 600;
-            box-shadow: 0 0 10px rgba(180, 134, 126, 0.5);
         }
 
-        .date-group { margin-bottom: 15px; }
-        input[type="datetime-local"] { width: 100%; text-align: center; }
+        .date-input { margin-bottom: 20px; }
+        input[type="datetime-local"]::-webkit-calendar-picker-indicator { filter: invert(1); }
 
         .btn-confirm {
             background: var(--accent); color: white; border: none;
-            padding: 16px; border-radius: 12px; width: 100%;
+            padding: 18px; border-radius: 15px; width: 100%;
             font-weight: 600; text-transform: uppercase; cursor: pointer;
+            letter-spacing: 1px;
         }
 
-        .insta-footer { margin-top: 10px; font-size: 0.8rem; color: var(--text-secondary); }
+        .insta-footer { margin-top: auto; font-size: 0.8rem; color: var(--text-secondary); font-family: 'Playfair Display', serif; }
     </style>
 </head>
 <body>
@@ -90,34 +88,38 @@
 <div class="main-card" id="app-content">
     <img src="plano_fundo.png" alt="Rita Andrade" class="logo-main">
     
-    <div class="info-inputs">
+    <div class="input-row">
         <div class="input-group">
             <label>Nome</label>
             <input type="text" id="nome" placeholder="Nome">
         </div>
         <div class="input-group">
-            <label>WhatsApp</label>
-            <input type="tel" id="telefone" placeholder="(00) 00000-0000" onkeyup="mascaraTel(this)">
+            <label>Sobrenome</label>
+            <input type="text" id="sobrenome" placeholder="Sobrenome">
         </div>
     </div>
 
-    <div class="input-group"><label>Escolha os Serviços</label></div>
-    <div class="services-grid" id="servicesGrid">
-        <div class="service-btn" onclick="toggleService(this, 'Alongamento')">Alongamento</div>
-        <div class="service-btn" onclick="toggleService(this, 'Banho')">Banho</div>
-        <div class="service-btn" onclick="toggleService(this, 'Gel na Unha')">Gel na Unha</div>
-        <div class="service-btn" onclick="toggleService(this, 'Manutenção')">Manutenção</div>
-        <div class="service-btn" onclick="toggleService(this, 'Manicure')">Manicure</div>
-        <div class="service-btn" onclick="toggleService(this, 'Pedicure')">Pedicure</div>
-        <div class="service-btn" onclick="toggleService(this, 'Alongamento + Ped')">Alongamento + Ped</div>
-        <div class="service-btn" onclick="toggleService(this, 'Banho + Ped')">Banho + Ped</div>
+    <div class="input-group" style="margin-bottom:12px">
+        <label>Celular / WhatsApp</label>
+        <input type="tel" id="telefone" placeholder="(00) 00000-0000" onkeyup="mascaraTel(this)">
     </div>
 
-    <div class="date-group">
+    <div class="services-label">Selecione os Serviços</div>
+    <div class="services-grid">
+        <div class="service-btn" onclick="toggleService(this, 'Alongamento')">Alongamento</div>
+        <div class="service-btn" onclick="toggleService(this, 'Banho')">Banho</div>
+        <div class="service-btn" onclick="toggleService(this, 'Esmaltação em Gel')">Esmaltação em Gel</div>
+        <div class="service-btn" onclick="toggleService(this, 'Manutenção')">Manutenção</div>
+        <div class="service-btn" onclick="toggleService(this, 'Pedicure')">Pedicure</div>
+        <div class="service-btn" onclick="toggleService(this, 'Manicure')">Manicure</div>
+    </div>
+
+    <div class="input-group date-input">
+        <label>Data e Horário</label>
         <input type="datetime-local" id="data_hora">
     </div>
 
-    <button class="btn-confirm" onclick="finalizar()">Confirmar Agendamento</button>
+    <button class="btn-confirm" onclick="finalizar()">Confirmar</button>
     
     <p class="insta-footer">@ritaandradeunhas</p>
 </div>
@@ -143,20 +145,22 @@
 
     function finalizar() {
         const nome = document.getElementById('nome').value;
+        const sobrenome = document.getElementById('sobrenome').value;
         const data = document.getElementById('data_hora').value;
-        const tel = document.getElementById('telefone').value;
 
-        if(!nome || servicosSelecionados.length === 0 || !data) {
-            return alert("Preencha todos os campos!");
+        if(!nome || !sobrenome || servicosSelecionados.length === 0 || !data) {
+            return alert("Por favor, preencha todos os campos e selecione ao menos um serviço.");
         }
 
-        // Simulação de envio (Aqui entrará o WhatsApp na próxima fase)
         document.getElementById('app-content').innerHTML = `
-            <img src="plano_fundo.png" class="logo-main">
-            <h2 style="color:var(--accent); font-family:'Playfair Display'">Sucesso!</h2>
-            <p><b>${nome}</b>, seu pedido foi enviado.</p>
-            <p style="font-size:0.9rem">${servicosSelecionados.join(', ')}</p>
-            <button class="btn-confirm" onclick="window.location.reload()" style="margin-top:20px">Voltar</button>
+            <img src="plano_fundo.png" class="logo-main" style="width:100px">
+            <div style="flex-grow:1; display:flex; flex-direction:column; justify-content:center; text-align:center;">
+                <h2 style="color:var(--accent); font-family:'Playfair Display'; font-size:2rem">Solicitado!</h2>
+                <p>Obrigada, <b>${nome}</b>.</p>
+                <p style="font-size:0.85rem; color:var(--text-secondary); margin:15px 0">Serviços: ${servicosSelecionados.join(', ')}</p>
+                <p>Horário: ${new Date(data).toLocaleString()}</p>
+            </div>
+            <button class="btn-confirm" onclick="window.location.reload()">Voltar</button>
         `;
     }
 </script>

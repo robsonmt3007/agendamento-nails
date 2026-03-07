@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nails-v19'; // Serviços em MAIÚSCULAS e logo maximizada
+const CACHE_NAME = 'nails-v20'; // Ícones SVG offline nativos
 self.addEventListener('install', (e) => {
   self.skipWaiting();
 });

@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#1a1614">
     <title>Rita Andrade - Nails Designer</title>
     <link rel="manifest" href="manifest.json">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -37,12 +37,11 @@
             transition: 0.4s;
         }
 
-        /* Botão de Tema Discreto */
         .theme-switch {
             position: absolute; top: 15px; right: 15px; cursor: pointer; z-index: 100;
-            opacity: 0.7; transition: 0.3s;
+            opacity: 0.8;
         }
-        .theme-switch svg { width: 24px; height: 24px; fill: var(--accent); }
+        .theme-switch svg { width: 22px; height: 22px; fill: var(--accent); }
 
         .main-card {
             background: var(--glass); backdrop-filter: blur(15px);
@@ -52,42 +51,63 @@
             position: absolute; top: 0; left: 50%; transform: translate(-50%, 0);
         }
 
-        .header-area { flex: 0 1 auto; text-align: center; padding-top: 10px; }
-        .logo-main { width: 100%; max-width: 220px; height: auto; margin-bottom: 10px; }
+        /* Logo com mais destaque e menos espaço inferior */
+        .header-area { flex: 0 1 auto; text-align: center; padding-top: 5px; }
+        .logo-main { 
+            width: 100%; 
+            max-width: 260px; /* Aumentada */
+            height: auto; 
+            margin-bottom: 5px; /* Reduzi o espaço para os campos subirem */
+            filter: drop-shadow(0 0 10px rgba(180, 134, 126, 0.3));
+        }
 
-        /* Área do formulário que se adapta ao espaço */
-        .form-area { flex: 1 1 auto; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+        .form-area { flex: 1 1 auto; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
 
-        .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .input-group label { font-size: 0.65rem; text-transform: uppercase; color: var(--text-secondary); font-weight: 600; display: block; margin-bottom: 4px; }
+        .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .input-group label { font-size: 0.65rem; text-transform: uppercase; color: var(--text-secondary); font-weight: 700; display: block; margin-bottom: 3px; letter-spacing: 1px; }
         
         input {
-            width: 100%; padding: 12px; border-radius: 10px; border: 1.5px solid var(--accent);
+            width: 100%; padding: 11px; border-radius: 10px; border: 1.5px solid var(--accent);
             background: var(--input-bg); color: var(--text-primary); font-size: 0.9rem; outline: none;
         }
 
         .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        
+        /* Serviços em MAIÚSCULAS e maiores */
         .service-btn {
             background: var(--input-bg); border: 1px solid var(--accent);
-            padding: 12px 5px; border-radius: 10px; color: var(--text-primary);
-            font-size: 0.75rem; cursor: pointer; transition: 0.2s; text-align: center;
+            padding: 14px 4px; border-radius: 10px; color: var(--text-primary);
+            font-size: 0.85rem; /* Aumentado */
+            text-transform: uppercase; /* Letras Maiúsculas */
+            font-weight: 700; /* Negrito para destaque */
+            cursor: pointer; transition: 0.2s; text-align: center;
+            letter-spacing: 0.5px;
         }
-        .service-btn.selected { background: var(--accent); color: #fff; font-weight: 600; }
+        .service-btn.selected { 
+            background: var(--accent); 
+            color: #fff; 
+            box-shadow: 0 0 12px rgba(180, 134, 126, 0.5);
+            border-color: #fff;
+        }
 
         .footer-area { flex: 0 0 auto; text-align: center; padding-top: 10px; }
         .btn-confirm {
             background: var(--accent); color: white; border: none;
             padding: 16px; border-radius: 12px; width: 100%;
-            font-weight: 600; text-transform: uppercase; cursor: pointer;
+            font-weight: 700; text-transform: uppercase; cursor: pointer;
+            font-size: 1rem; letter-spacing: 1px;
         }
 
         .insta-footer { 
-            margin-top: 10px; font-size: 0.85rem; color: var(--text-secondary); 
+            margin-top: 8px; font-size: 0.9rem; color: var(--text-secondary); 
             font-family: 'Playfair Display', serif; display: block;
+            font-weight: 700;
         }
     </style>
 </head>
-<body class="dark-mode"> <div class="theme-switch" onclick="toggleTheme()" id="themeBtn">
+<body class="dark-mode">
+
+<div class="theme-switch" onclick="toggleTheme()" id="themeBtn">
     <svg viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM2 13h2a1 1 0 1 0 0-2H2a1 1 0 1 0 0 2zm18 0h2a1 1 0 1 0 0-2h-2a1 1 0 1 0 0 2zM11 2v2a1 1 0 1 0 2 0V2a1 1 0 1 0-2 0zm0 18v2a1 1 0 1 0 2 0v-2a1 1 0 1 0-2 0zM5.99 4.58a1 1 0 1 0-1.41 1.41l1.41 1.41a1 1 0 1 0 1.41-1.41L5.99 4.58zm12.02 12.02a1 1 0 1 0-1.41 1.41l1.41 1.41a1 1 0 1 0 1.41-1.41l-1.41-1.41zM4.58 18.01a1 1 0 1 0 1.41 1.41l1.41-1.41a1 1 0 1 0-1.41-1.41l-1.41 1.41zM18.01 5.99a1 1 0 1 0 1.41-1.41l-1.41-1.41a1 1 0 1 0-1.41 1.41l1.41 1.41z"/></svg>
 </div>
 
@@ -98,23 +118,23 @@
     
     <div class="form-area">
         <div class="input-row">
-            <div class="input-group"><label>Nome</label><input type="text" id="nome"></div>
-            <div class="input-group"><label>Sobrenome</label><input type="text" id="sobrenome"></div>
+            <div class="input-group"><label>Nome</label><input type="text" id="nome" placeholder="Nome"></div>
+            <div class="input-group"><label>Sobrenome</label><input type="text" id="sobrenome" placeholder="Sobrenome"></div>
         </div>
         <div class="input-group">
             <label>WhatsApp</label>
-            <input type="tel" id="telefone" onkeyup="mascaraTel(this)">
+            <input type="tel" id="telefone" placeholder="(00) 00000-0000" onkeyup="mascaraTel(this)">
         </div>
 
         <div class="input-group">
-            <label>Serviços</label>
+            <label>Selecione os Serviços</label>
             <div class="services-grid">
-                <div class="service-btn" onclick="toggleService(this, 'Alongamento')">Alongamento</div>
-                <div class="service-btn" onclick="toggleService(this, 'Banho')">Banho</div>
-                <div class="service-btn" onclick="toggleService(this, 'Esmaltação Gel')">Esmaltação Gel</div>
-                <div class="service-btn" onclick="toggleService(this, 'Manutenção')">Manutenção</div>
-                <div class="service-btn" onclick="toggleService(this, 'Pedicure')">Pedicure</div>
-                <div class="service-btn" onclick="toggleService(this, 'Manicure')">Manicure</div>
+                <div class="service-btn" onclick="toggleService(this, 'ALONGAMENTO')">ALONGAMENTO</div>
+                <div class="service-btn" onclick="toggleService(this, 'BANHO')">BANHO</div>
+                <div class="service-btn" onclick="toggleService(this, 'ESMALTAÇÃO GEL')">ESMALTAÇÃO GEL</div>
+                <div class="service-btn" onclick="toggleService(this, 'MANUTENÇÃO')">MANUTENÇÃO</div>
+                <div class="service-btn" onclick="toggleService(this, 'PEDICURE')">PEDICURE</div>
+                <div class="service-btn" onclick="toggleService(this, 'MANICURE')">MANICURE</div>
             </div>
         </div>
 
@@ -125,7 +145,7 @@
     </div>
 
     <div class="footer-area">
-        <button class="btn-confirm" onclick="finalizar()">Agendar Agora</button>
+        <button class="btn-confirm" onclick="finalizar()">Confirmar Agendamento</button>
         <span class="insta-footer">@ritinhaandradeunhas</span>
     </div>
 </div>
@@ -154,17 +174,15 @@
         const btn = document.getElementById('themeBtn');
         body.classList.toggle('light-mode');
         
-        if(body.classList.contains('light-mode')) {
-            btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 3c.132 0 .263 0 .393.007a9 9 0 0 0 1.536 17.151 9 9 0 1 1-1.929-17.158c.13-.003.26-.003.393-.003z"/></svg>';
-        } else {
-            btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM2 13h2a1 1 0 1 0 0-2H2a1 1 0 1 0 0 2zm18 0h2a1 1 0 1 0 0-2h-2a1 1 0 1 0 0 2zM11 2v2a1 1 0 1 0 2 0V2a1 1 0 1 0-2 0zm0 18v2a1 1 0 1 0 2 0v-2a1 1 0 1 0-2 0zM5.99 4.58a1 1 0 1 0-1.41 1.41l1.41 1.41a1 1 0 1 0 1.41-1.41L5.99 4.58zm12.02 12.02a1 1 0 1 0-1.41 1.41l1.41 1.41a1 1 0 1 0 1.41-1.41l-1.41-1.41zM4.58 18.01a1 1 0 1 0 1.41 1.41l1.41-1.41a1 1 0 1 0-1.41-1.41l-1.41 1.41zM18.01 5.99a1 1 0 1 0 1.41-1.41l-1.41-1.41a1 1 0 1 0-1.41 1.41l1.41 1.41z"/></svg>';
-        }
+        btn.innerHTML = body.classList.contains('light-mode') 
+            ? '<svg viewBox="0 0 24 24"><path d="M12 3c.132 0 .263 0 .393.007a9 9 0 0 0 1.536 17.151 9 9 0 1 1-1.929-17.158c.13-.003.26-.003.393-.003z"/></svg>'
+            : '<svg viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM2 13h2a1 1 0 1 0 0-2H2a1 1 0 1 0 0 2zm18 0h2a1 1 0 1 0 0-2h-2a1 1 0 1 0 0 2zM11 2v2a1 1 0 1 0 2 0V2a1 1 0 1 0-2 0zm0 18v2a1 1 0 1 0 2 0v-2a1 1 0 1 0-2 0zM5.99 4.58a1 1 0 1 0-1.41 1.41l1.41 1.41a1 1 0 1 0 1.41-1.41L5.99 4.58zm12.02 12.02a1 1 0 1 0-1.41 1.41l1.41 1.41a1 1 0 1 0 1.41-1.41l-1.41-1.41zM4.58 18.01a1 1 0 1 0 1.41 1.41l1.41-1.41a1 1 0 1 0-1.41-1.41l-1.41 1.41zM18.01 5.99a1 1 0 1 0 1.41-1.41l-1.41-1.41a1 1 0 1 0-1.41 1.41l1.41 1.41z"/></svg>';
     }
 
     function finalizar() {
         const nome = document.getElementById('nome').value;
-        if(!nome || servicosSelecionados.length === 0) return alert("Preencha os campos!");
-        alert("Enviado com sucesso para @ritinhaandradeunhas");
+        if(!nome || servicosSelecionados.length === 0) return alert("Por favor, preencha o nome e selecione os serviços.");
+        alert("Agendamento pré-solicitado para @ritinhaandradeunhas");
     }
 </script>
 </body>

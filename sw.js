@@ -1,7 +1,7 @@
 // --- CONFIGURAÇÃO INICIAL ---
 // Sempre que você mudar o código do index.html ou quiser forçar uma atualização,
 // mude o número abaixo (ex: nails-v25 para nails-v26)
-const CACHE_NAME = 'nails-v25';
+const CACHE_NAME = 'nails-v26';
 
 // Lista de todos os arquivos que o app precisa para funcionar offline
 const ASSETS = [

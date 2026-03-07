@@ -13,15 +13,17 @@
             --accent: #b4867e;
             --text-dark: #5d4037;
             --text-soft: #8b5a3c;
-            --glass: rgba(255, 255, 255, 0.85);
+            --glass: rgba(255, 255, 255, 0.88);
             --bg-body: #f4f1ea;
+            --input-bg: rgba(255, 255, 255, 0.5);
         }
 
         body.dark-mode {
             --text-dark: #e0d5d0;
             --text-soft: #b4867e;
-            --glass: rgba(30, 25, 23, 0.95);
+            --glass: rgba(30, 25, 23, 0.96);
             --bg-body: #1a1614;
+            --input-bg: rgba(255, 255, 255, 0.05);
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -45,55 +47,41 @@
 
         .main-card {
             background: var(--glass); backdrop-filter: blur(10px);
-            width: 95%; height: 95%; max-width: 500px; max-height: 850px;
+            width: 92%; height: 92%; max-width: 450px; max-height: 800px;
             padding: 1.5rem; border-radius: 30px; text-align: center;
             display: flex; flex-direction: column; position: relative;
             box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            justify-content: space-between;
         }
 
-        .logo-main { width: 140px; margin: 0 auto 10px; }
+        .logo-main { width: 130px; margin: 0 auto; }
         
-        .services-container {
-            flex-grow: 1; overflow-y: auto; padding-right: 5px;
-            margin: 15px 0; display: flex; flex-direction: column; gap: 10px;
+        .form-container {
+            display: flex; flex-direction: column; gap: 12px; margin: 15px 0;
         }
 
-        /* Estilização da barra de rolagem interna */
-        .services-container::-webkit-scrollbar { width: 4px; }
-        .services-container::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
-
-        .section-title {
-            font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px;
-            color: var(--text-soft); margin: 15px 0 8px; font-weight: 700;
+        .input-group { text-align: left; }
+        .input-group label { 
+            font-size: 0.75rem; text-transform: uppercase; 
+            color: var(--text-soft); font-weight: 700; margin-left: 5px;
         }
 
-        .service-item {
-            background: rgba(180, 134, 126, 0.1); border: 1px solid transparent;
-            padding: 12px; border-radius: 12px; cursor: pointer;
-            transition: 0.3s; display: flex; justify-content: center; align-items: center;
+        input, select {
+            width: 100%; padding: 12px; border: 1px solid var(--accent);
+            border-radius: 12px; background: var(--input-bg); color: var(--text-dark);
+            font-family: inherit; font-size: 1rem; outline: none; transition: 0.3s;
         }
 
-        .service-item.selected {
-            background: rgba(180, 134, 126, 0.2); border-color: var(--accent);
-        }
-
-        .service-item span { color: var(--text-dark); font-size: 1rem; font-weight: 500; }
-
-        .footer-area { margin-top: auto; }
-
-        input[type="datetime-local"] {
-            width: 100%; padding: 12px; border: 1.5px solid var(--accent);
-            border-radius: 12px; background: transparent; color: var(--text-dark);
-            margin-bottom: 15px; font-family: sans-serif; text-align: center;
-        }
+        input:focus, select:focus { border-width: 2px; }
 
         .btn-confirm {
             background: var(--accent); color: white; border: none;
             padding: 18px; border-radius: 12px; width: 100%;
             font-weight: bold; text-transform: uppercase; cursor: pointer;
+            font-size: 1rem; box-shadow: 0 5px 15px rgba(180, 134, 126, 0.3);
         }
 
-        .insta-footer { margin-top: 10px; font-size: 0.9rem; color: var(--text-dark); font-weight: 600; }
+        .insta-footer { margin-top: 8px; font-size: 0.9rem; color: var(--text-dark); font-weight: 600; }
     </style>
 </head>
 <body>
@@ -105,38 +93,52 @@
 <div class="main-card" id="app-content">
     <img src="plano_fundo.png" alt="Rita Andrade" class="logo-main">
     
-    <div class="services-container">
-        <div class="section-title">Serviços Individuais</div>
-        <div class="service-item" onclick="selectItem(this, 'Alongamento')"><span>Alongamento</span></div>
-        <div class="service-item" onclick="selectItem(this, 'Banho')"><span>Banho</span></div>
-        <div class="service-item" onclick="selectItem(this, 'Esmaltação em Gel')"><span>Esmaltação em Gel</span></div>
-        <div class="service-item" onclick="selectItem(this, 'Manutenção')"><span>Manutenção</span></div>
-        <div class="service-item" onclick="selectItem(this, 'Manicure')"><span>Manicure</span></div>
-        <div class="service-item" onclick="selectItem(this, 'Pedicure')"><span>Pedicure</span></div>
-
-        <div class="section-title">Serviço Individual + Pedicure</div>
-        <div class="service-item" onclick="selectItem(this, 'Alongamento + Pedicure')"><span>Alongamento + Pedicure</span></div>
-        <div class="service-item" onclick="selectItem(this, 'Banho + Pedicure')"><span>Banho + Pedicure</span></div>
-        <div class="service-item" onclick="selectItem(this, 'Esmaltação em Gel + Pedicure')"><span>Esmaltação em Gel + Pedicure</span></div>
-        <div class="service-item" onclick="selectItem(this, 'Manutenção + Pedicure')"><span>Manutenção + Pedicure</span></div>
+    <div class="form-container">
+        <div class="input-group">
+            <label>Nome</label>
+            <input type="text" id="nome" placeholder="Seu nome">
+        </div>
+        <div class="input-group">
+            <label>Sobrenome</label>
+            <input type="text" id="sobrenome" placeholder="Seu sobrenome">
+        </div>
+        <div class="input-group">
+            <label>WhatsApp / Telefone</label>
+            <input type="tel" id="telefone" placeholder="(00) 00000-0000">
+        </div>
+        <div class="input-group">
+            <label>Serviço Desejado</label>
+            <select id="servico">
+                <option value="" disabled selected>Selecione um serviço...</option>
+                <optgroup label="Serviços Individuais">
+                    <option>Alongamento</option>
+                    <option>Banho</option>
+                    <option>Esmaltação em Gel</option>
+                    <option>Manutenção</option>
+                    <option>Manicure</option>
+                    <option>Pedicure</option>
+                </optgroup>
+                <optgroup label="Serviço Individual + Pedicure">
+                    <option>Alongamento + Pedicure</option>
+                    <option>Banho + Pedicure</option>
+                    <option>Esmaltação em Gel + Pedicure</option>
+                    <option>Manutenção + Pedicure</option>
+                </optgroup>
+            </select>
+        </div>
+        <div class="input-group">
+            <label>Data e Horário</label>
+            <input type="datetime-local" id="data_hora">
+        </div>
     </div>
 
     <div class="footer-area">
-        <input type="datetime-local" id="data_hora">
-        <button class="btn-confirm" onclick="finalizar()">Confirmar Horário</button>
+        <button class="btn-confirm" onclick="finalizar()">Agendar Agora</button>
         <p class="insta-footer">@ritaandradeunhas</p>
     </div>
 </div>
 
 <script>
-    let servicoSelecionado = "";
-
-    function selectItem(el, nome) {
-        document.querySelectorAll('.service-item').forEach(item => item.classList.remove('selected'));
-        el.classList.add('selected');
-        servicoSelecionado = nome;
-    }
-
     function toggleTheme() {
         const body = document.body;
         const icon = document.getElementById('themeIcon');
@@ -147,22 +149,28 @@
     }
 
     function finalizar() {
-        const data = document.getElementById('data_hora').value;
-        if(!servicoSelecionado || !data) return alert("Selecione o serviço e o horário!");
+        const campos = {
+            nome: document.getElementById('nome').value,
+            servico: document.getElementById('servico').value,
+            data: document.getElementById('data_hora').value
+        };
+
+        if(!campos.nome || !campos.servico || !campos.data) {
+            return alert("Por favor, preencha o nome, serviço e horário.");
+        }
         
         document.getElementById('app-content').innerHTML = `
             <img src="plano_fundo.png" class="logo-main">
             <div style="flex-grow:1; display:flex; flex-direction:column; justify-content:center; color:var(--text-dark)">
-                <h2 style="font-size: 1.8rem;">Solicitação Enviada!</h2>
-                <p style="color:var(--text-soft)"><b>${servicoSelecionado}</b></p>
-                <p>Marcado para: <b>${new Date(data).toLocaleString()}</b></p>
+                <h2 style="font-size: 1.8rem; margin-bottom:10px;">Solicitação Enviada!</h2>
+                <p>Obrigada, <b>${campos.nome}</b>!</p>
+                <p style="color:var(--text-soft); margin: 15px 0;">Serviço: <b>${campos.servico}</b></p>
+                <p>Data: <b>${new Date(campos.data).toLocaleString()}</b></p>
             </div>
             <button class="btn-confirm" onclick="window.location.reload()">Voltar</button>
             <p class="insta-footer">@ritaandradeunhas</p>
         `;
     }
-
-    if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
 </script>
 </body>
 </html>

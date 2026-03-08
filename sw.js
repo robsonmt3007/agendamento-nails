@@ -15,7 +15,7 @@ self.addEventListener('install', (event) => {
       return cache.addAll(assets);
     })
   );
-  self.skipWaiting();
+  self.skipWaiting(); // Força a atualização imediata
 });
 
 self.addEventListener('activate', (event) => {
@@ -26,6 +26,7 @@ self.addEventListener('activate', (event) => {
       );
     })
   );
+  self.clients.claim(); // Garante que o SW controle a página imediatamente
 });
 
 self.addEventListener('fetch', (event) => {

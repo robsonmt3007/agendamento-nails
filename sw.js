@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nails-rita-v47';
+const CACHE_NAME = 'nails-rita-v48';
 const assets = [
   './',
   './index.html',
@@ -25,4 +25,4 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   event.respondWith(caches.match(event.request).then((res) => res || fetch(event.request)));
-});
+});  

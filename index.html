@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Rita Andrade - Nails Designer</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="logo_icon_192.png">
+    
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 
     <style>
@@ -26,6 +32,7 @@
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
+        /* TRAVA DE TELA INTEIRA */
         html, body { 
             height: 100%; width: 100%; margin: 0; padding: 0; 
             overflow: hidden !important; 
@@ -40,9 +47,11 @@
             max-width: 500px; margin: 0 auto;
             display: flex; flex-direction: column;
             padding: 15px 1.5rem 25px;
+            /* Garante que o iOS não "puxe" a tela para baixo */
+            touch-action: none;
         }
 
-        /* --- CONFIGURAÇÃO PADRÃO (ANDROID / DESKTOP) --- */
+        /* --- CONFIGURAÇÃO ANDROID / DESKTOP --- */
         .header-area { flex: 0 0 auto; text-align: center; margin-bottom: 15px; margin-top: 5px; }
         .logo-main { width: 75%; max-width: 200px; height: auto; }
 
@@ -57,7 +66,7 @@
         input {
             width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--accent);
             background: var(--input-bg); color: var(--text-primary); font-size: 0.95rem; outline: none;
-            box-sizing: border-box; /* Garante que o padding não aumente a largura */
+            box-sizing: border-box;
         }
 
         .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
@@ -82,19 +91,19 @@
 
         .insta-footer { margin-top: 15px; font-size: 1rem; color: var(--text-secondary); display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; font-weight: 700; }
 
-        /* --- AJUSTES EXCLUSIVOS PARA IPHONE (ISOLADOS) --- */
+        /* --- AJUSTES EXCLUSIVOS IPHONE (SEM AFETAR ANDROID) --- */
         @supports (-webkit-touch-callout: none) {
             .main-card { padding: 10px 1.5rem calc(10px + env(safe-area-inset-bottom)) !important; }
             .header-area { margin-bottom: 5px !important; }
             .logo-main { width: 55% !important; }
             .form-area { gap: 6px !important; }
             
-            /* CORREÇÃO DO VAZAMENTO DO INPUT NO IOS */
+            /* Trava o vazamento lateral do input no iOS */
             input { 
                 max-width: 100% !important; 
                 min-width: 0 !important; 
                 width: 100% !important;
-                -webkit-appearance: none; /* Remove bordas arredondadas extras do Safari */
+                -webkit-appearance: none;
             }
 
             .location-area { margin-top: 10px !important; }
@@ -155,7 +164,7 @@
         <div class="location-area">
             <label>Nossa Localização</label>
             <div class="location-btns">
-                <a href="https://maps.google.com/maps?daddr=-3.7226,-38.65341" target="_blank" class="loc-btn"><img src="maps.png" alt="Google Maps"></a>
+                <a href="https://maps.google.com/?q=Rita+Andrade+Nails" target="_blank" class="loc-btn"><img src="maps.png" alt="Google Maps"></a>
                 <a href="https://waze.com/ul?navigate=yes" target="_blank" class="loc-btn"><img src="waze.png" alt="Waze"></a>
             </div>
         </div>
@@ -176,7 +185,10 @@
     }
 
     let servicos = [];
-    function toggleService(btn, s) { btn.classList.toggle('selected'); servicos.includes(s) ? servicos = servicos.filter(x => x !== s) : servicos.push(s); }
+    function toggleService(btn, s) { 
+        btn.classList.toggle('selected'); 
+        servicos.includes(s) ? servicos = servicos.filter(x => x !== s) : servicos.push(s); 
+    }
 
     function vibrarEConfirmar() {
         if ("vibrate" in navigator) navigator.vibrate(50);

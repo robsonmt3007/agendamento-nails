@@ -44,17 +44,18 @@
             transition: 0.4s;
         }
 
+        /* BANNER DE ATUALIZAÇÃO */
         #update-banner {
-            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
             background: var(--accent); color: white; padding: 15px 25px;
             border-radius: 50px; display: none; z-index: 9999;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
             width: 90%; max-width: 400px; text-align: center;
             font-weight: 700; font-size: 0.9rem; border: 2px solid white;
         }
         #update-banner button {
             background: white; color: var(--accent); border: none;
-            padding: 5px 15px; border-radius: 20px; margin-left: 10px;
+            padding: 8px 15px; border-radius: 20px; margin-left: 10px;
             font-weight: 700; cursor: pointer; text-transform: uppercase;
         }
 
@@ -68,7 +69,7 @@
             background: var(--glass); backdrop-filter: blur(15px);
             width: 100%; height: 100%; max-width: 500px;
             margin: auto; display: flex; flex-direction: column;
-            padding: calc(1rem + env(safe-area-inset-top)) 1.5rem calc(1rem + env(safe-area-inset-bottom));
+            padding: calc(1rem + env(safe-area-inset-top)) 1.5rem calc(1.5rem + env(safe-area-inset-bottom));
             position: absolute; top: 0; left: 50%; transform: translate(-50%, 0);
         }
 
@@ -128,7 +129,7 @@
 <body class="dark-mode">
 
 <div id="update-banner">
-    Nova versão disponível! <button onclick="window.location.reload()">Atualizar Agora</button>
+    ✨ Nova versão disponível! <button onclick="window.location.reload()">Atualizar</button>
 </div>
 
 <div class="theme-switch" onclick="toggleTheme()" id="themeBtn">
@@ -180,7 +181,7 @@
         <div class="location-area">
             <label style="font-size: 0.68rem; text-transform: uppercase; color: var(--text-secondary); font-weight: 700; display: block;">Como chegar</label>
             <div class="location-btns">
-                <a href="https://maps.google.com/?q=Rua%20Placido%20Aderaldo%20Castelo%20469%20Capuan%20Caucaia" target="_blank" class="loc-btn">
+                <a href="https://www.google.com/maps/dir/?api=1&destination=-3.7145743,-38.6534221" target="_blank" class="loc-btn">
                     <img src="maps.png" alt="Google Maps">
                 </a>
                 <a href="https://waze.com/ul?q=Rua%20Placido%20Aderaldo%20Castelo%20469%20Capuan%20Caucaia%20CE&navigate=yes" target="_blank" class="loc-btn">
@@ -202,14 +203,17 @@
 <script>
     const VERSION = "40";
 
-    // SERVICE WORKER & ATUALIZAÇÃO
+    // SERVICE WORKER & DETECÇÃO DE ATUALIZAÇÃO
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('./sw.js').then((reg) => {
+                // Se já houver um SW esperando, mostra o banner
                 if (reg.waiting) showUpdateBanner();
+
                 reg.onupdatefound = () => {
                     const worker = reg.installing;
                     worker.onstatechange = () => {
+                        // Quando instalado, se já houver um controlador, avisa a atualização
                         if (worker.state === 'installed' && navigator.serviceWorker.controller) {
                             showUpdateBanner();
                         }
@@ -223,18 +227,12 @@
         document.getElementById('update-banner').style.display = 'block';
     }
 
-    // REGRA: Primeira Maiúscula, Restante Minúscula + Apenas Letras
+    // REGRA: Primeira Letra Maiúscula, Restante Minúscula
     function validarFormatarNome(input) {
-        // Remove números e caracteres especiais
         let valor = input.value.replace(/[^a-zA-ZáàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ\s]/g, "");
-        
         if (valor.length > 0) {
-            // Divide por espaços para tratar nomes compostos (ex: Maria Alice)
             input.value = valor.split(' ').map(palavra => {
-                if (palavra.length > 0) {
-                    return palavra.charAt(0).toUpperCase() + palavra.slice(1).toLowerCase();
-                }
-                return "";
+                return palavra.length > 0 ? palavra.charAt(0).toUpperCase() + palavra.slice(1).toLowerCase() : "";
             }).join(' ');
         } else {
             input.value = valor;
@@ -282,32 +280,16 @@
         const sobrenome = document.getElementById('sobrenome').value.trim();
         const telefone = document.getElementById('telefone').value.trim();
         const data = document.getElementById('data_hora').value;
-        const nomeCompleto = `${nome} ${sobrenome}`;
 
-        if (!nome) { alert("⚠️ Por favor, informe seu Nome."); document.getElementById('nome').focus(); return; }
-        if (!sobrenome) { alert("⚠️ Por favor, informe seu Sobrenome."); document.getElementById('sobrenome').focus(); return; }
-        if (telefone.length < 14) { alert("⚠️ WhatsApp incompleto. Use (00) 00000-0000."); document.getElementById('telefone').focus(); return; }
-        if (servicosSelecionados.length === 0) { alert("⚠️ Selecione pelo menos um serviço."); return; }
-        if (!data) { alert("⚠️ Escolha data e horário."); document.getElementById('data_hora').focus(); return; }
+        if (!nome || !sobrenome || telefone.length < 14 || servicosSelecionados.length === 0 || !data) {
+            alert("⚠️ Preencha todos os campos para agendar.");
+            return;
+        }
 
         const dataFormatada = new Date(data).toLocaleString('pt-BR');
-        const msgWhatsApp = `✨ *NOVO AGENDAMENTO - RITA ANDRADE* ✨\n\n` +
-                           `👤 *Cliente:* ${nomeCompleto}\n` +
-                           `📱 *WhatsApp:* ${telefone}\n` +
-                           `💅 *Serviços:* ${servicosSelecionados.join(', ')}\n` +
-                           `📅 *Data/Hora:* ${dataFormatada}\n\n` +
-                           `_Aguardando confirmação!_`;
+        const msgWhatsApp = `✨ *NOVO AGENDAMENTO - RITA ANDRADE* ✨\n\n👤 *Cliente:* ${nome} ${sobrenome}\n📱 *WhatsApp:* ${telefone}\n💅 *Serviços:* ${servicosSelecionados.join(', ')}\n📅 *Data/Hora:* ${dataFormatada}`;
         
-        alert(`Obrigada, ${nome}! 🎉\nClique em OK para enviar os dados no meu WhatsApp.`);
-
         window.location.href = `https://api.whatsapp.com/send?phone=5585986320083&text=${encodeURIComponent(msgWhatsApp)}`;
-        limparSelecao();
-    }
-
-    function limparSelecao() {
-        document.getElementById('data_hora').value = "";
-        servicosSelecionados = [];
-        document.querySelectorAll('.service-btn').forEach(btn => btn.classList.remove('selected'));
     }
 </script>
 </body>

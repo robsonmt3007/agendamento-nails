@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    
     <title>Rita Andrade - Nails Designer</title>
-    <link rel="manifest" href="manifest.json">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 
     <style>
@@ -13,16 +11,15 @@
             --accent: #b4867e;
             --text-primary: #ffffff;
             --text-secondary: #ffcfc6;
-            --glass: rgba(20, 18, 17, 0.98);
+            --glass: rgba(15, 13, 12, 0.99); /* Fundo quase preto, bem chique */
             --bg-body: #000000;
-            --input-bg: #2d2a29;
-            --whatsapp-green: #25d366;
+            --input-bg: #1a1817;
         }
 
         body.light-mode {
             --text-primary: #5d4037;
             --text-secondary: #8b5a3c;
-            --glass: rgba(255, 255, 255, 0.96);
+            --glass: rgba(255, 255, 255, 0.97);
             --bg-body: #f4f1ea;
             --input-bg: #ffffff;
         }
@@ -32,65 +29,93 @@
         html, body { 
             height: 100svh; width: 100%; margin: 0; padding: 0; 
             overflow: hidden; position: fixed; 
-            background: var(--bg-body) url('d2fb736130b4a19276c01092cf78d24e.jpg') no-repeat center center fixed;
-            background-size: cover;
+            background: var(--bg-body);
             font-family: 'Montserrat', sans-serif;
             transition: background 0.3s ease;
         }
 
         .theme-switch {
-            position: absolute; top: calc(15px + env(safe-area-inset-top)); 
-            right: 20px; cursor: pointer; z-index: 1000; opacity: 0.8;
+            position: absolute; top: 15px; right: 20px; 
+            cursor: pointer; z-index: 1000;
         }
-        .theme-switch svg { width: 22px; height: 22px; fill: var(--accent); }
+        .theme-switch svg { width: 22px; height: 22px; fill: var(--accent); opacity: 0.8; }
 
         .main-card {
-            background: var(--glass); backdrop-filter: blur(15px);
+            background: var(--glass);
             width: 100%; height: 100svh; max-width: 500px; margin: 0 auto;
-            display: flex; flex-direction: column; justify-content: space-between;
-            padding: calc(10px + env(safe-area-inset-top)) 1.2rem calc(15px + env(safe-area-inset-bottom));
+            display: flex; flex-direction: column;
+            padding: 15px 1.5rem 20px; /* Padding ajustado */
         }
 
-        .header-area { flex: 0 0 auto; text-align: center; margin-bottom: -10px; }
-        .logo-main { width: 85%; max-width: 230px; height: auto; }
+        .header-area { flex: 0 0 auto; text-align: center; margin-bottom: 10px; margin-top: 5px; }
+        .logo-main { width: 70%; max-width: 190px; height: auto; }
 
-        .form-area { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+        .form-area { 
+            flex: 1; display: flex; flex-direction: column; 
+            justify-content: center; gap: 10px; 
+        }
 
-        .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         
-        /* CORRIGIDO: Agora todos os labels usam a cor secundária correta */
         .input-group label, .location-area label { 
-            font-size: 0.65rem; 
-            text-transform: uppercase; 
-            color: var(--text-secondary); 
-            font-weight: 700; 
-            display: block; 
-            margin-bottom: 3px; 
+            font-size: 0.65rem; text-transform: uppercase; 
+            color: var(--text-secondary); font-weight: 700; 
+            display: block; margin-bottom: 4px; 
         }
         
         input {
-            width: 100%; padding: 11px; border-radius: 10px; border: 1.5px solid var(--accent);
+            width: 100%; padding: 11px; border-radius: 8px; border: 1px solid var(--accent);
             background: var(--input-bg); color: var(--text-primary); font-size: 0.9rem; outline: none;
         }
 
-        .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+        .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
         .service-btn {
-            background: var(--input-bg); border: 1.5px solid var(--accent);
-            padding: 10px 2px; border-radius: 10px; color: var(--text-primary);
-            font-size: 0.72rem; text-transform: uppercase; font-weight: 700;
-            cursor: pointer; text-align: center;
+            background: var(--input-bg); border: 1px solid var(--accent);
+            padding: 11px 5px; border-radius: 8px; color: var(--text-primary);
+            font-size: 0.7rem; font-weight: 700; cursor: pointer; text-align: center;
         }
         .service-btn.selected { background: var(--accent); color: #fff; border-color: #fff; }
 
-        .location-area { margin-top: 5px; text-align: center; }
-        .location-btns { display: flex; justify-content: center; gap: 35px; margin-top: 5px; }
-        .loc-btn img { width: 85px; height: 85px; filter: drop-shadow(0 5px 8px rgba(0,0,0,0.4)); }
+        /* --- OTIMIZAÇÃO DE IMAGENS LOCAIS (MAPS E WAZE) --- */
+        .location-area { margin-top: 15px; text-align: center; }
+        .location-btns { 
+            display: flex; justify-content: center; 
+            gap: 30px; margin-top: 10px; align-items: center;
+        }
+        
+        .loc-btn img { 
+            /* Força a renderização em alta qualidade (essencial para Android) */
+            image-rendering: -webkit-optimize-contrast; 
+            image-rendering: crisp-edges;
+            
+            /* Define tamanhos fixos e proporcionais */
+            height: 60px; /* Altura uniforme para ambos */
+            width: auto;   /* Largura automática para não distorcer */
+            object-fit: contain; /* Garante que a imagem caiba sem cortar */
+            
+            /* Melhora a definição visual */
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
+            transition: transform 0.2s ease;
+        }
 
-        .footer-area { flex: 0 0 auto; padding-top: 5px; margin-bottom: 5px; }
+        /* Ajuste específico para o Waze, que é mais largo */
+        .waze-img {
+            max-width: 110px; /* Limita a largura do Waze para não dominar a tela */
+        }
+        
+        /* Ajuste específico para o Maps, que é mais quadrado */
+        .maps-img {
+            max-width: 60px; /* Mantém o Maps proporcional */
+        }
+
+        .loc-btn:active img { transform: scale(0.95); } /* Feedback de toque */
+
+        .footer-area { flex: 0 0 auto; margin-top: 15px; }
         .btn-confirm {
             background: var(--accent); color: white; border: none;
             padding: 16px; border-radius: 12px; width: 100%;
             font-weight: 700; text-transform: uppercase; cursor: pointer; font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(180, 134, 126, 0.3);
         }
 
         .insta-footer { 
@@ -98,24 +123,21 @@
             display: flex; align-items: center; justify-content: center; gap: 8px;
             text-decoration: none; font-weight: 700; font-family: 'Playfair Display', serif;
         }
-        .insta-footer svg { width: 18px; height: 18px; fill: var(--accent); }
+        .insta-footer svg { width: 16px; height: 16px; fill: var(--accent); }
 
         @media (max-height: 700px) {
-            .logo-main { max-width: 170px; }
-            .loc-btn img { width: 70px; height: 70px; }
-            .form-area { gap: 4px; }
+            .logo-main { max-width: 160px; }
+            .loc-btn img { height: 50px; }
+            .form-area { gap: 6px; }
             input { padding: 9px; }
-            .service-btn { padding: 8px 2px; }
-            .btn-confirm { padding: 14px; }
+            .service-btn { padding: 9px 2px; }
         }
     </style>
 </head>
 <body class="dark-mode">
 
-<div class="theme-switch" onclick="toggleTheme()" id="themeBtn">
-    <svg viewBox="0 0 24 24" id="themeIcon">
-        <path d="M12 3c.132 0 .263 0 .393.007a9 9 0 0 0 1.536 17.151 9 9 0 1 1-1.929-17.158c.13-.003.26-.003.393-.003z"/>
-    </svg>
+<div class="theme-switch" onclick="toggleTheme()">
+    <svg viewBox="0 0 24 24" id="themeIcon"><path d="M12 3c.132 0 .263 0 .393.007a9 9 0 0 0 1.536 17.151 9 9 0 1 1-1.929-17.158c.13-.003.26-.003.393-.003z"/></svg>
 </div>
 
 <div class="main-card">
@@ -140,7 +162,7 @@
             <div class="services-grid">
                 <div class="service-btn" onclick="toggleService(this, 'ALONGAMENTO')">ALONGAMENTO</div>
                 <div class="service-btn" onclick="toggleService(this, 'BANHO')">BANHO</div>
-                <div class="service-btn" onclick="toggleService(this, 'ESMALTAÇÃO EM GEL')">ESMALT. GEL</div>
+                <div class="service-btn" onclick="toggleService(this, 'ESMALT. GEL')">ESMALT. GEL</div>
                 <div class="service-btn" onclick="toggleService(this, 'MANUTENÇÃO')">MANUTENÇÃO</div>
                 <div class="service-btn" onclick="toggleService(this, 'PEDICURE')">PEDICURE</div>
                 <div class="service-btn" onclick="toggleService(this, 'MANICURE')">MANICURE</div>
@@ -155,11 +177,11 @@
         <div class="location-area">
             <label>Nossa Localização</label>
             <div class="location-btns">
-                <a href="https://maps.google.com" target="_blank" class="loc-btn">
-                    <img src="maps.png" alt="Google Maps">
+                <a href="http://googleusercontent.com/maps.google.com/3" target="_blank" class="loc-btn">
+                    <img src="maps.png" alt="Google Maps" class="maps-img">
                 </a>
                 <a href="https://waze.com" target="_blank" class="loc-btn">
-                    <img src="waze.png" alt="Waze">
+                    <img src="waze.png" alt="Waze" class="waze-img">
                 </a>
             </div>
         </div>
@@ -175,42 +197,14 @@
 </div>
 
 <script>
-    function checkSystemTheme() {
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-            document.body.classList.add('light-mode');
-            updateIcon(true);
-        }
-    }
-    function toggleTheme() {
-        const isLight = document.body.classList.toggle('light-mode');
-        updateIcon(isLight);
-    }
-    function updateIcon(isLight) {
-        const icon = document.getElementById('themeIcon');
-        if (isLight) {
-            icon.innerHTML = '<path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM11 2v2a1 1 0 1 0 2 0V2a1 1 0 1 0-2 0zm0 18v2a1 1 0 1 0 2 0v-2a1 1 0 1 0-2 0zM5.99 4.58a1 1 0 1 0-1.41 1.41l1.06 1.06a1 1 0 1 0 1.41-1.41L5.99 4.58zm12.37 12.37a1 1 0 1 0-1.41 1.41l1.06 1.06a1 1 0 1 0 1.41-1.41L5.99 4.58z"/>';
-        } else {
-            icon.innerHTML = '<path d="M12 3c.132 0 .263 0 .393.007a9 9 0 0 0 1.536 17.151 9 9 0 1 1-1.929-17.158c.13-.003.26-.003.393-.003z"/>';
-        }
-    }
+    // Scripts de tema e agendamento mantidos
+    function checkSystemTheme() { if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) { document.body.classList.add('light-mode'); updateIcon(true); } }
+    function toggleTheme() { const isLight = document.body.classList.toggle('light-mode'); updateIcon(isLight); }
+    function updateIcon(isLight) { const icon = document.getElementById('themeIcon'); icon.innerHTML = isLight ? '<path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM11 2v2a1 1 0 1 0 2 0V2a1 1 0 1 0-2 0zm0 18v2a1 1 0 1 0 2 0v-2a1 1 0 1 0-2 0z"/>' : '<path d="M12 3c.132 0 .263 0 .393.007a9 9 0 0 0 1.536 17.151 9 9 0 1 1-1.929-17.158c.13-.003.26-.003.393-.003z"/>'; }
     window.onload = checkSystemTheme;
-
-    let servicosSelecionados = [];
-    function toggleService(element, serviceName) {
-        element.classList.toggle('selected');
-        if (servicosSelecionados.includes(serviceName)) {
-            servicosSelecionados = servicosSelecionados.filter(s => s !== serviceName);
-        } else {
-            servicosSelecionados.push(serviceName);
-        }
-    }
-    function finalizar() {
-        const nome = document.getElementById('nome').value;
-        const data = document.getElementById('data_hora').value;
-        if (!nome || servicosSelecionados.length === 0 || !data) { alert("Por favor, preencha tudo!"); return; }
-        const msg = `✨ Agendamento Rita Nails ✨\nCliente: ${nome}\nServiços: ${servicosSelecionados.join(', ')}\nData: ${new Date(data).toLocaleString()}`;
-        window.location.href = `https://api.whatsapp.com/send?phone=5585986320083&text=${encodeURIComponent(msg)}`;
-    }
+    let servicos = [];
+    function toggleService(btn, s) { btn.classList.toggle('selected'); servicos.includes(s) ? servicos = servicos.filter(x => x !== s) : servicos.push(s); }
+    function finalizar() { const n = document.getElementById('nome').value; const d = document.getElementById('data_hora').value; if(!n || !d || servicos.length === 0) return alert("Preencha tudo!"); window.location.href = `https://api.whatsapp.com/send?phone=5585986320083&text=Nome: ${n}\nServiços: ${servicos.join(', ')}\nData: ${d}`; }
 </script>
 </body>
 </html>

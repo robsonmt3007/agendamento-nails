@@ -33,163 +33,118 @@
             --input-bg: #ffffff;
         }
 
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
-        /* TRAVA DE TELA CHEIA TOTAL */
         html, body { 
-            height: 100dvh; /* Altura dinâmica para mobile */
+            height: 100vh;
+            height: 100svh; /* UNIDADE MÁGICA PARA IOS/SAFARI */
             width: 100vw; 
             margin: 0; padding: 0; 
-            overflow: hidden; /* Remove rolagem total */
-            position: fixed; /* Impede o "puxar para atualizar" */
+            overflow: hidden; /* Proíbe rolagem */
+            position: fixed; 
             background: var(--bg-body) url('d2fb736130b4a19276c01092cf78d24e.jpg') no-repeat center center fixed;
             background-size: cover;
             font-family: 'Montserrat', sans-serif;
-            -webkit-overflow-scrolling: touch;
         }
 
         #update-banner {
             position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
             background: var(--accent); color: white; padding: 12px 20px;
             border-radius: 50px; display: none; z-index: 10000;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-            width: 85%; max-width: 350px; text-align: center;
-            font-weight: 700; font-size: 0.8rem; border: 1px solid white;
+            width: 85%; max-width: 300px; text-align: center;
+            font-weight: 700; font-size: 0.75rem; border: 1px solid white;
         }
-        #update-banner button { background: white; color: var(--accent); border: none; padding: 4px 10px; border-radius: 20px; font-weight: 700; margin-left: 5px; }
 
         .theme-switch {
-            position: absolute; top: calc(10px + env(safe-area-inset-top)); 
-            right: 15px; cursor: pointer; z-index: 100;
-            background: var(--glass); padding: 8px; border-radius: 50%;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            position: absolute; top: calc(8px + env(safe-area-inset-top)); 
+            right: 12px; cursor: pointer; z-index: 100;
+            background: var(--glass); padding: 7px; border-radius: 50%;
         }
-        .theme-switch svg { width: 18px; height: 18px; fill: var(--accent); }
+        .theme-switch svg { width: 16px; height: 16px; fill: var(--accent); }
 
-        /* CARD PRINCIPAL AUTO-AJUSTÁVEL */
         .main-card {
             background: var(--glass);
             backdrop-filter: blur(15px);
             width: 100%;
-            height: 100dvh;
+            height: 100vh;
+            height: 100svh; /* Garante tela cheia no iPhone */
             max-width: 500px;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            /* PADDING SUPERIOR REDUZIDO */
-            padding: calc(5px + env(safe-area-inset-top)) 1.2rem calc(10px + env(safe-area-inset-bottom));
-            position: relative;
+            padding: calc(5px + env(safe-area-inset-top)) 1.2rem calc(8px + env(safe-area-inset-bottom));
         }
 
-        .header-area { flex: 0 0 auto; text-align: center; padding: 0; }
-        .logo-main { width: 100%; max-width: 190px; height: auto; margin-bottom: 0; }
+        .header-area { flex: 0 0 auto; text-align: center; padding-top: 5px; }
+        .logo-main { width: 100%; max-width: 170px; height: auto; margin-bottom: -10px; }
 
-        /* ÁREA DE FORMULÁRIO MUITO COMPACTA */
         .form-area { 
             flex: 1; 
             display: flex; 
             flex-direction: column; 
-            justify-content: center;
-            /* MARGEM NEGATIVA SUPERIOR PARA COLAR NA LOGO */
-            margin-top: -15px; 
-            gap: 10px; /* Espaço uniforme entre os campos */
+            justify-content: space-evenly; /* Distribui os campos uniformemente no espaço que sobrar */
+            gap: 5px; 
+            margin: 5px 0;
         }
 
         .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-        .input-group label { font-size: 0.6rem; text-transform: uppercase; color: var(--text-secondary); font-weight: 700; display: block; margin-bottom: 2px; }
+        .input-group label { font-size: 0.58rem; text-transform: uppercase; color: var(--text-secondary); font-weight: 700; display: block; margin-bottom: 2px; }
         
         input {
-            width: 100%; padding: 10px; border-radius: 10px; border: 1.5px solid var(--accent);
-            background: var(--input-bg); color: var(--text-primary); font-size: 0.9rem; outline: none;
+            width: 100%; padding: 9px; border-radius: 10px; border: 1.5px solid var(--accent);
+            background: var(--input-bg); color: var(--text-primary); font-size: 0.85rem; outline: none;
         }
 
         .input-with-icon { position: relative; display: flex; align-items: center; }
-        .input-with-icon svg { position: absolute; left: 12px; width: 16px; height: 16px; fill: var(--whatsapp-green); }
-        .input-with-icon input { padding-left: 38px; }
+        .input-with-icon svg { position: absolute; left: 10px; width: 14px; height: 14px; fill: var(--whatsapp-green); }
+        .input-with-icon input { padding-left: 32px; }
 
-        /* DESTAQUE NOS SERVIÇOS */
-        .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+        /* SERVIÇOS MAIS COMPACTOS PARA CABER NO IPHONE */
+        .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
         .service-btn {
-            background: var(--input-bg); 
-            border: 2px solid var(--accent); /* Borda mais grossa para destacar */
-            padding: 11px 4px; 
-            border-radius: 10px; 
-            color: var(--text-primary);
-            font-size: 0.75rem; /* Fonte ligeiramente maior */
-            text-transform: uppercase; 
-            font-weight: 700;
-            cursor: pointer; 
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(180, 134, 126, 0.2); /* Sombra suave */
+            background: var(--input-bg); border: 1.5px solid var(--accent);
+            padding: 9px 2px; border-radius: 8px; color: var(--text-primary);
+            font-size: 0.65rem; text-transform: uppercase; font-weight: 700;
+            cursor: pointer; text-align: center;
         }
-        .service-btn.selected { 
-            background: var(--accent); 
-            color: #fff; 
-            border-color: #fff; 
-            box-shadow: 0 4px 10px rgba(180, 134, 126, 0.4); 
-        }
+        .service-btn.selected { background: var(--accent); color: #fff; border-color: #fff; }
 
-        .location-area { 
-            margin-top: 5px; 
-            padding: 8px 0; 
-            text-align: center; 
-            border-top: 1px solid rgba(180, 134, 126, 0.1); 
-        }
-        .location-area label { 
-            font-size: 0.6rem; 
-            text-transform: uppercase; 
-            color: var(--text-secondary); 
-            font-weight: 700; 
-            margin-bottom: 8px; 
-            display: block;
-        }
-        
-        /* ÍCONES DE LOCALIZAÇÃO AUMENTADOS */
-        .location-btns { display: flex; justify-content: center; gap: 40px; }
-        .loc-btn img { 
-            width: 85px; /* Aumentado de 65px */
-            height: 85px; /* Aumentado de 65px */
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5)); 
-        }
+        /* LOCALIZAÇÃO COMPACTA */
+        .location-area { padding: 5px 0; text-align: center; border-top: 1px solid rgba(180, 134, 126, 0.1); }
+        .location-area label { font-size: 0.58rem; text-transform: uppercase; color: var(--text-secondary); font-weight: 700; margin-bottom: 5px; display: block;}
+        .location-btns { display: flex; justify-content: center; gap: 30px; }
+        .loc-btn img { width: 65px; height: 65px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4)); }
 
-        /* FOOTER SUBIDO */
-        .footer-area { 
-            flex: 0 0 auto; 
-            padding-top: 5px; 
-            /* ADICIONADO ESPAÇO NO FINAL PARA NÃO FICAR NO LIMITE */
-            padding-bottom: calc(15px + env(safe-area-inset-bottom)); 
-            text-align: center; 
-        }
+        .footer-area { flex: 0 0 auto; padding-bottom: 10px; text-align: center; }
         .btn-confirm {
             background: var(--accent); color: white; border: none;
-            padding: 16px; border-radius: 12px; width: 100%;
-            font-weight: 700; text-transform: uppercase; cursor: pointer; font-size: 0.95rem;
-            box-shadow: 0 4px 15px rgba(180, 134, 126, 0.3);
+            padding: 14px; border-radius: 12px; width: 100%;
+            font-weight: 700; text-transform: uppercase; cursor: pointer; font-size: 0.9rem;
         }
 
         .insta-footer { 
-            margin-top: 12px; font-size: 0.9rem; color: var(--text-secondary); 
+            margin-top: 8px; font-size: 0.85rem; color: var(--text-secondary); 
             font-family: 'Playfair Display', serif; display: flex;
-            align-items: center; justify-content: center; gap: 8px;
+            align-items: center; justify-content: center; gap: 6px;
             font-weight: 700; text-decoration: none;
         }
-        .insta-footer svg { width: 18px; height: 18px; fill: var(--accent); }
+        .insta-footer svg { width: 16px; height: 16px; fill: var(--accent); }
 
-        /* AJUSTE PARA DESKTOP OU TELAS GRANDES (RESTAURA O ESPAÇO) */
-        @media (min-height: 800px) {
-            .main-card { padding-top: calc(20px + env(safe-area-inset-top)); }
-            .form-area { margin-top: 0; gap: 20px; }
-            .logo-main { max-width: 230px; }
+        /* SE A TELA FOR GRANDE (DESKTOP/IPHONE MAX), SOLTA O ESPAÇAMENTO */
+        @media (min-height: 750px) {
+            .logo-main { max-width: 200px; margin-bottom: 0; }
             input { padding: 12px; }
-            .loc-btn img { width: 95px; height: 95px; }
+            .service-btn { padding: 12px 4px; font-size: 0.75rem; }
+            .loc-btn img { width: 85px; height: 85px; }
+            .form-area { gap: 15px; }
         }
     </style>
 </head>
 <body class="dark-mode">
 
 <div id="update-banner">
-    ✨ Versão 48 atualizada! <button onclick="window.location.reload()">OK</button>
+    ✨ Versão 49 (Ajuste iOS) <button onclick="window.location.reload()">OK</button>
 </div>
 
 <div class="theme-switch" onclick="toggleTheme()" id="themeBtn">
@@ -241,10 +196,10 @@
         <div class="location-area">
             <label>Nossa Localização</label>
             <div class="location-btns">
-                <a href="http://googleusercontent.com/maps.google.com/9" target="_blank" class="loc-btn">
+                <a href="https://maps.google.com/?q=-3.7226,-38.6534" target="_blank" class="loc-btn">
                     <img src="maps.png" alt="Google Maps">
                 </a>
-                <a href="https://waze.com/ul?q=Rua%20Placido%20Aderaldo%20Castelo%20469%20Capuan%20Caucaia%20CE&navigate=yes" target="_blank" class="loc-btn">
+                <a href="https://waze.com/ul?q=-3.7226,-38.6534&navigate=yes" target="_blank" class="loc-btn">
                     <img src="waze.png" alt="Waze">
                 </a>
             </div>
@@ -261,7 +216,7 @@
 </div>
 
 <script>
-    const VERSION = "48";
+    const VERSION = "49";
 
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {

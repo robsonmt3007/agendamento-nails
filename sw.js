@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nails-rita-v38';
+const CACHE_NAME = 'nails-rita-v39';
 const assets = [
   './',
   './index.html',
@@ -15,7 +15,7 @@ self.addEventListener('install', (event) => {
       return cache.addAll(assets);
     })
   );
-  self.skipWaiting(); // Força a nova versão a ficar "esperando" o clique do usuário
+  self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {

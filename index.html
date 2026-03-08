@@ -31,8 +31,10 @@
             overflow: hidden; position: fixed; 
             background: var(--bg-body);
             font-family: 'Montserrat', sans-serif;
+            transition: background 0.3s ease;
         }
 
+        /* Switch de Tema */
         .theme-switch {
             position: absolute; top: 15px; right: 20px; 
             cursor: pointer; z-index: 1000;
@@ -46,9 +48,11 @@
             padding: 15px 1.5rem 30px;
         }
 
+        /* Cabeçalho e Logo */
         .header-area { flex: 0 0 auto; text-align: center; margin-bottom: 5px; margin-top: 5px; }
-        .logo-main { width: 70%; max-width: 180px; height: auto; }
+        .logo-main { width: 70%; max-width: 180px; height: auto; image-rendering: -webkit-optimize-contrast; }
 
+        /* Área do Formulário */
         .form-area { 
             flex: 1; display: flex; flex-direction: column; 
             justify-content: center;
@@ -68,45 +72,53 @@
             background: var(--input-bg); color: var(--text-primary); font-size: 0.95rem; outline: none;
         }
 
+        /* Botões de Serviço */
         .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
         .service-btn {
             background: var(--input-bg); border: 1px solid var(--accent);
             padding: 12px 5px; border-radius: 8px; color: var(--text-primary);
             font-size: 0.75rem; font-weight: 700; cursor: pointer; text-align: center;
+            transition: 0.2s;
         }
         .service-btn.selected { background: var(--accent); color: #fff; border-color: #fff; }
 
+        /* Localização - Ergonomia Melhorada */
         .location-area { 
-            margin-top: 30px; 
+            margin-top: 35px; 
             text-align: center; 
         }
         .location-area label { 
             font-size: 0.75rem; text-transform: uppercase; 
             color: var(--text-secondary); font-weight: 700; 
-            display: block; margin-bottom: 12px; letter-spacing: 1.5px;
+            display: block; margin-bottom: 15px; letter-spacing: 1.5px;
         }
         
         .location-btns { 
             display: flex; justify-content: center; 
-            gap: 30px; align-items: center;
+            gap: 45px; /* Espaço para evitar toques acidentais */
+            align-items: center;
         }
         
         .loc-btn img { 
             height: 48px;
             width: auto;
             object-fit: contain;
-            /* Mantendo o fundo original com uma sombra para destacar no preto */
             border-radius: 10px;
             filter: drop-shadow(0 4px 8px rgba(0,0,0,0.6));
+            transition: transform 0.2s ease;
         }
+        .loc-btn:active img { transform: scale(0.9); }
 
+        /* Rodapé e Confirmação */
         .footer-area { flex: 0 0 auto; margin-top: 20px; }
         .btn-confirm {
             background: var(--accent); color: white; border: none;
             padding: 18px; border-radius: 12px; width: 100%;
             font-weight: 700; text-transform: uppercase; cursor: pointer; font-size: 1.1rem;
             box-shadow: 0 4px 15px rgba(180, 134, 126, 0.4);
+            transition: transform 0.1s;
         }
+        .btn-confirm:active { transform: scale(0.98); }
 
         .insta-footer { 
             margin-top: 20px; font-size: 1rem; color: var(--text-secondary); 
@@ -161,7 +173,7 @@
         <div class="location-area">
             <label>Nossa Localização</label>
             <div class="location-btns">
-                <a href="https://maps.app.goo.gl/seu_link_aqui" target="_blank" class="loc-btn">
+                <a href="maps.google.com/31" target="_blank" class="loc-btn">
                     <img src="maps.png" alt="Google Maps">
                 </a>
                 <a href="https://waze.com/ul?navigate=yes" target="_blank" class="loc-btn">
@@ -172,27 +184,42 @@
     </div>
 
     <div class="footer-area">
-        <button class="btn-confirm" onclick="finalizar()">Confirmar Agendamento</button>
+        <button class="btn-confirm" onclick="vibrarEConfirmar()">Confirmar Agendamento</button>
         <a href="https://instagram.com/ritaandradeunhas" class="insta-footer" target="_blank">@ritaandradeunhas</a>
     </div>
 </div>
 
 <script>
+    // Controle de Tema
     function checkSystemTheme() { if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) { document.body.classList.add('light-mode'); updateIcon(true); } }
     function toggleTheme() { const isLight = document.body.classList.toggle('light-mode'); updateIcon(isLight); }
     function updateIcon(isLight) { const icon = document.getElementById('themeIcon'); icon.innerHTML = isLight ? '<path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM11 2v2a1 1 0 1 0 2 0V2a1 1 0 1 0-2 0zm0 18v2a1 1 0 1 0 2 0v-2a1 1 0 1 0-2 0z"/>' : '<path d="M12 3c.132 0 .263 0 .393.007a9 9 0 0 0 1.536 17.151 9 9 0 1 1-1.929-17.158c.13-.003.26-.003.393-.003z"/>'; }
     window.onload = checkSystemTheme;
 
+    // Lógica de Serviços
     let servicos = [];
     function toggleService(btn, s) { 
         btn.classList.toggle('selected'); 
         servicos.includes(s) ? servicos = servicos.filter(x => x !== s) : servicos.push(s); 
     }
+
+    // Vibração e Finalização
+    function vibrarEConfirmar() {
+        if ("vibrate" in navigator) {
+            navigator.vibrate(50); // Vibração sutil de 50ms
+        }
+        finalizar();
+    }
+
     function finalizar() { 
         const n = document.getElementById('nome').value; 
         const d = document.getElementById('data_hora').value; 
-        if(!n || !d || servicos.length === 0) return alert("Preencha tudo!"); 
-        const msg = `✨ Agendamento Rita Nails ✨\nCliente: ${n}\nServiços: ${servicos.join(', ')}\nData: ${new Date(d).toLocaleString()}`;
+        if(!n || !d || servicos.length === 0) return alert("Preencha todos os campos e selecione ao menos um serviço!"); 
+        
+        // Formata a mensagem para o WhatsApp
+        const dataFormatada = new Date(d).toLocaleString('pt-BR');
+        const msg = `✨ Agendamento Rita Nails ✨\n\nCliente: ${n}\nServiços: ${servicos.join(', ')}\nData: ${dataFormatada}`;
+        
         window.location.href = `https://api.whatsapp.com/send?phone=5585986320083&text=${encodeURIComponent(msg)}`;
     }
 </script>

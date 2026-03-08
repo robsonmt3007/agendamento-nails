@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Rita Nails">
+    <link rel="apple-touch-icon" href="plano_fundo.png">
     <meta name="theme-color" content="#1a1614">
+    
     <title>Rita Andrade - Nails Designer</title>
     <link rel="manifest" href="manifest.json">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
@@ -54,7 +60,8 @@
         }
 
         .theme-switch {
-            position: absolute; top: 15px; right: 15px; cursor: pointer; z-index: 100;
+            position: absolute; top: calc(15px + env(safe-area-inset-top)); 
+            right: 15px; cursor: pointer; z-index: 100;
         }
         .theme-switch svg { width: 22px; height: 22px; fill: var(--accent); }
 
@@ -62,7 +69,7 @@
             background: var(--glass); backdrop-filter: blur(15px);
             width: 100%; height: 100%; max-width: 500px;
             margin: auto; display: flex; flex-direction: column;
-            padding: 1rem 1.5rem calc(1rem + env(safe-area-inset-bottom));
+            padding: calc(1rem + env(safe-area-inset-top)) 1.5rem calc(1rem + env(safe-area-inset-bottom));
             position: absolute; top: 0; left: 50%; transform: translate(-50%, 0);
         }
 
@@ -174,7 +181,7 @@
         <div class="location-area">
             <label style="font-size: 0.68rem; text-transform: uppercase; color: var(--text-secondary); font-weight: 700; display: block;">Como chegar</label>
             <div class="location-btns">
-                <a href="https://maps.google.com/?q=Rua%20Placido%20Aderaldo%20Castelo%20469%20Capuan%20Caucaia" target="_blank" class="loc-btn">
+                <a href="https://www.google.com/maps/dir/?api=1&destination=Rua+Placido+Aderaldo+Castelo+469+Capuan+Caucaia+CE" target="_blank" class="loc-btn">
                     <img src="maps.png" alt="Google Maps">
                 </a>
                 <a href="https://waze.com/ul?q=Rua%20Placido%20Aderaldo%20Castelo%20469%20Capuan%20Caucaia%20CE&navigate=yes" target="_blank" class="loc-btn">
@@ -194,17 +201,13 @@
 </div>
 
 <script>
-    const VERSION = "38";
+    const VERSION = "39";
 
-    // SERVICE WORKER COM DETECÇÃO DE ATUALIZAÇÃO
+    // SERVICE WORKER & ATUALIZAÇÃO
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('./sw.js').then((reg) => {
-                // Verifica se já existe um SW esperando (v37 -> v38)
-                if (reg.waiting) {
-                    showUpdateBanner();
-                }
-                
+                if (reg.waiting) showUpdateBanner();
                 reg.onupdatefound = () => {
                     const worker = reg.installing;
                     worker.onstatechange = () => {
@@ -225,6 +228,7 @@
         input.value = input.value.replace(/[^a-zA-ZáàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ\s]/g, "");
     }
 
+    // CARREGAR DADOS SALVOS
     window.onload = function() {
         if(localStorage.getItem('nome')) document.getElementById('nome').value = localStorage.getItem('nome');
         if(localStorage.getItem('sobrenome')) document.getElementById('sobrenome').value = localStorage.getItem('sobrenome');
@@ -253,7 +257,7 @@
         v = v.replace(/^(\d{2})(\d)/g,"($1) $2");
         v = v.replace(/(\d)(\d{4})$/,"$1-$2");
         i.value = v;
-        saveData();
+        saveData(); // Persiste enquanto digita
     }
 
     function toggleTheme() {
@@ -267,11 +271,12 @@
         const data = document.getElementById('data_hora').value;
         const nomeCompleto = `${nome} ${sobrenome}`;
 
-        if (!nome) { alert("⚠️ Informe seu Nome."); return; }
-        if (!sobrenome) { alert("⚠️ Informe seu Sobrenome."); return; }
-        if (telefone.length < 14) { alert("⚠️ Informe um WhatsApp válido."); return; }
-        if (servicosSelecionados.length === 0) { alert("⚠️ Escolha um serviço."); return; }
-        if (!data) { alert("⚠️ Escolha data e hora."); return; }
+        // Validação Campo a Campo
+        if (!nome) { alert("⚠️ Por favor, informe seu Nome."); document.getElementById('nome').focus(); return; }
+        if (!sobrenome) { alert("⚠️ Por favor, informe seu Sobrenome."); document.getElementById('sobrenome').focus(); return; }
+        if (telefone.length < 14) { alert("⚠️ WhatsApp incompleto. Use (00) 00000-0000."); document.getElementById('telefone').focus(); return; }
+        if (servicosSelecionados.length === 0) { alert("⚠️ Selecione pelo menos um serviço."); return; }
+        if (!data) { alert("⚠️ Escolha data e horário."); document.getElementById('data_hora').focus(); return; }
 
         const dataFormatada = new Date(data).toLocaleString('pt-BR');
         const msgWhatsApp = `✨ *NOVO AGENDAMENTO - RITA ANDRADE* ✨\n\n` +
@@ -281,8 +286,9 @@
                            `📅 *Data/Hora:* ${dataFormatada}\n\n` +
                            `_Aguardando confirmação!_`;
         
-        alert(`Obrigada, ${nome}! 💅\nClique em OK para enviar os dados no meu WhatsApp.`);
+        alert(`Obrigada, ${nome}! 🎉\nClique em OK para enviar os dados no meu WhatsApp.`);
 
+        // Redirecionamento Direto (Número: 85 98632-0083)
         window.location.href = `https://api.whatsapp.com/send?phone=5585986320083&text=${encodeURIComponent(msgWhatsApp)}`;
         limparSelecao();
     }

@@ -11,7 +11,7 @@
             --accent: #b4867e;
             --text-primary: #ffffff;
             --text-secondary: #ffcfc6;
-            --glass: rgba(15, 13, 12, 0.99); /* Fundo quase preto, bem chique */
+            --glass: rgba(15, 13, 12, 0.98);
             --bg-body: #000000;
             --input-bg: #1a1817;
         }
@@ -19,7 +19,7 @@
         body.light-mode {
             --text-primary: #5d4037;
             --text-secondary: #8b5a3c;
-            --glass: rgba(255, 255, 255, 0.97);
+            --glass: rgba(255, 255, 255, 0.96);
             --bg-body: #f4f1ea;
             --input-bg: #ffffff;
         }
@@ -44,100 +44,92 @@
             background: var(--glass);
             width: 100%; height: 100svh; max-width: 500px; margin: 0 auto;
             display: flex; flex-direction: column;
-            padding: 15px 1.5rem 20px; /* Padding ajustado */
+            padding: 20px 1.5rem;
         }
 
-        .header-area { flex: 0 0 auto; text-align: center; margin-bottom: 10px; margin-top: 5px; }
-        .logo-main { width: 70%; max-width: 190px; height: auto; }
+        /* LOGO PRINCIPAL - OTIMIZADA */
+        .header-area { flex: 0 0 auto; text-align: center; margin-bottom: 10px; margin-top: 10px; }
+        .logo-main { 
+            width: 75%; 
+            max-width: 210px; 
+            height: auto; 
+            image-rendering: -webkit-optimize-contrast;
+        }
 
         .form-area { 
             flex: 1; display: flex; flex-direction: column; 
-            justify-content: center; gap: 10px; 
+            justify-content: flex-start;
+            gap: 12px; 
+            padding-top: 10px;
         }
 
         .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         
-        .input-group label, .location-area label { 
-            font-size: 0.65rem; text-transform: uppercase; 
+        .input-group label { 
+            font-size: 0.7rem; text-transform: uppercase; 
             color: var(--text-secondary); font-weight: 700; 
-            display: block; margin-bottom: 4px; 
+            display: block; margin-bottom: 5px; 
+        }
+        
+        /* LOCALIZAÇÃO - CORRIGIDO PARA MODO DARK */
+        .location-area label {
+            font-size: 0.8rem; text-transform: uppercase; 
+            color: var(--text-secondary) !important;
+            font-weight: 700; display: block; 
+            margin-bottom: 12px; text-align: center;
         }
         
         input {
-            width: 100%; padding: 11px; border-radius: 8px; border: 1px solid var(--accent);
-            background: var(--input-bg); color: var(--text-primary); font-size: 0.9rem; outline: none;
+            width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--accent);
+            background: var(--input-bg); color: var(--text-primary); font-size: 0.95rem; outline: none;
         }
 
-        .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+        .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
         .service-btn {
             background: var(--input-bg); border: 1px solid var(--accent);
-            padding: 11px 5px; border-radius: 8px; color: var(--text-primary);
-            font-size: 0.7rem; font-weight: 700; cursor: pointer; text-align: center;
+            padding: 12px 5px; border-radius: 8px; color: var(--text-primary);
+            font-size: 0.75rem; font-weight: 700; cursor: pointer; text-align: center;
+            transition: 0.2s;
         }
         .service-btn.selected { background: var(--accent); color: #fff; border-color: #fff; }
 
-        /* --- OTIMIZAÇÃO DE IMAGENS LOCAIS (MAPS E WAZE) --- */
-        .location-area { margin-top: 15px; text-align: center; }
+        /* NOVOS ÍCONES LOCAIS (SVG) */
         .location-btns { 
             display: flex; justify-content: center; 
-            gap: 30px; margin-top: 10px; align-items: center;
+            gap: 35px; margin-top: 5px; align-items: center;
         }
         
         .loc-btn img { 
-            /* Força a renderização em alta qualidade (essencial para Android) */
-            image-rendering: -webkit-optimize-contrast; 
-            image-rendering: crisp-edges;
-            
-            /* Define tamanhos fixos e proporcionais */
-            height: 60px; /* Altura uniforme para ambos */
-            width: auto;   /* Largura automática para não distorcer */
-            object-fit: contain; /* Garante que a imagem caiba sem cortar */
-            
-            /* Melhora a definição visual */
-            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
-            transition: transform 0.2s ease;
+            height: 55px;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 3px 6px rgba(0,0,0,0.4));
         }
 
-        /* Ajuste específico para o Waze, que é mais largo */
-        .waze-img {
-            max-width: 110px; /* Limita a largura do Waze para não dominar a tela */
-        }
-        
-        /* Ajuste específico para o Maps, que é mais quadrado */
-        .maps-img {
-            max-width: 60px; /* Mantém o Maps proporcional */
-        }
-
-        .loc-btn:active img { transform: scale(0.95); } /* Feedback de toque */
+        .waze-img { max-width: 100px; }
+        .maps-img { max-width: 55px; }
 
         .footer-area { flex: 0 0 auto; margin-top: 15px; }
         .btn-confirm {
             background: var(--accent); color: white; border: none;
-            padding: 16px; border-radius: 12px; width: 100%;
-            font-weight: 700; text-transform: uppercase; cursor: pointer; font-size: 1rem;
-            box-shadow: 0 4px 15px rgba(180, 134, 126, 0.3);
+            padding: 18px; border-radius: 12px; width: 100%;
+            font-weight: 700; text-transform: uppercase; cursor: pointer; font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(180, 134, 126, 0.4);
         }
 
         .insta-footer { 
-            margin-top: 12px; font-size: 0.9rem; color: var(--text-secondary); 
+            margin-top: 15px; font-size: 1rem; color: var(--text-secondary); 
             display: flex; align-items: center; justify-content: center; gap: 8px;
-            text-decoration: none; font-weight: 700; font-family: 'Playfair Display', serif;
-        }
-        .insta-footer svg { width: 16px; height: 16px; fill: var(--accent); }
-
-        @media (max-height: 700px) {
-            .logo-main { max-width: 160px; }
-            .loc-btn img { height: 50px; }
-            .form-area { gap: 6px; }
-            input { padding: 9px; }
-            .service-btn { padding: 9px 2px; }
+            text-decoration: none; font-weight: 700;
         }
     </style>
 </head>
 <body class="dark-mode">
 
-<div class="theme-switch" onclick="toggleTheme()">
-    <svg viewBox="0 0 24 24" id="themeIcon"><path d="M12 3c.132 0 .263 0 .393.007a9 9 0 0 0 1.536 17.151 9 9 0 1 1-1.929-17.158c.13-.003.26-.003.393-.003z"/></svg>
+<div class="theme-switch" onclick="toggleTheme()" id="themeBtn">
+    <svg viewBox="0 0 24 24" id="themeIcon">
+        <path d="M12 3c.132 0 .263 0 .393.007a9 9 0 0 0 1.536 17.151 9 9 0 1 1-1.929-17.158c.13-.003.26-.003.393-.003z"/>
+    </svg>
 </div>
 
 <div class="main-card">
@@ -177,11 +169,11 @@
         <div class="location-area">
             <label>Nossa Localização</label>
             <div class="location-btns">
-                <a href="http://googleusercontent.com/maps.google.com/3" target="_blank" class="loc-btn">
-                    <img src="maps.png" alt="Google Maps" class="maps-img">
+                <a href="https://maps.google.com/?q=Rita+Andrade+Nails" target="_blank" class="loc-btn">
+                    <img src="maps.svg" alt="Google Maps" class="maps-img">
                 </a>
-                <a href="https://waze.com" target="_blank" class="loc-btn">
-                    <img src="waze.png" alt="Waze" class="waze-img">
+                <a href="https://waze.com/ul?navigate=yes" target="_blank" class="loc-btn">
+                    <img src="waze.svg" alt="Waze" class="waze-img">
                 </a>
             </div>
         </div>
@@ -189,22 +181,28 @@
 
     <div class="footer-area">
         <button class="btn-confirm" onclick="finalizar()">Confirmar Agendamento</button>
-        <a href="https://instagram.com/ritaandradeunhas" class="insta-footer" target="_blank">
-            <svg viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8z"/></svg>
-            @ritaandradeunhas
-        </a>
+        <a href="https://instagram.com/ritaandradeunhas" class="insta-footer" target="_blank">@ritaandradeunhas</a>
     </div>
 </div>
 
 <script>
-    // Scripts de tema e agendamento mantidos
     function checkSystemTheme() { if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) { document.body.classList.add('light-mode'); updateIcon(true); } }
     function toggleTheme() { const isLight = document.body.classList.toggle('light-mode'); updateIcon(isLight); }
     function updateIcon(isLight) { const icon = document.getElementById('themeIcon'); icon.innerHTML = isLight ? '<path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM11 2v2a1 1 0 1 0 2 0V2a1 1 0 1 0-2 0zm0 18v2a1 1 0 1 0 2 0v-2a1 1 0 1 0-2 0z"/>' : '<path d="M12 3c.132 0 .263 0 .393.007a9 9 0 0 0 1.536 17.151 9 9 0 1 1-1.929-17.158c.13-.003.26-.003.393-.003z"/>'; }
     window.onload = checkSystemTheme;
+
     let servicos = [];
-    function toggleService(btn, s) { btn.classList.toggle('selected'); servicos.includes(s) ? servicos = servicos.filter(x => x !== s) : servicos.push(s); }
-    function finalizar() { const n = document.getElementById('nome').value; const d = document.getElementById('data_hora').value; if(!n || !d || servicos.length === 0) return alert("Preencha tudo!"); window.location.href = `https://api.whatsapp.com/send?phone=5585986320083&text=Nome: ${n}\nServiços: ${servicos.join(', ')}\nData: ${d}`; }
+    function toggleService(btn, s) { 
+        btn.classList.toggle('selected'); 
+        servicos.includes(s) ? servicos = servicos.filter(x => x !== s) : servicos.push(s); 
+    }
+    function finalizar() { 
+        const n = document.getElementById('nome').value; 
+        const d = document.getElementById('data_hora').value; 
+        if(!n || !d || servicos.length === 0) return alert("Preencha tudo!"); 
+        const msg = `✨ Agendamento Rita Nails ✨\nCliente: ${n}\nServiços: ${servicos.join(', ')}\nData: ${new Date(d).toLocaleString()}`;
+        window.location.href = `https://api.whatsapp.com/send?phone=5585986320083&text=${encodeURIComponent(msg)}`;
+    }
 </script>
 </body>
 </html>

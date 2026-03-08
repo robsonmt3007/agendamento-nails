@@ -44,7 +44,6 @@
             transition: 0.4s;
         }
 
-        /* BANNER DE ATUALIZAÇÃO */
         #update-banner {
             position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
             background: var(--accent); color: white; padding: 15px 25px;
@@ -145,11 +144,11 @@
         <div class="input-row">
             <div class="input-group">
                 <label>Nome</label>
-                <input type="text" id="nome" placeholder="Nome" maxlength="20" oninput="validarLetras(this); saveData()">
+                <input type="text" id="nome" placeholder="Nome" maxlength="20" oninput="validarFormatarNome(this)" onblur="saveData()">
             </div>
             <div class="input-group">
                 <label>Sobrenome</label>
-                <input type="text" id="sobrenome" placeholder="Sobrenome" maxlength="20" oninput="validarLetras(this); saveData()">
+                <input type="text" id="sobrenome" placeholder="Sobrenome" maxlength="20" oninput="validarFormatarNome(this)" onblur="saveData()">
             </div>
         </div>
         
@@ -181,7 +180,7 @@
         <div class="location-area">
             <label style="font-size: 0.68rem; text-transform: uppercase; color: var(--text-secondary); font-weight: 700; display: block;">Como chegar</label>
             <div class="location-btns">
-                <a href="https://www.google.com/maps/dir/?api=1&destination=Rua+Placido+Aderaldo+Castelo+469+Capuan+Caucaia+CE" target="_blank" class="loc-btn">
+                <a href="https://maps.google.com/?q=Rua%20Placido%20Aderaldo%20Castelo%20469%20Capuan%20Caucaia" target="_blank" class="loc-btn">
                     <img src="maps.png" alt="Google Maps">
                 </a>
                 <a href="https://waze.com/ul?q=Rua%20Placido%20Aderaldo%20Castelo%20469%20Capuan%20Caucaia%20CE&navigate=yes" target="_blank" class="loc-btn">
@@ -201,7 +200,7 @@
 </div>
 
 <script>
-    const VERSION = "39";
+    const VERSION = "40";
 
     // SERVICE WORKER & ATUALIZAÇÃO
     if ('serviceWorker' in navigator) {
@@ -224,11 +223,25 @@
         document.getElementById('update-banner').style.display = 'block';
     }
 
-    function validarLetras(input) {
-        input.value = input.value.replace(/[^a-zA-ZáàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ\s]/g, "");
+    // REGRA: Primeira Maiúscula, Restante Minúscula + Apenas Letras
+    function validarFormatarNome(input) {
+        // Remove números e caracteres especiais
+        let valor = input.value.replace(/[^a-zA-ZáàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ\s]/g, "");
+        
+        if (valor.length > 0) {
+            // Divide por espaços para tratar nomes compostos (ex: Maria Alice)
+            input.value = valor.split(' ').map(palavra => {
+                if (palavra.length > 0) {
+                    return palavra.charAt(0).toUpperCase() + palavra.slice(1).toLowerCase();
+                }
+                return "";
+            }).join(' ');
+        } else {
+            input.value = valor;
+        }
+        saveData();
     }
 
-    // CARREGAR DADOS SALVOS
     window.onload = function() {
         if(localStorage.getItem('nome')) document.getElementById('nome').value = localStorage.getItem('nome');
         if(localStorage.getItem('sobrenome')) document.getElementById('sobrenome').value = localStorage.getItem('sobrenome');
@@ -257,7 +270,7 @@
         v = v.replace(/^(\d{2})(\d)/g,"($1) $2");
         v = v.replace(/(\d)(\d{4})$/,"$1-$2");
         i.value = v;
-        saveData(); // Persiste enquanto digita
+        saveData();
     }
 
     function toggleTheme() {
@@ -271,7 +284,6 @@
         const data = document.getElementById('data_hora').value;
         const nomeCompleto = `${nome} ${sobrenome}`;
 
-        // Validação Campo a Campo
         if (!nome) { alert("⚠️ Por favor, informe seu Nome."); document.getElementById('nome').focus(); return; }
         if (!sobrenome) { alert("⚠️ Por favor, informe seu Sobrenome."); document.getElementById('sobrenome').focus(); return; }
         if (telefone.length < 14) { alert("⚠️ WhatsApp incompleto. Use (00) 00000-0000."); document.getElementById('telefone').focus(); return; }
@@ -288,7 +300,6 @@
         
         alert(`Obrigada, ${nome}! 🎉\nClique em OK para enviar os dados no meu WhatsApp.`);
 
-        // Redirecionamento Direto (Número: 85 98632-0083)
         window.location.href = `https://api.whatsapp.com/send?phone=5585986320083&text=${encodeURIComponent(msgWhatsApp)}`;
         limparSelecao();
     }

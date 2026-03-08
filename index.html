@@ -35,11 +35,13 @@
 
         * { box-sizing: border-box; }
 
+        /* TRAVA DE TELA CHEIA */
         html, body { 
-            height: 100%;
+            height: 100vh;
+            height: -webkit-fill-available; /* Correção para Safari iOS */
             width: 100%;
             margin: 0; padding: 0; 
-            overflow-x: hidden;
+            overflow: hidden; /* Remove rolagem do corpo */
             background: var(--bg-body) url('d2fb736130b4a19276c01092cf78d24e.jpg') no-repeat center center fixed;
             background-size: cover;
             font-family: 'Montserrat', sans-serif;
@@ -53,82 +55,95 @@
             width: 85%; max-width: 350px; text-align: center;
             font-weight: 700; font-size: 0.8rem; border: 1px solid white;
         }
-        #update-banner button { background: white; color: var(--accent); border: none; padding: 4px 10px; border-radius: 20px; font-weight: 700; margin-left: 5px; }
 
         .theme-switch {
-            position: absolute; top: calc(15px + env(safe-area-inset-top)); 
+            position: absolute; top: calc(10px + env(safe-area-inset-top)); 
             right: 15px; cursor: pointer; z-index: 100;
             background: var(--glass); padding: 8px; border-radius: 50%;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
-        .theme-switch svg { width: 20px; height: 20px; fill: var(--accent); }
+        .theme-switch svg { width: 18px; height: 18px; fill: var(--accent); }
 
+        /* CARD PRINCIPAL AUTO-AJUSTÁVEL */
         .main-card {
-            background: var(--glass); backdrop-filter: blur(15px);
-            width: 100%; min-height: 100vh; max-width: 500px;
-            margin: 0 auto; display: flex; flex-direction: column;
-            padding: calc(1rem + env(safe-area-inset-top)) 1.5rem calc(1rem + env(safe-area-inset-bottom));
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            width: 100%;
+            height: 100vh;
+            height: -webkit-fill-available;
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Distribui o conteúdo */
+            padding: calc(10px + env(safe-area-inset-top)) 1.5rem calc(10px + env(safe-area-inset-bottom));
         }
 
-        .header-area { text-align: center; padding: 10px 0; }
-        .logo-main { width: 100%; max-width: 220px; height: auto; }
+        .header-area { text-align: center; padding: 5px 0; }
+        .logo-main { width: 100%; max-width: 180px; height: auto; }
 
-        .form-area { flex: 1; display: flex; flex-direction: column; gap: 15px; margin-top: 10px; }
+        /* ÁREA DE FORMULÁRIO COMPACTA */
+        .form-area { 
+            flex: 1; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; /* Centraliza verticalmente os campos */
+            gap: 12px; 
+        }
 
         .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .input-group label { font-size: 0.68rem; text-transform: uppercase; color: var(--text-secondary); font-weight: 700; display: block; margin-bottom: 4px; }
+        .input-group label { font-size: 0.65rem; text-transform: uppercase; color: var(--text-secondary); font-weight: 700; display: block; margin-bottom: 2px; }
         
         input {
-            width: 100%; padding: 12px; border-radius: 12px; border: 1.5px solid var(--accent);
-            background: var(--input-bg); color: var(--text-primary); font-size: 0.95rem; outline: none;
+            width: 100%; padding: 10px; border-radius: 10px; border: 1.5px solid var(--accent);
+            background: var(--input-bg); color: var(--text-primary); font-size: 0.9rem; outline: none;
         }
 
         .input-with-icon { position: relative; display: flex; align-items: center; }
-        .input-with-icon svg { position: absolute; left: 12px; width: 18px; height: 18px; fill: var(--whatsapp-green); }
-        .input-with-icon input { padding-left: 42px; }
+        .input-with-icon svg { position: absolute; left: 12px; width: 16px; height: 16px; fill: var(--whatsapp-green); }
+        .input-with-icon input { padding-left: 38px; }
 
-        .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        /* GRIDS COMPACTOS */
+        .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
         .service-btn {
             background: var(--input-bg); border: 1px solid var(--accent);
-            padding: 12px 6px; border-radius: 12px; color: var(--text-primary);
-            font-size: 0.75rem; text-transform: uppercase; font-weight: 700;
+            padding: 10px 4px; border-radius: 10px; color: var(--text-primary);
+            font-size: 0.7rem; text-transform: uppercase; font-weight: 700;
             cursor: pointer; text-align: center;
         }
         .service-btn.selected { background: var(--accent); color: #fff; border-color: #fff; }
 
-        /* SEÇÃO LOCALIZAÇÃO REINSERIDA */
-        .location-area { 
-            margin-top: 5px; padding: 15px 0; text-align: center; 
-            border-top: 1px solid rgba(180, 134, 126, 0.2); 
-        }
-        .location-area label { 
-            font-size: 0.68rem; text-transform: uppercase; color: var(--text-secondary); 
-            font-weight: 700; display: block; margin-bottom: 10px; 
-        }
-        .location-btns { display: flex; justify-content: center; gap: 40px; }
-        .loc-btn img { width: 85px; height: 85px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5)); }
+        .location-area { padding: 10px 0; text-align: center; border-top: 1px solid rgba(180, 134, 126, 0.1); }
+        .location-area label { font-size: 0.65rem; text-transform: uppercase; color: var(--text-secondary); font-weight: 700; margin-bottom: 8px; display: block;}
+        .location-btns { display: flex; justify-content: center; gap: 30px; }
+        .loc-btn img { width: 65px; height: 65px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4)); }
 
-        .footer-area { margin-top: 20px; padding-bottom: 20px; text-align: center; }
+        .footer-area { padding-top: 10px; text-align: center; }
         .btn-confirm {
             background: var(--accent); color: white; border: none;
-            padding: 18px; border-radius: 15px; width: 100%;
-            font-weight: 700; text-transform: uppercase; cursor: pointer; font-size: 1rem;
-            box-shadow: 0 4px 15px rgba(180, 134, 126, 0.4);
+            padding: 15px; border-radius: 12px; width: 100%;
+            font-weight: 700; text-transform: uppercase; cursor: pointer; font-size: 0.9rem;
         }
 
         .insta-footer { 
-            margin-top: 15px; font-size: 0.95rem; color: var(--text-secondary); 
+            margin-top: 10px; font-size: 0.85rem; color: var(--text-secondary); 
             font-family: 'Playfair Display', serif; display: flex;
-            align-items: center; justify-content: center; gap: 8px;
-            font-weight: 700; text-decoration: none;
+            align-items: center; justify-content: center; gap: 6px;
+            font-weight: 700; text-decoration: none; padding-bottom: 5px;
         }
-        .insta-footer svg { width: 20px; height: 20px; fill: var(--accent); }
+        .insta-footer svg { width: 18px; height: 18px; fill: var(--accent); }
+
+        /* AJUSTE PARA DESKTOP OU TELAS GRANDES */
+        @media (min-height: 800px) {
+            .form-area { gap: 20px; }
+            .logo-main { max-width: 220px; }
+            input { padding: 12px; }
+        }
     </style>
 </head>
 <body class="dark-mode">
 
 <div id="update-banner">
-    ✨ Versão 46 pronta! <button onclick="window.location.reload()">ATUALIZAR</button>
+    ✨ Versão 47 atualizada! <button onclick="window.location.reload()">OK</button>
 </div>
 
 <div class="theme-switch" onclick="toggleTheme()" id="themeBtn">
@@ -165,7 +180,7 @@
             <div class="services-grid">
                 <div class="service-btn" onclick="toggleService(this, 'ALONGAMENTO')">ALONGAMENTO</div>
                 <div class="service-btn" onclick="toggleService(this, 'BANHO')">BANHO</div>
-                <div class="service-btn" onclick="toggleService(this, 'ESMALTAÇÃO EM GEL')">ESMALTAÇÃO EM GEL</div>
+                <div class="service-btn" onclick="toggleService(this, 'ESMALTAÇÃO EM GEL')">ESMALT. GEL</div>
                 <div class="service-btn" onclick="toggleService(this, 'MANUTENÇÃO')">MANUTENÇÃO</div>
                 <div class="service-btn" onclick="toggleService(this, 'PEDICURE')">PEDICURE</div>
                 <div class="service-btn" onclick="toggleService(this, 'MANICURE')">MANICURE</div>
@@ -180,7 +195,7 @@
         <div class="location-area">
             <label>Nossa Localização</label>
             <div class="location-btns">
-                <a href="https://maps.app.goo.gl/9" target="_blank" class="loc-btn">
+                <a href="http://maps.google.com/?q=Rua+Placido+Aderaldo+Castelo+469+Capuan+Caucaia" target="_blank" class="loc-btn">
                     <img src="maps.png" alt="Google Maps">
                 </a>
                 <a href="https://waze.com/ul?q=Rua%20Placido%20Aderaldo%20Castelo%20469%20Capuan%20Caucaia%20CE&navigate=yes" target="_blank" class="loc-btn">
@@ -200,7 +215,7 @@
 </div>
 
 <script>
-    const VERSION = "46";
+    const VERSION = "47";
 
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {

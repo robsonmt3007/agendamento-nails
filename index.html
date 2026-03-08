@@ -47,14 +47,8 @@
             padding: 20px 1.5rem;
         }
 
-        /* LOGO PRINCIPAL - OTIMIZADA */
         .header-area { flex: 0 0 auto; text-align: center; margin-bottom: 10px; margin-top: 10px; }
-        .logo-main { 
-            width: 75%; 
-            max-width: 210px; 
-            height: auto; 
-            image-rendering: -webkit-optimize-contrast;
-        }
+        .logo-main { width: 75%; max-width: 210px; height: auto; image-rendering: -webkit-optimize-contrast; }
 
         .form-area { 
             flex: 1; display: flex; flex-direction: column; 
@@ -71,7 +65,6 @@
             display: block; margin-bottom: 5px; 
         }
         
-        /* LOCALIZAÇÃO - CORRIGIDO PARA MODO DARK */
         .location-area label {
             font-size: 0.8rem; text-transform: uppercase; 
             color: var(--text-secondary) !important;
@@ -89,11 +82,9 @@
             background: var(--input-bg); border: 1px solid var(--accent);
             padding: 12px 5px; border-radius: 8px; color: var(--text-primary);
             font-size: 0.75rem; font-weight: 700; cursor: pointer; text-align: center;
-            transition: 0.2s;
         }
         .service-btn.selected { background: var(--accent); color: #fff; border-color: #fff; }
 
-        /* NOVOS ÍCONES LOCAIS (SVG) */
         .location-btns { 
             display: flex; justify-content: center; 
             gap: 35px; margin-top: 5px; align-items: center;
@@ -169,11 +160,11 @@
         <div class="location-area">
             <label>Nossa Localização</label>
             <div class="location-btns">
-                <a href="https://maps.google.com/?q=Rita+Andrade+Nails" target="_blank" class="loc-btn">
-                    <img src="maps.svg" alt="Google Maps" class="maps-img">
+                <a href="https://maps.app.goo.gl/TUDO_AQUI" target="_blank" class="loc-btn">
+                    <img src="maps.png" alt="Google Maps" class="maps-img">
                 </a>
                 <a href="https://waze.com/ul?navigate=yes" target="_blank" class="loc-btn">
-                    <img src="waze.svg" alt="Waze" class="waze-img">
+                    <img src="waze.png" alt="Waze" class="waze-img">
                 </a>
             </div>
         </div>

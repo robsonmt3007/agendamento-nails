@@ -33,104 +33,97 @@
             --input-bg: #ffffff;
         }
 
-        /* REMOÇÃO DE ROLAGEM */
-        * { 
-            box-sizing: border-box; 
-            -webkit-tap-highlight-color: transparent; 
-            touch-action: manipulation;
-        }
-
+        /* REMOÇÃO TOTAL DE ROLAGEM DO NAVEGADOR */
         html, body { 
-            height: 100%; width: 100%; margin: 0; padding: 0; 
-            overflow: hidden; /* Trava rolagem principal */
-            position: fixed; /* Evita "puxar" para atualizar no mobile */
+            height: 100dvh; /* Altura exata da área visível */
+            width: 100vw; 
+            margin: 0; padding: 0; 
+            overflow: hidden; /* Trava o navegador */
+            position: fixed; /* Impede o "puxar para atualizar" */
             background: var(--bg-body) url('d2fb736130b4a19276c01092cf78d24e.jpg') no-repeat center center fixed;
             background-size: cover;
             font-family: 'Montserrat', sans-serif;
         }
 
         #update-banner {
-            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
             background: var(--accent); color: white; padding: 12px 20px;
             border-radius: 50px; display: none; z-index: 10000;
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
             width: 85%; max-width: 350px; text-align: center;
-            font-weight: 700; font-size: 0.85rem; border: 2px solid white;
+            font-weight: 700; font-size: 0.8rem; border: 1px solid white;
         }
-        #update-banner button {
-            background: white; color: var(--accent); border: none;
-            padding: 5px 12px; border-radius: 20px; margin-left: 8px;
-            font-weight: 700; cursor: pointer;
-        }
+        #update-banner button { background: white; color: var(--accent); border: none; padding: 4px 10px; border-radius: 20px; font-weight: 700; margin-left: 5px; }
 
         .theme-switch {
-            position: absolute; top: calc(15px + env(safe-area-inset-top)); 
+            position: absolute; top: calc(10px + env(safe-area-inset-top)); 
             right: 15px; cursor: pointer; z-index: 100;
             background: var(--glass); padding: 8px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
-        .theme-switch svg { width: 22px; height: 22px; fill: var(--accent); }
+        .theme-switch svg { width: 20px; height: 20px; fill: var(--accent); }
 
         .main-card {
             background: var(--glass); backdrop-filter: blur(15px);
-            width: 100%; height: 100%; max-width: 500px;
+            width: 100%; height: 100dvh; max-width: 500px;
             margin: auto; display: flex; flex-direction: column;
-            padding: calc(1rem + env(safe-area-inset-top)) 1.5rem calc(1rem + env(safe-area-inset-bottom));
+            padding: calc(0.5rem + env(safe-area-inset-top)) 1.5rem calc(0.5rem + env(safe-area-inset-bottom));
             position: relative;
         }
 
-        .header-area { flex: 0 0 auto; text-align: center; padding: 5px 0; }
+        .header-area { flex: 0 0 auto; text-align: center; padding: 10px 0; }
         .logo-main { width: 100%; max-width: 220px; height: auto; }
 
-        /* AREA FORMULÁRIO COM ROLAGEM INTERNA SE NECESSÁRIO */
+        /* ÁREA DE FORMULÁRIO COM ROLAGEM INTERNA CONTROLADA */
         .form-area { 
-            flex: 1 1 auto; display: flex; flex-direction: column; 
-            justify-content: flex-start; gap: 12px; 
-            overflow-y: auto; /* Apenas o formulário rola se a tela for muito pequena */
-            padding: 10px 0;
+            flex: 1 1 auto; 
+            display: flex; flex-direction: column; 
+            gap: 12px; 
+            overflow-y: auto; 
+            padding: 5px 0;
             scrollbar-width: none;
+            -ms-overflow-style: none;
         }
         .form-area::-webkit-scrollbar { display: none; }
 
         .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .input-group label { font-size: 0.68rem; text-transform: uppercase; color: var(--text-secondary); font-weight: 700; display: block; margin-bottom: 4px; }
+        .input-group label { font-size: 0.65rem; text-transform: uppercase; color: var(--text-secondary); font-weight: 700; display: block; margin-bottom: 3px; }
         
         input {
-            width: 100%; padding: 12px; border-radius: 12px; border: 1.5px solid var(--accent);
+            width: 100%; padding: 11px; border-radius: 12px; border: 1.5px solid var(--accent);
             background: var(--input-bg); color: var(--text-primary); font-size: 0.9rem; outline: none;
         }
 
         .input-with-icon { position: relative; display: flex; align-items: center; }
-        .input-with-icon svg { position: absolute; left: 12px; width: 18px; height: 18px; fill: var(--whatsapp-green); }
-        .input-with-icon input { padding-left: 40px; }
+        .input-with-icon svg { position: absolute; left: 12px; width: 16px; height: 16px; fill: var(--whatsapp-green); }
+        .input-with-icon input { padding-left: 38px; }
 
-        .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
         .service-btn {
             background: var(--input-bg); border: 1px solid var(--accent);
-            padding: 12px 6px; border-radius: 12px; color: var(--text-primary);
-            font-size: 0.75rem; text-transform: uppercase; font-weight: 700;
+            padding: 11px 4px; border-radius: 10px; color: var(--text-primary);
+            font-size: 0.7rem; text-transform: uppercase; font-weight: 700;
             cursor: pointer; text-align: center;
         }
         .service-btn.selected { background: var(--accent); color: #fff; border-color: #fff; }
 
         .location-area { 
-            margin-top: 5px; padding: 10px 0; border-top: 1px solid rgba(180, 134, 126, 0.3); 
+            margin-top: 5px; padding-top: 10px; border-top: 1px solid rgba(180, 134, 126, 0.2); 
             text-align: center;
         }
-        .location-btns { display: flex; justify-content: center; gap: 35px; margin-top: 8px; }
-        .loc-btn img { width: 90px; height: 90px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5)); }
+        .location-btns { display: flex; justify-content: center; gap: 35px; margin-top: 5px; }
+        .loc-btn img { width: 80px; height: 80px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4)); }
 
-        .footer-area { flex: 0 0 auto; text-align: center; padding-top: 10px; padding-bottom: 10px;}
+        .footer-area { flex: 0 0 auto; text-align: center; padding-top: 10px; padding-bottom: 5px; }
         .btn-confirm {
             background: var(--accent); color: white; border: none;
             padding: 16px; border-radius: 15px; width: 100%;
             font-weight: 700; text-transform: uppercase; cursor: pointer; font-size: 1rem;
-            box-shadow: 0 4px 15px rgba(180, 134, 126, 0.4);
+            box-shadow: 0 4px 15px rgba(180, 134, 126, 0.3);
         }
 
         .insta-footer { 
-            margin-top: 12px; font-size: 0.9rem; color: var(--text-secondary); 
+            margin-top: 10px; font-size: 0.9rem; color: var(--text-secondary); 
             font-family: 'Playfair Display', serif; display: flex;
             align-items: center; justify-content: center; gap: 8px;
             font-weight: 700; text-decoration: none;
@@ -141,13 +134,11 @@
 <body class="dark-mode">
 
 <div id="update-banner">
-    ✨ Nova versão disponível! <button onclick="window.location.reload()">Atualizar</button>
+    ✨ Versão 43 pronta! <button onclick="window.location.reload()">Atualizar</button>
 </div>
 
 <div class="theme-switch" onclick="toggleTheme()" id="themeBtn">
-    <svg viewBox="0 0 24 24" id="themeIcon">
-        <path d="M12 3c.132 0 .263 0 .393.007a9 9 0 0 0 1.536 17.151 9 9 0 1 1-1.929-17.158c.13-.003.26-.003.393-.003z"/>
-    </svg>
+    <svg viewBox="0 0 24 24" id="themeIcon"><path d="M12 3c.132 0 .263 0 .393.007a9 9 0 0 0 1.536 17.151 9 9 0 1 1-1.929-17.158c.13-.003.26-.003.393-.003z"/></svg>
 </div>
 
 <div class="main-card">
@@ -193,9 +184,8 @@
         </div>
 
         <div class="location-area">
-            <label style="font-size: 0.68rem; text-transform: uppercase; color: var(--text-secondary); font-weight: 700; display: block;">Localização</label>
             <div class="location-btns">
-                <a href="https://maps.app.goo.gl/YourLink" target="_blank" class="loc-btn">
+                <a href="https://maps.google.com/?q=Rua+Placido+Aderaldo+Castelo+469+Capuan+Caucaia+CE" target="_blank" class="loc-btn">
                     <img src="maps.png" alt="Google Maps">
                 </a>
                 <a href="https://waze.com/ul?q=Rua%20Placido%20Aderaldo%20Castelo%20469%20Capuan%20Caucaia%20CE&navigate=yes" target="_blank" class="loc-btn">
@@ -209,13 +199,13 @@
         <button class="btn-confirm" onclick="finalizar()">Confirmar Agendamento</button>
         <a href="https://instagram.com/ritaandradeunhas" class="insta-footer" target="_blank">
             <svg viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
-            ritaandradeunhas
+            @ritaandradeunhas
         </a>
     </div>
 </div>
 
 <script>
-    const VERSION = "41";
+    const VERSION = "43";
 
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
@@ -233,13 +223,11 @@
 
     function showUpdateBanner() { document.getElementById('update-banner').style.display = 'block'; }
 
-    // FORMATAÇÃO NOME
     function validarFormatarNome(input) {
         let valor = input.value.replace(/[^a-zA-ZáàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ\s]/g, "");
         input.value = valor.split(' ').map(p => p.charAt(0).toUpperCase() + p.slice(1).toLowerCase()).join(' ');
     }
 
-    // MASCARA TELEFONE
     function mascaraTel(i) {
         let v = i.value.replace(/\D/g,'');
         v = v.replace(/^(\d{2})(\d)/g,"($1) $2");
@@ -252,12 +240,9 @@
         const body = document.body;
         const icon = document.getElementById('themeIcon');
         body.classList.toggle('light-mode');
-
         if (body.classList.contains('light-mode')) {
-            // Ícone do SOL para Tema Claro
             icon.innerHTML = '<path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM2 13h2a1 1 0 1 0 0-2H2a1 1 0 1 0 0 2zm18 0h2a1 1 0 1 0 0-2h-2a1 1 0 1 0 0 2zM11 2v2a1 1 0 1 0 2 0V2a1 1 0 1 0-2 0zm0 18v2a1 1 0 1 0 2 0v-2a1 1 0 1 0-2 0zM5.99 4.58a1 1 0 1 0-1.41 1.41l1.06 1.06a1 1 0 1 0 1.41-1.41L5.99 4.58zm12.37 12.37a1 1 0 1 0-1.41 1.41l1.06 1.06a1 1 0 1 0 1.41-1.41l-1.06-1.06zm1.06-12.37a1 1 0 1 0-1.41-1.41l-1.06 1.06a1 1 0 1 0 1.41 1.41l1.06-1.06zM7.05 18.36a1 1 0 1 0-1.41-1.41l-1.06 1.06a1 1 0 1 0 1.41 1.41l1.06-1.06z"/>';
         } else {
-            // Ícone da LUA para Tema Escuro
             icon.innerHTML = '<path d="M12 3c.132 0 .263 0 .393.007a9 9 0 0 0 1.536 17.151 9 9 0 1 1-1.929-17.158c.13-.003.26-.003.393-.003z"/>';
         }
     }
@@ -291,19 +276,11 @@
         const data = document.getElementById('data_hora').value;
 
         if (!nome || !sobrenome) { alert("Nome e sobrenome são obrigatórios."); return; }
-        
-        // VALIDAÇÃO 9 DÍGITOS + DDD (TOTAL 11)
-        if (telefoneRaw.length !== 11) {
-            alert("⚠️ WhatsApp incorreto! Verifique se digitou o DDD e se o número tem o '9' após o DDD.");
-            document.getElementById('telefone').focus();
-            return;
-        }
-
-        if (servicosSelecionados.length === 0 || !data) { alert("Selecione serviço e horário."); return; }
+        if (telefoneRaw.length !== 11) { alert("⚠️ WhatsApp incorreto! Verifique o DDD e o número."); return; }
+        if (servicosSelecionados.length === 0 || !data) { alert("Selecione o serviço e o horário."); return; }
 
         const dataFormatada = new Date(data).toLocaleString('pt-BR');
         const msg = `✨ *NOVO AGENDAMENTO* ✨\n\n👤 *Cliente:* ${nome} ${sobrenome}\n📱 *WhatsApp:* ${document.getElementById('telefone').value}\n💅 *Serviços:* ${servicosSelecionados.join(', ')}\n📅 *Data/Hora:* ${dataFormatada}`;
-        
         window.location.href = `https://api.whatsapp.com/send?phone=5585986320083&text=${encodeURIComponent(msg)}`;
     }
 </script>

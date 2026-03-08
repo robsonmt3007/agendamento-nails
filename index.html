@@ -96,8 +96,16 @@
         }
         .service-btn.selected { background: var(--accent); color: #fff; border-color: #fff; }
 
-        .location-area { margin-top: 5px; padding: 15px 0; text-align: center; border-top: 1px solid rgba(180, 134, 126, 0.2); }
-        .location-btns { display: flex; justify-content: center; gap: 40px; margin-top: 10px; }
+        /* SEÇÃO LOCALIZAÇÃO REINSERIDA */
+        .location-area { 
+            margin-top: 5px; padding: 15px 0; text-align: center; 
+            border-top: 1px solid rgba(180, 134, 126, 0.2); 
+        }
+        .location-area label { 
+            font-size: 0.68rem; text-transform: uppercase; color: var(--text-secondary); 
+            font-weight: 700; display: block; margin-bottom: 10px; 
+        }
+        .location-btns { display: flex; justify-content: center; gap: 40px; }
         .loc-btn img { width: 85px; height: 85px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5)); }
 
         .footer-area { margin-top: 20px; padding-bottom: 20px; text-align: center; }
@@ -120,7 +128,7 @@
 <body class="dark-mode">
 
 <div id="update-banner">
-    ✨ Nova versão disponível! <button onclick="window.location.reload()">ATUALIZAR</button>
+    ✨ Versão 46 pronta! <button onclick="window.location.reload()">ATUALIZAR</button>
 </div>
 
 <div class="theme-switch" onclick="toggleTheme()" id="themeBtn">
@@ -170,8 +178,9 @@
         </div>
 
         <div class="location-area">
+            <label>Nossa Localização</label>
             <div class="location-btns">
-                <a href="https://maps.google.com/?q=Rua%20Placido%20Aderaldo%20Castelo%20469%20Capuan%20Caucaia%20CE" target="_blank" class="loc-btn">
+                <a href="https://maps.app.goo.gl/9" target="_blank" class="loc-btn">
                     <img src="maps.png" alt="Google Maps">
                 </a>
                 <a href="https://waze.com/ul?q=Rua%20Placido%20Aderaldo%20Castelo%20469%20Capuan%20Caucaia%20CE&navigate=yes" target="_blank" class="loc-btn">
@@ -191,7 +200,7 @@
 </div>
 
 <script>
-    const VERSION = "45";
+    const VERSION = "46";
 
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
@@ -227,7 +236,7 @@
         const icon = document.getElementById('themeIcon');
         body.classList.toggle('light-mode');
         if (body.classList.contains('light-mode')) {
-            icon.innerHTML = '<path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM2 13h2a1 1 0 1 0 0-2H2a1 1 0 1 0 0 2zm18 0h2a1 1 0 1 0 0-2h-2a1 1 0 1 0 0 2zM11 2v2a1 1 0 1 0 2 0V2a1 1 0 1 0-2 0zm0 18v2a1 1 0 1 0 2 0v-2a1 1 0 1 0-2 0zM5.99 4.58a1 1 0 1 0-1.41 1.41l1.06 1.06a1 1 0 1 0 1.41-1.41L5.99 4.58zm12.37 12.37a1 1 0 1 0-1.41 1.41l1.06 1.06a1 1 0 1 0 1.41-1.41L5.99 4.58zm12.37 12.37a1 1 0 1 0-1.41 1.41l1.06 1.06a1 1 0 1 0 1.41-1.41L5.99 4.58zm1.06-12.37a1 1 0 1 0-1.41-1.41l-1.06 1.06a1 1 0 1 0 1.41 1.41l1.06-1.06zM7.05 18.36a1 1 0 1 0-1.41-1.41l-1.06 1.06a1 1 0 1 0 1.41 1.41l1.06-1.06z"/>';
+            icon.innerHTML = '<path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM2 13h2a1 1 0 1 0 0-2H2a1 1 0 1 0 0 2zm18 0h2a1 1 0 1 0 0-2h-2a1 1 0 1 0 0 2zM11 2v2a1 1 0 1 0 2 0V2a1 1 0 1 0-2 0zm0 18v2a1 1 0 1 0 2 0v-2a1 1 0 1 0-2 0zM5.99 4.58a1 1 0 1 0-1.41 1.41l1.06 1.06a1 1 0 1 0 1.41-1.41L5.99 4.58zm12.37 12.37a1 1 0 1 0-1.41 1.41l1.06 1.06a1 1 0 1 0 1.41-1.41L5.99 4.58zm1.06-12.37a1 1 0 1 0-1.41-1.41l-1.06 1.06a1 1 0 1 0 1.41 1.41l1.06-1.06zM7.05 18.36a1 1 0 1 0-1.41-1.41l-1.06 1.06a1 1 0 1 0 1.41 1.41l1.06-1.06z"/>';
         } else {
             icon.innerHTML = '<path d="M12 3c.132 0 .263 0 .393.007a9 9 0 0 0 1.536 17.151 9 9 0 1 1-1.929-17.158c.13-.003.26-.003.393-.003z"/>';
         }

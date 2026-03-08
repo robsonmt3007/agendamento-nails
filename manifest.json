@@ -1,24 +1,22 @@
 {
-  "name": "Rita Andrade Nails",
+  "name": "Rita Andrade Nails Designer",
   "short_name": "Rita Nails",
-  "description": "Agendamento Profissional Rita Andrade Nails Designer",
+  "description": "Agendamento Profissional Rita Andrade",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#1a1614",
-  "theme_color": "#b4867e",
+  "background_color": "#000000",
+  "theme_color": "#1a1614",
   "orientation": "portrait",
   "icons": [
     {
       "src": "plano_fundo.png",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     },
     {
       "src": "plano_fundo.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     }
   ]
 }

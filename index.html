@@ -36,87 +36,88 @@
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         html, body { 
-            height: 100vh;
-            height: 100svh; /* UNIDADE MÁGICA PARA IOS/SAFARI */
-            width: 100vw; 
+            height: 100svh; 
+            width: 100%; 
             margin: 0; padding: 0; 
-            overflow: hidden; /* Proíbe rolagem */
+            overflow: hidden; 
             position: fixed; 
             background: var(--bg-body) url('d2fb736130b4a19276c01092cf78d24e.jpg') no-repeat center center fixed;
             background-size: cover;
             font-family: 'Montserrat', sans-serif;
         }
 
-        #update-banner {
-            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-            background: var(--accent); color: white; padding: 12px 20px;
-            border-radius: 50px; display: none; z-index: 10000;
-            width: 85%; max-width: 300px; text-align: center;
-            font-weight: 700; font-size: 0.75rem; border: 1px solid white;
-        }
-
-        .theme-switch {
-            position: absolute; top: calc(8px + env(safe-area-inset-top)); 
-            right: 12px; cursor: pointer; z-index: 100;
-            background: var(--glass); padding: 7px; border-radius: 50%;
-        }
-        .theme-switch svg { width: 16px; height: 16px; fill: var(--accent); }
-
         .main-card {
             background: var(--glass);
             backdrop-filter: blur(15px);
             width: 100%;
-            height: 100vh;
-            height: 100svh; /* Garante tela cheia no iPhone */
+            height: 100svh;
             max-width: 500px;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: calc(5px + env(safe-area-inset-top)) 1.2rem calc(8px + env(safe-area-inset-bottom));
+            /* Padding lateral seguro para evitar toques na borda */
+            padding: calc(5px + env(safe-area-inset-top)) 1rem calc(8px + env(safe-area-inset-bottom));
         }
 
-        .header-area { flex: 0 0 auto; text-align: center; padding-top: 5px; }
-        .logo-main { width: 100%; max-width: 170px; height: auto; margin-bottom: -10px; }
+        .header-area { flex: 0 0 auto; text-align: center; }
+        .logo-main { width: 100%; max-width: 160px; height: auto; margin-bottom: -5px; }
 
         .form-area { 
             flex: 1; 
             display: flex; 
             flex-direction: column; 
-            justify-content: space-evenly; /* Distribui os campos uniformemente no espaço que sobrar */
-            gap: 5px; 
-            margin: 5px 0;
+            justify-content: center;
+            gap: 8px; 
+            width: 100%;
+            overflow: hidden; /* Trava vazamentos */
         }
 
-        .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-        .input-group label { font-size: 0.58rem; text-transform: uppercase; color: var(--text-secondary); font-weight: 700; display: block; margin-bottom: 2px; }
+        .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; }
+        
+        .input-group { width: 100%; overflow: hidden; }
+        .input-group label { font-size: 0.6rem; text-transform: uppercase; color: var(--text-secondary); font-weight: 700; display: block; margin-bottom: 2px; }
         
         input {
-            width: 100%; padding: 9px; border-radius: 10px; border: 1.5px solid var(--accent);
-            background: var(--input-bg); color: var(--text-primary); font-size: 0.85rem; outline: none;
+            width: 100%; 
+            max-width: 100%; /* Força o limite no iOS */
+            padding: 10px; 
+            border-radius: 10px; 
+            border: 1.5px solid var(--accent);
+            background: var(--input-bg); 
+            color: var(--text-primary); 
+            font-size: 0.9rem; 
+            outline: none;
+            display: block;
+            appearance: none; /* Remove estilos nativos que deformam largura */
+            -webkit-appearance: none;
         }
 
-        .input-with-icon { position: relative; display: flex; align-items: center; }
-        .input-with-icon svg { position: absolute; left: 10px; width: 14px; height: 14px; fill: var(--whatsapp-green); }
+        /* Ajuste específico para o campo de data no iPhone */
+        input[type="datetime-local"] {
+            min-height: 40px;
+            padding-right: 5px; /* Reduz padding para não empurrar o ícone nativo */
+        }
+
+        .input-with-icon { position: relative; width: 100%; }
+        .input-with-icon svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; fill: var(--whatsapp-green); z-index: 2; }
         .input-with-icon input { padding-left: 32px; }
 
-        /* SERVIÇOS MAIS COMPACTOS PARA CABER NO IPHONE */
-        .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+        .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; width: 100%; }
         .service-btn {
             background: var(--input-bg); border: 1.5px solid var(--accent);
-            padding: 9px 2px; border-radius: 8px; color: var(--text-primary);
+            padding: 8px 2px; border-radius: 8px; color: var(--text-primary);
             font-size: 0.65rem; text-transform: uppercase; font-weight: 700;
             cursor: pointer; text-align: center;
         }
         .service-btn.selected { background: var(--accent); color: #fff; border-color: #fff; }
 
-        /* LOCALIZAÇÃO COMPACTA */
         .location-area { padding: 5px 0; text-align: center; border-top: 1px solid rgba(180, 134, 126, 0.1); }
         .location-area label { font-size: 0.58rem; text-transform: uppercase; color: var(--text-secondary); font-weight: 700; margin-bottom: 5px; display: block;}
         .location-btns { display: flex; justify-content: center; gap: 30px; }
         .loc-btn img { width: 65px; height: 65px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4)); }
 
-        .footer-area { flex: 0 0 auto; padding-bottom: 10px; text-align: center; }
+        .footer-area { flex: 0 0 auto; padding-bottom: 10px; text-align: center; width: 100%; }
         .btn-confirm {
             background: var(--accent); color: white; border: none;
             padding: 14px; border-radius: 12px; width: 100%;
@@ -131,25 +132,16 @@
         }
         .insta-footer svg { width: 16px; height: 16px; fill: var(--accent); }
 
-        /* SE A TELA FOR GRANDE (DESKTOP/IPHONE MAX), SOLTA O ESPAÇAMENTO */
         @media (min-height: 750px) {
-            .logo-main { max-width: 200px; margin-bottom: 0; }
+            .logo-main { max-width: 190px; }
             input { padding: 12px; }
-            .service-btn { padding: 12px 4px; font-size: 0.75rem; }
-            .loc-btn img { width: 85px; height: 85px; }
-            .form-area { gap: 15px; }
+            .service-btn { padding: 11px 4px; font-size: 0.72rem; }
+            .loc-btn img { width: 80px; height: 80px; }
+            .form-area { gap: 12px; }
         }
     </style>
 </head>
 <body class="dark-mode">
-
-<div id="update-banner">
-    ✨ Versão 49 (Ajuste iOS) <button onclick="window.location.reload()">OK</button>
-</div>
-
-<div class="theme-switch" onclick="toggleTheme()" id="themeBtn">
-    <svg viewBox="0 0 24 24" id="themeIcon"><path d="M12 3c.132 0 .263 0 .393.007a9 9 0 0 0 1.536 17.151 9 9 0 1 1-1.929-17.158c.13-.003.26-.003.393-.003z"/></svg>
-</div>
 
 <div class="main-card">
     <div class="header-area">
@@ -216,60 +208,16 @@
 </div>
 
 <script>
-    const VERSION = "49";
-
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js?v=' + VERSION).then((reg) => {
-                if (reg.waiting) showUpdateBanner();
-                reg.onupdatefound = () => {
-                    const worker = reg.installing;
-                    worker.onstatechange = () => {
-                        if (worker.state === 'installed' && navigator.serviceWorker.controller) showUpdateBanner();
-                    };
-                };
-            });
-        });
-    }
-
-    function showUpdateBanner() { document.getElementById('update-banner').style.display = 'block'; }
-
+    // Scripts simplificados para foco no CSS
     function validarFormatarNome(input) {
-        let valor = input.value.replace(/[^a-zA-ZáàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ\s]/g, "");
-        input.value = valor.split(' ').map(p => p.charAt(0).toUpperCase() + p.slice(1).toLowerCase()).join(' ');
+        input.value = input.value.replace(/[^a-zA-ZáàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ\s]/g, "");
     }
-
     function mascaraTel(i) {
         let v = i.value.replace(/\D/g,'');
         v = v.replace(/^(\d{2})(\d)/g,"($1) $2");
         v = v.replace(/(\d)(\d{4})$/,"$1-$2");
         i.value = v;
-        saveData();
     }
-
-    function toggleTheme() {
-        const body = document.body;
-        const icon = document.getElementById('themeIcon');
-        body.classList.toggle('light-mode');
-        if (body.classList.contains('light-mode')) {
-            icon.innerHTML = '<path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM2 13h2a1 1 0 1 0 0-2H2a1 1 0 1 0 0 2zm18 0h2a1 1 0 1 0 0-2h-2a1 1 0 1 0 0 2zM11 2v2a1 1 0 1 0 2 0V2a1 1 0 1 0-2 0zm0 18v2a1 1 0 1 0 2 0v-2a1 1 0 1 0-2 0zM5.99 4.58a1 1 0 1 0-1.41 1.41l1.06 1.06a1 1 0 1 0 1.41-1.41L5.99 4.58zm12.37 12.37a1 1 0 1 0-1.41 1.41l1.06 1.06a1 1 0 1 0 1.41-1.41L5.99 4.58zm1.06-12.37a1 1 0 1 0-1.41-1.41l-1.06 1.06a1 1 0 1 0 1.41 1.41l1.06-1.06zM7.05 18.36a1 1 0 1 0-1.41-1.41l-1.06 1.06a1 1 0 1 0 1.41 1.41l1.06-1.06z"/>';
-        } else {
-            icon.innerHTML = '<path d="M12 3c.132 0 .263 0 .393.007a9 9 0 0 0 1.536 17.151 9 9 0 1 1-1.929-17.158c.13-.003.26-.003.393-.003z"/>';
-        }
-    }
-
-    function saveData() {
-        localStorage.setItem('nome', document.getElementById('nome').value);
-        localStorage.setItem('sobrenome', document.getElementById('sobrenome').value);
-        localStorage.setItem('telefone', document.getElementById('telefone').value);
-    }
-
-    window.onload = () => {
-        if(localStorage.getItem('nome')) document.getElementById('nome').value = localStorage.getItem('nome');
-        if(localStorage.getItem('sobrenome')) document.getElementById('sobrenome').value = localStorage.getItem('sobrenome');
-        if(localStorage.getItem('telefone')) document.getElementById('telefone').value = localStorage.getItem('telefone');
-    }
-
     let servicosSelecionados = [];
     function toggleService(element, serviceName) {
         element.classList.toggle('selected');
@@ -279,19 +227,11 @@
             servicosSelecionados.push(serviceName);
         }
     }
-
     function finalizar() {
-        const nome = document.getElementById('nome').value.trim();
-        const sobrenome = document.getElementById('sobrenome').value.trim();
-        const telefoneRaw = document.getElementById('telefone').value.replace(/\D/g,'');
+        const nome = document.getElementById('nome').value;
         const data = document.getElementById('data_hora').value;
-
-        if (!nome || !sobrenome) { alert("Nome e sobrenome são obrigatórios."); return; }
-        if (telefoneRaw.length !== 11) { alert("⚠️ WhatsApp incorreto! Verifique o DDD e o número."); return; }
-        if (servicosSelecionados.length === 0 || !data) { alert("Selecione o serviço e o horário."); return; }
-
-        const dataFormatada = new Date(data).toLocaleString('pt-BR');
-        const msg = `✨ *NOVO AGENDAMENTO* ✨\n\n👤 *Cliente:* ${nome} ${sobrenome}\n📱 *WhatsApp:* ${document.getElementById('telefone').value}\n💅 *Serviços:* ${servicosSelecionados.join(', ')}\n📅 *Data/Hora:* ${dataFormatada}`;
+        if (!nome || servicosSelecionados.length === 0 || !data) { alert("Preencha todos os campos!"); return; }
+        const msg = `✨ *NOVO AGENDAMENTO* ✨\n\n👤 *Cliente:* ${nome}\n💅 *Serviços:* ${servicosSelecionados.join(', ')}\n📅 *Data:* ${new Date(data).toLocaleString()}`;
         window.location.href = `https://api.whatsapp.com/send?phone=5585986320083&text=${encodeURIComponent(msg)}`;
     }
 </script>

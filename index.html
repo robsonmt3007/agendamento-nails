@@ -92,10 +92,22 @@
             text-align: center;
             margin-bottom: 25px;
         }
-        .location-btns { display: flex; justify-content: center; gap: 45px; margin-top: 10px; }
+        .location-btns { 
+            display: flex; 
+            justify-content: center; 
+            gap: 35px; 
+            margin-top: 10px; 
+        }
+
         .loc-btn img {
-            width: 75px; height: 75px; 
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+            width: 95px; 
+            height: 95px; 
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.6));
+            transition: transform 0.2s;
+        }
+        
+        .loc-btn img:active {
+            transform: scale(0.9);
         }
 
         .footer-area { flex: 0 0 auto; text-align: center; padding-top: 5px; }
@@ -165,7 +177,7 @@
         <div class="location-area">
             <label style="font-size: 0.68rem; text-transform: uppercase; color: var(--text-secondary); font-weight: 700; display: block;">Como chegar</label>
             <div class="location-btns">
-                <a href="https://www.google.com/maps/dir//-3.715366,-38.705881/@-3.715366,-38.705881,15z" target="_blank" class="loc-btn">
+                <a href="https://maps.google.com/?q=Rua%20Placido%20Aderaldo%20Castelo%20469%20Capuan%20Caucaia%20CE" target="_blank" class="loc-btn">
                     <img src="maps.png" alt="Google Maps">
                 </a>
                 <a href="https://waze.com/ul?q=Rua%20Placido%20Aderaldo%20Castelo%20469%20Capuan%20Caucaia%20CE&navigate=yes" target="_blank" class="loc-btn">
@@ -185,9 +197,9 @@
 </div>
 
 <script>
-    const VERSION = "35";
+    const VERSION = "36";
 
-    // Update Manual/Auto
+    // Service Worker Auto Update
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('./sw.js').then((reg) => {
@@ -203,11 +215,12 @@
         });
     }
 
-    // Persistência e Filtros
+    // Filtro de caracteres (apenas letras)
     function validarLetras(input) {
         input.value = input.value.replace(/[^a-zA-ZáàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ\s]/g, "");
     }
 
+    // Persistência de dados
     window.onload = function() {
         if(localStorage.getItem('nome')) document.getElementById('nome').value = localStorage.getItem('nome');
         if(localStorage.getItem('sobrenome')) document.getElementById('sobrenome').value = localStorage.getItem('sobrenome');
@@ -242,7 +255,7 @@
         document.body.classList.toggle('light-mode');
     }
 
-    // LÓGICA DE FINALIZAÇÃO - ATUALIZADA PARA REDIRECIONAMENTO DIRETO
+    // Finalização com redirecionamento otimizado
     function finalizar() {
         const nome = document.getElementById('nome').value.trim();
         const sobrenome = document.getElementById('sobrenome').value.trim();
@@ -264,12 +277,12 @@
                            `📅 *Data/Hora:* ${dataFormatada}\n\n` +
                            `_Aguardando sua confirmação!_`;
         
-        alert(`Seu horário foi agendado com sucesso, ${nome}! 🎉\n\nClique em OK para enviar a mensagem de confirmação pelo WhatsApp.`);
+        alert(`Seu horário foi agendado com sucesso, ${nome}! 🎉\n\nClique em OK para enviar a confirmação pelo WhatsApp.`);
 
-        // URL DE REDIRECIONAMENTO MAIS ESTÁVEL PARA CELULARES
+        // Número de Destino: 85 98632-0083
         const urlWhatsApp = `https://api.whatsapp.com/send?phone=5585986320083&text=${encodeURIComponent(msgWhatsApp)}`;
 
-        // Redireciona na mesma aba para evitar bloqueio de pop-up no mobile
+        // Redireciona diretamente para evitar bloqueio de pop-up
         window.location.href = urlWhatsApp;
         
         limparSelecao();

@@ -165,7 +165,7 @@
         <div class="location-area">
             <label style="font-size: 0.68rem; text-transform: uppercase; color: var(--text-secondary); font-weight: 700; display: block;">Como chegar</label>
             <div class="location-btns">
-                <a href="https://www.google.com/maps/dir/?api=1&destination=Rua%20Placido%20Aderaldo%20Castelo%20469%20Capuan%20Caucaia%20CE" target="_blank" class="loc-btn">
+                <a href="https://maps.app.goo.gl/9ZpX9fRzG3B2XW7A6" target="_blank" class="loc-btn">
                     <img src="maps.png" alt="Google Maps">
                 </a>
                 <a href="https://waze.com/ul?q=Rua%20Placido%20Aderaldo%20Castelo%20469%20Capuan%20Caucaia%20CE&navigate=yes" target="_blank" class="loc-btn">
@@ -185,14 +185,16 @@
 </div>
 
 <script>
-    // 1. FORÇAR ATUALIZAÇÃO NO MOBILE
+    const VERSION = "34";
+
+    // Update Manual/Auto
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('./sw.js').then((reg) => {
                 reg.onupdatefound = () => {
-                    const installingWorker = reg.installing;
-                    installingWorker.onstatechange = () => {
-                        if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                    const worker = reg.installing;
+                    worker.onstatechange = () => {
+                        if (worker.state === 'installed' && navigator.serviceWorker.controller) {
                             window.location.reload(true);
                         }
                     };
@@ -201,12 +203,11 @@
         });
     }
 
-    // 2. VALIDAR APENAS LETRAS E ACENTOS
+    // Persistência e Filtros
     function validarLetras(input) {
         input.value = input.value.replace(/[^a-zA-ZáàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ\s]/g, "");
     }
 
-    // 3. MEMORIZAR DADOS (LocalStorage)
     window.onload = function() {
         if(localStorage.getItem('nome')) document.getElementById('nome').value = localStorage.getItem('nome');
         if(localStorage.getItem('sobrenome')) document.getElementById('sobrenome').value = localStorage.getItem('sobrenome');
@@ -219,7 +220,6 @@
         localStorage.setItem('telefone', document.getElementById('telefone').value);
     }
 
-    // 4. LÓGICA DE SERVIÇOS
     let servicosSelecionados = [];
 
     function toggleService(element, serviceName) {
@@ -242,7 +242,7 @@
         document.body.classList.toggle('light-mode');
     }
 
-    // 5. FINALIZAÇÃO COM VALIDAÇÃO E MENSAGEM PERSONALIZADA
+    // Lógica Final com Novo Número
     function finalizar() {
         const nome = document.getElementById('nome').value.trim();
         const sobrenome = document.getElementById('sobrenome').value.trim();
@@ -250,36 +250,24 @@
         const data = document.getElementById('data_hora').value;
         const nomeCompleto = `${nome} ${sobrenome}`;
 
-        // Validação estrita
-        if (!nome || !sobrenome) {
-            alert("Por favor, preencha seu Nome e Sobrenome para continuarmos.");
-            return;
-        }
-
-        if (telefone.length < 14) { 
-            alert("Por favor, insira um WhatsApp válido para que eu possa confirmar seu horário.");
-            return;
-        }
-
-        if (servicosSelecionados.length === 0) {
-            alert("Selecione pelo menos um serviço para o seu agendamento.");
-            return;
-        }
-
-        if (!data) {
-            alert("Escolha o dia e horário que você deseja seu atendimento.");
+        if (!nome || !sobrenome || telefone.length < 14 || !data || servicosSelecionados.length === 0) {
+            alert("Por favor, preencha todos os campos e selecione ao menos um serviço.");
             return;
         }
 
         const dataFormatada = new Date(data).toLocaleString('pt-BR');
         
-        // Mensagem WhatsApp
-        const msgWhatsApp = `Olá Rita! Me chamo ${nomeCompleto}. Gostaria de agendar: ${servicosSelecionados.join(', ')} para o horário: ${dataFormatada}.`;
+        const msgWhatsApp = `✨ *NOVO AGENDAMENTO - RITA ANDRADE* ✨\n\n` +
+                           `👤 *Cliente:* ${nomeCompleto}\n` +
+                           `📱 *WhatsApp:* ${telefone}\n` +
+                           `💅 *Serviços:* ${servicosSelecionados.join(', ')}\n` +
+                           `📅 *Data/Hora:* ${dataFormatada}\n\n` +
+                           `_Aguardando sua confirmação!_`;
         
-        // Mensagem de Sucesso no App
-        alert(`Perfeito, ${nomeCompleto}! 🎉\n\nSeu horário foi agendado com sucesso no sistema. Em breve entrarei em contato para confirmar sua reserva!`);
+        alert(`Seu horário foi agendado com sucesso, ${nome}! 🎉\n\nEm breve entrarei em contato para confirmar sua reserva!`);
 
-        window.open(`https://wa.me/5585989125338?text=${encodeURIComponent(msgWhatsApp)}`, '_blank');
+        // NOVO NÚMERO ATUALIZADO: 85986320083
+        window.open(`https://wa.me/5585986320083?text=${encodeURIComponent(msgWhatsApp)}`, '_blank');
         
         limparSelecao();
     }

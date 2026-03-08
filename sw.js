@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nails-rita-v53';
+const CACHE_NAME = 'nails-rita-v55';
 const assets = [
   './',
   './index.html',

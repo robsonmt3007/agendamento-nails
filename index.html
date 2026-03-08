@@ -28,82 +28,72 @@
 
         html, body { 
             height: 100%; width: 100%; margin: 0; padding: 0; 
-            overflow: hidden; position: fixed; 
+            overflow: hidden !important; 
+            position: fixed; 
             background: var(--bg-body);
             font-family: 'Montserrat', sans-serif;
-            /* Garante que o iOS não crie rolagem elástica */
-            -webkit-overflow-scrolling: touch;
         }
 
         .main-card {
             background: var(--glass);
-            width: 100%; 
-            height: 100dvh; /* Usa a unidade 'dvh' (Dynamic Viewport Height) que o iPhone moderno entende bem */
+            width: 100%; height: 100%;
             max-width: 500px; margin: 0 auto;
             display: flex; flex-direction: column;
-            padding: 10px 1.5rem calc(10px + env(safe-area-inset-bottom));
+            padding: 15px 1.5rem 25px;
         }
 
-        /* AJUSTE EXCLUSIVO PARA IPHONE/SAFARI (Evita a rolagem interna) */
-        @supports (-webkit-touch-callout: none) {
-            .main-card { height: -webkit-fill-available; }
-            .form-area { gap: 8px !important; } /* Comprime levemente os espaços apenas no iPhone */
-        }
-
-        .header-area { flex: 0 0 auto; text-align: center; margin-bottom: 5px; margin-top: 5px; }
-        .logo-main { width: 75%; max-width: 190px; height: auto; }
+        /* --- CONFIGURAÇÃO PADRÃO (ANDROID / DESKTOP) --- */
+        .header-area { flex: 0 0 auto; text-align: center; margin-bottom: 15px; margin-top: 5px; }
+        .logo-main { width: 75%; max-width: 200px; height: auto; }
 
         .form-area { 
-            flex: 1 1 auto; 
-            display: flex; flex-direction: column; 
-            justify-content: center; /* Centraliza o conteúdo no meio da tela */
-            gap: 12px;
-            min-height: 0; /* Importante para o flexbox não estourar a tela */
+            flex: 1 1 auto; display: flex; flex-direction: column; 
+            gap: 12px; justify-content: center;
         }
 
         .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        
-        .input-group label { 
-            font-size: 0.7rem; text-transform: uppercase; 
-            color: var(--text-secondary); font-weight: 700; 
-            display: block; margin-bottom: 4px;
-        }
+        .input-group label { font-size: 0.7rem; text-transform: uppercase; color: var(--text-secondary); font-weight: 700; display: block; margin-bottom: 5px; }
         
         input {
             width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--accent);
             background: var(--input-bg); color: var(--text-primary); font-size: 0.95rem; outline: none;
-            -webkit-appearance: none;
         }
 
         .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
         .service-btn {
             background: var(--input-bg); border: 1px solid var(--accent);
-            padding: 11px 5px; border-radius: 8px; color: var(--text-primary);
+            padding: 12px 5px; border-radius: 8px; color: var(--text-primary);
             font-size: 0.75rem; font-weight: 700; cursor: pointer; text-align: center;
         }
         .service-btn.selected { background: var(--accent); color: #fff; border-color: #fff; }
 
-        .location-area { margin-top: 15px; text-align: center; }
-        .location-area label { 
-            font-size: 0.75rem; text-transform: uppercase; 
-            color: var(--text-secondary); font-weight: 700; 
-            display: block; margin-bottom: 10px;
-        }
-        
-        .location-btns { display: flex; justify-content: center; gap: 40px; align-items: center; }
-        .loc-btn img { height: 45px; width: auto; border-radius: 10px; }
+        .location-area { margin-top: 25px; text-align: center; }
+        .location-area label { font-size: 0.75rem; text-transform: uppercase; color: var(--text-secondary); font-weight: 700; display: block; margin-bottom: 12px; }
+        .location-btns { display: flex; justify-content: center; gap: 45px; align-items: center; }
+        .loc-btn img { height: 48px; width: auto; border-radius: 10px; }
 
-        .footer-area { flex: 0 0 auto; margin-top: 15px; }
+        .footer-area { flex: 0 0 auto; margin-top: 20px; }
         .btn-confirm {
             background: var(--accent); color: white; border: none;
             padding: 18px; border-radius: 12px; width: 100%;
             font-weight: 700; text-transform: uppercase; cursor: pointer; font-size: 1.1rem;
         }
 
-        .insta-footer { 
-            margin-top: 10px; font-size: 1rem; color: var(--text-secondary); 
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-            text-decoration: none; font-weight: 700;
+        .insta-footer { margin-top: 15px; font-size: 1rem; color: var(--text-secondary); display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; font-weight: 700; }
+
+        /* --- AJUSTES EXCLUSIVOS PARA IPHONE (NÃO AFETA ANDROID) --- */
+        @supports (-webkit-touch-callout: none) {
+            .main-card { padding: 10px 1.5rem calc(10px + env(safe-area-inset-bottom)) !important; }
+            .header-area { margin-bottom: 5px !important; }
+            .logo-main { width: 55% !important; } /* Reduzido apenas no iPhone */
+            .form-area { gap: 6px !important; } /* Encolhe os espaços apenas no iPhone */
+            .location-area { margin-top: 10px !important; }
+            .location-area label { margin-bottom: 5px !important; }
+            .location-btns { gap: 35px !important; }
+            .loc-btn img { height: 40px !important; }
+            .footer-area { margin-top: 10px !important; }
+            .btn-confirm { padding: 15px !important; font-size: 1rem !important; }
+            .insta-footer { margin-top: 8px !important; font-size: 0.9rem !important; }
         }
 
         .theme-switch { position: absolute; top: 15px; right: 20px; cursor: pointer; z-index: 1000; }
@@ -155,7 +145,7 @@
         <div class="location-area">
             <label>Nossa Localização</label>
             <div class="location-btns">
-                <a href="https://maps.google.com/maps?daddr=-3.7226,-38.65342" target="_blank" class="loc-btn"><img src="maps.png" alt="Google Maps"></a>
+                <a href="https://maps.google.com" target="_blank" class="loc-btn"><img src="maps.png" alt="Google Maps"></a>
                 <a href="https://waze.com/ul?navigate=yes" target="_blank" class="loc-btn"><img src="waze.png" alt="Waze"></a>
             </div>
         </div>
@@ -176,10 +166,7 @@
     }
 
     let servicos = [];
-    function toggleService(btn, s) { 
-        btn.classList.toggle('selected'); 
-        servicos.includes(s) ? servicos = servicos.filter(x => x !== s) : servicos.push(s); 
-    }
+    function toggleService(btn, s) { btn.classList.toggle('selected'); servicos.includes(s) ? servicos = servicos.filter(x => x !== s) : servicos.push(s); }
 
     function vibrarEConfirmar() {
         if ("vibrate" in navigator) navigator.vibrate(50);

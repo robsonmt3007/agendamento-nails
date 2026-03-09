@@ -88,22 +88,15 @@
 
         .insta-footer { margin-top: 15px; font-size: 1rem; color: var(--text-secondary); display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; font-weight: 700; }
 
+        /* Ajustes iPhone */
         @supports (-webkit-touch-callout: none) {
             .main-card { padding: 10px 1.5rem calc(10px + env(safe-area-inset-bottom)) !important; }
             .header-area { margin-bottom: 5px !important; }
             .logo-main { width: 55% !important; }
-            .form-area { gap: 6px !important; }
-            input { 
-                max-width: 100% !important; min-width: 0 !important; width: 100% !important;
-                -webkit-appearance: none;
-            }
+            input { -webkit-appearance: none; }
             .location-area { margin-top: 10px !important; }
-            .location-area label { margin-bottom: 5px !important; }
-            .location-btns { gap: 35px !important; }
-            .loc-btn img { height: 40px !important; }
             .footer-area { margin-top: 10px !important; }
             .btn-confirm { padding: 15px !important; font-size: 1rem !important; }
-            .insta-footer { margin-top: 8px !important; font-size: 0.9rem !important; }
         }
 
         .theme-switch { position: absolute; top: 15px; right: 20px; cursor: pointer; z-index: 1000; }
@@ -155,7 +148,7 @@
         <div class="location-area">
             <label>Nossa Localização</label>
             <div class="location-btns">
-                <a href="https://www.google.com/maps/search/?api=1&query=Rita+Andrade+Nails" target="_blank" class="loc-btn"><img src="maps.png" alt="Google Maps"></a>
+                <a href="https://maps.google.com" target="_blank" class="loc-btn"><img src="maps.png" alt="Google Maps"></a>
                 <a href="https://waze.com/ul?navigate=yes" target="_blank" class="loc-btn"><img src="waze.png" alt="Waze"></a>
             </div>
         </div>
@@ -168,9 +161,6 @@
 </div>
 
 <script>
-    // Novo Link do Webhook configurado para a Rita
-    const WEBHOOK_MAKE = "https://hook.eu1.make.com/84pqdarjjsj2ig63pdmzt035c1wbj3cq";
-
     function toggleTheme() { 
         const isLight = document.body.classList.toggle('light-mode');
         document.getElementById('themeIcon').innerHTML = isLight ? 
@@ -186,32 +176,31 @@
 
     function vibrarEConfirmar() {
         if ("vibrate" in navigator) navigator.vibrate(50);
-        enviarProcessos();
+        finalizar();
     }
 
-    async function enviarProcessos() { 
+    function finalizar() { 
         const n = document.getElementById('nome').value; 
         const sbr = document.getElementById('sobrenome').value;
         const d = document.getElementById('data_hora').value; 
         
         if(!n || !d || servicos.length === 0) return alert("Preencha tudo!"); 
 
-        const msgOriginal = `✨ Agendamento Rita Nails ✨\nCliente: ${n} ${sbr}\nServiços: ${servicos.join(', ')}\nData: ${new Date(d).toLocaleString()}`;
+        const cliente = `${n} ${sbr}`;
+        const listaServicos = servicos.join(', ');
+        
+        // Formatação simples para a Agenda
+        const dataFormatada = new Date(d).toLocaleString('pt-BR');
+        
+        // Link para abrir a Agenda (Método seguro)
+        const urlAgenda = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("Unhas: " + cliente)}&details=${encodeURIComponent("Serviços: " + listaServicos)}`;
 
-        // Envia os dados para o Make (Agenda)
-        fetch(WEBHOOK_MAKE, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                cliente: `${n} ${sbr}`,
-                servicos: servicos.join(', '),
-                data_iso: d,
-                email_agenda: "ritarxr@hotmail.com"
-            })
-        }).catch(err => console.log("Agenda offline"));
+        // Mensagem WhatsApp
+        const msg = `✨ Agendamento Rita Nails ✨\nCliente: ${cliente}\nServiços: ${listaServicos}\nData: ${dataFormatada}`;
 
-        // Abre o WhatsApp
-        window.location.href = `https://api.whatsapp.com/send?phone=5585986320083&text=${encodeURIComponent(msgOriginal)}`;
+        // Abre a agenda e depois o WhatsApp
+        window.open(urlAgenda, '_blank');
+        window.location.href = `https://api.whatsapp.com/send?phone=5585986320083&text=${encodeURIComponent(msg)}`;
     }
 </script>
 </body>

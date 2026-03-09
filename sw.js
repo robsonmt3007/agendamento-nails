@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nails-rita-vw81'; // Mudanca na mensagem final do Whatsapp
+const CACHE_NAME = 'nails-rita-vw81'; 
 const assets = [
   './',
   './index.html',
